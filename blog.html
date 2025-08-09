@@ -1,0 +1,42 @@
+{{define "content"}}
+<section class="blog-header">
+    <div class="container">
+        <h1>Blog</h1>
+        <p>Thoughts on technology, development, and life</p>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container">
+        <div class="blog-posts">
+            {{if .Posts}}
+                {{range .Posts}}
+                <article class="blog-post-card">
+                    <h2><a href="/blog/{{.Slug}}">{{.Title}}</a></h2>
+                    <div class="blog-post-meta">
+                        <time>{{.CreatedAt.Format "January 2, 2006"}}</time>
+                        <span>•</span>
+                        <span>{{len (split .Content " ")}} words</span>
+                    </div>
+                    <p class="post-excerpt">{{.Excerpt}}</p>
+                    <a href="/blog/{{.Slug}}" class="btn btn-primary">Read More</a>
+                </article>
+                {{end}}
+                
+                <!-- Pagination would go here -->
+                <div class="pagination">
+                    {{if gt .Page 1}}
+                    <a href="/blog?page={{sub .Page 1}}" class="btn btn-secondary">← Previous</a>
+                    {{end}}
+                    <a href="/blog?page={{add .Page 1}}" class="btn btn-secondary">Next →</a>
+                </div>
+            {{else}}
+                <div class="empty-state">
+                    <h3>No posts yet</h3>
+                    <p>Check back soon for new content!</p>
+                </div>
+            {{end}}
+        </div>
+    </div>
+</section>
+{{end}}

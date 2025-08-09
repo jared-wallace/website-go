@@ -1,0 +1,25 @@
+{{define "content"}}
+<section class="post-header">
+    <div class="container">
+        <h1>{{.Post.Title}}</h1>
+        <div class="post-meta">
+            <time>{{.Post.CreatedAt.Format "January 2, 2006"}}</time>
+            {{if ne .Post.CreatedAt .Post.UpdatedAt}}
+            <span>• Updated {{.Post.UpdatedAt.Format "January 2, 2006"}}</span>
+            {{end}}
+        </div>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container">
+        <article class="post-content">
+            {{.Post.Content | safeHTML}}
+        </article>
+        
+        <div class="post-navigation">
+            <a href="/blog" class="btn btn-secondary">← Back to Blog</a>
+        </div>
+    </div>
+</section>
+{{end}}
