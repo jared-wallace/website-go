@@ -107,6 +107,72 @@ func main() {
 func (s *Server) loadTemplates() error {
 	s.templates = make(map[string]*template.Template)
 
+	// Define custom template functions
+	funcMap := template.FuncMap{
+		"split": strings.Split,
+		"len": func(v interface{}) int {
+			switch s := v.(type) {
+			case string:
+				return len(s)
+			case []string:
+				return len(s)
+			default:
+				return 0
+			}
+		},
+		"wordCount": func(text string) int {
+			if text == "" {
+				return 0
+			}
+			words := strings.Fields(text)
+			return len(words)
+		},
+		"truncate": func(text string, length int) string {
+			if len(text) <= length {
+				return text
+			}
+			return text[:length] + "..."
+		},
+		"formatDate": func(t time.Time) string {
+			return t.Format("January 2, 2006")
+		},
+		// Mathematical functions
+		"add": func(a, b int) int {
+			return a + b
+		},
+		"sub": func(a, b int) int {
+			return a - b
+		},
+		"mul": func(a, b int) int {
+			return a * b
+		},
+		"div": func(a, b int) int {
+			if b == 0 {
+				return 0
+			}
+			return a / b
+		},
+		// Comparison functions
+		"eq": func(a, b interface{}) bool {
+			return a == b
+		},
+		"ne": func(a, b interface{}) bool {
+			return a != b
+		},
+		"lt": func(a, b int) bool {
+			return a < b
+		},
+		"le": func(a, b int) bool {
+			return a <= b
+		},
+		"gt": func(a, b int) bool {
+			return a > b
+		},
+		"ge": func(a, b int) bool {
+			return a >= b
+		},
+	}
+
 	templateFiles := []string{
 		"templates/layout.html",
 		"templates/home.html",
@@ -120,7 +186,9 @@ func (s *Server) loadTemplates() error {
 		name := filepath.Base(file)
 		name = strings.TrimSuffix(name, filepath.Ext(name))
 
-		tmpl, err := template.ParseFiles("templates/layout.html", file)
+		// Create template with custom functions
+		tmpl := template.New("layout.html").Funcs(funcMap)
+		tmpl, err := tmpl.ParseFiles("templates/layout.html", file)
 		if err != nil {
 			return err
 		}
@@ -251,22 +319,6 @@ func (s *Server) renderTemplate(w http.ResponseWriter, name string, data interfa
 }
 
 // API Handlers
-func (s *Server) newsHandler(w http.ResponseWriter, r *http.Request) {
-	// This would typically fetch from BBC RSS feed
-	// For now, return sample data
-	news := []NewsItem{
-		{
-			Title:       "Sample News Item",
-			Link:        "https://bbc.com",
-			Description: "This is a sample news item",
-			PubDate:     time.Now().Format(time.RFC3339),
-		},
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(news)
-}
-
 func (s *Server) postsHandler(w http.ResponseWriter, r *http.Request) {
 	posts, _ := s.getRecentPosts(10)
 	w.Header().Set("Content-Type", "application/json")

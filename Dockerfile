@@ -4,7 +4,11 @@ FROM golang:1.24-alpine AS builder
 WORKDIR /app
 
 # Install build dependencies
-RUN apk add --no-cache gcc musl-dev sqlite-dev
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    sqlite-dev \
+    libc6-compat
 
 # Copy go mod files
 COPY go.mod go.sum ./
@@ -20,7 +24,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o main ./cmd/server
 FROM alpine:latest
 
 # Install runtime dependencies
-RUN apk --no-cache add ca-certificates sqlite tzdata
+RUN apk --no-cache add ca-certificates sqlite tzdata libc6-compat
 WORKDIR /root/
 
 # Copy binary from builder stage
@@ -29,7 +33,6 @@ COPY --from=builder /app/main .
 # Copy static files
 COPY --from=builder /app/static ./static
 COPY --from=builder /app/templates ./templates
-COPY --from=builder /app/migrations ./migrations
 
 # Create volume mount point
 RUN mkdir -p /data
