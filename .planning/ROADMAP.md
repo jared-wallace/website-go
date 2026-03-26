@@ -48,8 +48,13 @@ Plans:
   3. Reader sees published date and estimated reading time on each post
   4. Reader sees the weathered beach bar nautical design on mobile and desktop (no layout breakage)
   5. Reader can toggle dark mode and sees an on-theme 404 page for invalid URLs
-**Plans**: TBD
+**Plans:** 3 plans
 **UI hint**: yes
+
+Plans:
+- [ ] 02-01-PLAN.md -- Data + service layer: migration, repository, pagination, reading time, ToC, excerpt
+- [ ] 02-02-PLAN.md -- Templates, CSS nautical design, handlers, main.go wiring
+- [ ] 02-03-PLAN.md -- Visual verification checkpoint
 
 ### Phase 3: Admin Panel
 **Goal**: The admin can securely log in at admin.jared-wallace.com and create, edit, publish, and soft-delete posts using a split-pane markdown editor with live preview.
@@ -105,7 +110,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-26 |
-| 2. Public Blog | 0/? | Not started | - |
+| 2. Public Blog | 0/3 | Planning complete | - |
 | 3. Admin Panel | 0/? | Not started | - |
 | 4. Distribution | 0/? | Not started | - |
 | 5. API + Images | 0/? | Not started | - |
