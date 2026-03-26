@@ -31,7 +31,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A Go test calling the markdown pipeline with `<script>alert(1)</script>` input produces sanitized HTML (no script tag in output)
   4. `make lint` and `make test` pass; GHA CI runs both on push and reports green
   5. All Makefile targets (build, test, lint, run, docker, migrate) are documented and functional
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md -- Go module, directory skeleton, config, database, migrations
+- [ ] 01-02-PLAN.md -- Goldmark + bluemonday markdown rendering pipeline
+- [ ] 01-03-PLAN.md -- Makefile, dev tooling, GHA CI pipeline
 
 ### Phase 2: Public Blog
 **Goal**: A reader visiting jared-wallace.com can browse, discover, and read published posts in a distinctive weathered beach bar design, on any device.
@@ -95,11 +100,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/? | Not started | - |
+| 1. Foundation | 0/3 | Planning complete | - |
 | 2. Public Blog | 0/? | Not started | - |
 | 3. Admin Panel | 0/? | Not started | - |
 | 4. Distribution | 0/? | Not started | - |
