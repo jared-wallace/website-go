@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-public-blog 02-01-PLAN.md
-last_updated: "2026-03-26T13:05:57.165Z"
+stopped_at: Completed 02-public-blog 02-02-PLAN.md
+last_updated: "2026-03-26T13:42:16.754Z"
 last_activity: 2026-03-26
 progress:
   total_phases: 6
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 02 (public-blog) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-03-26
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P02 | 2 | 1 tasks | 4 files |
 | Phase 01-foundation P03 | 3 | 2 tasks | 7 files |
 | Phase 02-public-blog P01 | 4min | 2 tasks | 12 files |
+| Phase 02-public-blog P02 | 32min | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Single CI job (lint->test->build) to conserve free-tier GHA minutes per D-10
 - [Phase 02-public-blog]: ErrNotFound re-exported from service/post so HTTP handlers import one package only
 - [Phase 02-public-blog]: ExtractToC uses golang.org/x/net/html (already indirect dep) — no new dependency added
+- [Phase 02-public-blog]: Per-page template sets in html/template: parse base.html + page.html separately per page to avoid block name collisions across pages
+- [Phase 02-public-blog]: ExecuteTemplate calls 'base' named template after parsing base+page pair into each template set
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-26T13:05:57.163Z
-Stopped at: Completed 02-public-blog 02-01-PLAN.md
+Last session: 2026-03-26T13:42:16.752Z
+Stopped at: Completed 02-public-blog 02-02-PLAN.md
 Resume file: None

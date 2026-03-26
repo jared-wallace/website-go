@@ -19,17 +19,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Blog
 
-- [ ] **BLOG-01**: Reader can view published posts rendered from markdown with syntax-highlighted code
+- [x] **BLOG-01**: Reader can view published posts rendered from markdown with syntax-highlighted code
 - [x] **BLOG-02**: Reader can browse paginated post listing sorted by date
 - [x] **BLOG-03**: Reader can access posts via readable URL slugs (/posts/my-post)
 - [x] **BLOG-04**: Reader sees published date and estimated reading time on each post
-- [ ] **BLOG-05**: Reader experiences weathered beach bar nautical design, mobile-responsive
+- [x] **BLOG-05**: Reader experiences weathered beach bar nautical design, mobile-responsive
 - [ ] **BLOG-06**: Reader sees proper OG meta tags when links are shared
 - [ ] **BLOG-07**: Search engines can discover all posts via /sitemap.xml
-- [ ] **BLOG-08**: Reader sees themed 404 page for invalid URLs
+- [x] **BLOG-08**: Reader sees themed 404 page for invalid URLs
 - [ ] **BLOG-09**: Reader can subscribe via RSS feed at /rss with full post content
 - [ ] **BLOG-10**: Reader can give thumbs-up reaction on posts (rate-limited, no auth required)
-- [ ] **BLOG-11**: Reader can toggle dark mode (CSS prefers-color-scheme + manual toggle)
+- [x] **BLOG-11**: Reader can toggle dark mode (CSS prefers-color-scheme + manual toggle)
 - [x] **BLOG-12**: Reader sees auto-generated table of contents on long posts
 
 ### Admin
@@ -82,13 +82,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-03 | Phase 1 | Complete |
 | FOUND-06 | Phase 1 | Complete |
 | FOUND-07 | Phase 1 | Complete |
-| BLOG-01 | Phase 2 | Pending |
+| BLOG-01 | Phase 2 | Complete |
 | BLOG-02 | Phase 2 | Complete |
 | BLOG-03 | Phase 2 | Complete |
 | BLOG-04 | Phase 2 | Complete |
-| BLOG-05 | Phase 2 | Pending |
-| BLOG-08 | Phase 2 | Pending |
-| BLOG-11 | Phase 2 | Pending |
+| BLOG-05 | Phase 2 | Complete |
+| BLOG-08 | Phase 2 | Complete |
+| BLOG-11 | Phase 2 | Complete |
 | BLOG-12 | Phase 2 | Complete |
 | ADMIN-01 | Phase 3 | Pending |
 | ADMIN-02 | Phase 3 | Pending |
