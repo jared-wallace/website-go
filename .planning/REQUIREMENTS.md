@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Project follows standard Go layout (cmd/, internal/, etc.)
+- [x] **FOUND-01**: Project follows standard Go layout (cmd/, internal/, etc.)
 - [ ] **FOUND-02**: Postgres connection pool via pgx/v5 with health checks
 - [ ] **FOUND-03**: Database migrations via goose with versioned SQL files
 - [ ] **FOUND-04**: Docker multi-stage build producing minimal container
@@ -77,7 +77,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Pending |
 | FOUND-03 | Phase 1 | Pending |
 | FOUND-06 | Phase 1 | Pending |
