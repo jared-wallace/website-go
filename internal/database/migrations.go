@@ -15,7 +15,7 @@ import (
 // *sql.DB requirement without abandoning native pgx elsewhere.
 func RunMigrations(_ context.Context, pool *pgxpool.Pool) error {
 	sqlDB := stdlib.OpenDBFromPool(pool)
-	defer sqlDB.Close()
+	defer func() { _ = sqlDB.Close() }()
 
 	goose.SetBaseFS(migrations.FS)
 

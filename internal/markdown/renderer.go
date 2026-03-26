@@ -26,7 +26,7 @@ type Renderer struct {
 func NewRenderer() *Renderer {
 	gm := goldmark.New(
 		goldmark.WithExtensions(
-			extension.GFM,    // tables + strikethrough + autolinks
+			extension.GFM,     // tables + strikethrough + autolinks
 			extension.Linkify, // bare URL auto-linking (D-04)
 			highlighting.NewHighlighting(
 				highlighting.WithStyle("monokai"),

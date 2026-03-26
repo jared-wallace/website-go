@@ -60,8 +60,8 @@ func TestRunMigrations(t *testing.T) {
 	}
 	defer pool.Close()
 
-	if err := RunMigrations(ctx, pool); err != nil {
-		t.Fatalf("RunMigrations: %v", err)
+	if migErr := RunMigrations(ctx, pool); migErr != nil {
+		t.Fatalf("RunMigrations: %v", migErr)
 	}
 
 	// Verify the posts table was created.
