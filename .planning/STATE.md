@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-26T12:24:18.489Z"
+stopped_at: Completed 02-public-blog 02-01-PLAN.md
+last_updated: "2026-03-26T13:05:57.165Z"
 last_activity: 2026-03-26
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 6
+  completed_plans: 4
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-26)
 
 **Core value:** A reader visits jared-wallace.com and reads well-rendered markdown blog posts with images in a distinctive, memorable design.
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 02 — public-blog
 
 ## Current Position
 
-Phase: 2 of 6 (public blog)
-Plan: Not started
+Phase: 02 (public-blog) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
 Last activity: 2026-03-26
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P01 | 4 | 2 tasks | 13 files |
 | Phase 01-foundation P02 | 2 | 1 tasks | 4 files |
 | Phase 01-foundation P03 | 3 | 2 tasks | 7 files |
+| Phase 02-public-blog P01 | 4min | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,8 @@ Recent decisions affecting current work:
 - [Phase 01-02]: bluemonday UGCPolicy extended with AllowAttrs("class") for syntax highlighting CSS classes
 - [Phase 01-foundation]: golangci-lint v1.61.0 pinned in CI; local lint fails on Go 1.23 due to goose v3.27.0 requiring Go 1.25 — CI uses Go 1.26 so CI lint passes
 - [Phase 01-foundation]: Single CI job (lint->test->build) to conserve free-tier GHA minutes per D-10
+- [Phase 02-public-blog]: ErrNotFound re-exported from service/post so HTTP handlers import one package only
+- [Phase 02-public-blog]: ExtractToC uses golang.org/x/net/html (already indirect dep) — no new dependency added
 
 ### Pending Todos
 
@@ -86,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-26T12:24:18.487Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-public-blog/02-CONTEXT.md
+Last session: 2026-03-26T13:05:57.163Z
+Stopped at: Completed 02-public-blog 02-01-PLAN.md
+Resume file: None
