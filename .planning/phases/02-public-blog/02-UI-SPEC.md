@@ -55,7 +55,7 @@ Exceptions:
 |------|--------|------|--------|-------------|-------|
 | Display | Playfair Display | 36px | 700 (bold) | 1.15 | Site name/title in nav header, 404 heading |
 | Heading | Playfair Display | 28px | 700 (bold) | 1.2 | Post titles on cards and single post page (unified) |
-| Body | Lora | 18px | 400 (regular) | 1.7 | Post body prose, excerpt text |
+| Body | Lora | 18px | 400 (regular) | 1.7 | Post body prose, excerpt text on cards |
 | Label | Lora | 14px | 400 (regular) | 1.4 | Metadata (date, reading time), tag pills, pagination labels, code blocks, ToC "Contents" label |
 
 Declared weights: **400** and **700** only — two weights, no exceptions.
@@ -121,7 +121,7 @@ Declared weights: **400** and **700** only — two weights, no exceptions.
 - Content order (top to bottom):
   1. Tags row — small pill labels, text-secondary color, xs (4px) gap between pills
   2. Post title — Heading typography (28px, weight 700), text-primary, no underline at rest
-  3. Excerpt — Body typography at 16px (one step down from 18px for scan-friendliness), 3 lines max, `overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3`
+  3. Excerpt — Body typography (18px, weight 400, line-height 1.7), 3 lines max, `overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3`
   4. Metadata row — Label typography, text-secondary: `{date}  ·  {N} min read`
 - Hover state: `transform: translateY(-4px)`, box-shadow `0 8px 24px rgba(44, 36, 24, 0.12)` (light) / `rgba(0,0,0,0.4)` (dark), transition 200ms ease
 - Post title links to `/posts/{slug}` — color inherits text-primary at rest, accent on hover
@@ -320,3 +320,4 @@ No shadcn, no third-party registries. All UI is hand-authored CSS and inline SVG
 | No shadcn (Go html/template stack) | REQUIREMENTS.md tech stack, CONTEXT.md code_context |
 | frontend-design skill: distinctive fonts, avoid Inter/system | ~/.claude/skills/frontend-design/SKILL.md |
 | Typography consolidated to 4 sizes (14/18/28/36), 2 weights (400/700) | Checker revision 2026-03-26 |
+| Post card excerpt uses Body (18px/400) — 16px override removed | Checker revision 2026-03-26 |
