@@ -137,6 +137,25 @@ None — all data flows from service layer through to templates. No placeholder 
 - BlogHandler, templates, and CSS design system established as the UI foundation for Phase 3 admin work
 - No blockers
 
+## Self-Check: PASSED
+
+- FOUND: web/templates/base.html
+- FOUND: web/templates/list.html
+- FOUND: web/templates/post.html
+- FOUND: web/templates/404.html
+- FOUND: web/static/main.css
+- FOUND: web/static/main.js
+- FOUND: internal/handler/blog/handler.go
+- FOUND: internal/handler/blog/list.go
+- FOUND: internal/handler/blog/post.go
+- FOUND: internal/handler/blog/notfound.go
+- FOUND: internal/handler/blog/handler_test.go
+- FOUND: cmd/server/main.go
+- FOUND commit 3406d2f (Task 1 — templates/CSS/JS)
+- FOUND commit 63df1d9 (Task 2 — handlers)
+- FOUND commit 3beec1d (Task 3 — main.go)
+- FOUND commit 3bc5ce8 (docs — SUMMARY/STATE/REQUIREMENTS)
+
 ---
 *Phase: 02-public-blog*
 *Completed: 2026-03-26*
