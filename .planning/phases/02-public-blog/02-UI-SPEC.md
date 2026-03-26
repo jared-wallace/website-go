@@ -53,14 +53,14 @@ Exceptions:
 
 | Role | Family | Size | Weight | Line Height | Usage |
 |------|--------|------|--------|-------------|-------|
-| Display | Playfair Display | 36px | 700 (bold) | 1.15 | Site name/title in nav header |
-| Heading | Playfair Display | 26px | 600 (semibold) | 1.2 | Post titles on cards and single post page |
+| Display | Playfair Display | 36px | 700 (bold) | 1.15 | Site name/title in nav header, 404 heading |
+| Heading | Playfair Display | 28px | 700 (bold) | 1.2 | Post titles on cards and single post page (unified) |
 | Body | Lora | 18px | 400 (regular) | 1.7 | Post body prose, excerpt text |
-| Label | Lora | 14px | 400 (regular) | 1.4 | Metadata (date, reading time), tag pills, pagination labels |
+| Label | Lora | 14px | 400 (regular) | 1.4 | Metadata (date, reading time), tag pills, pagination labels, code blocks, ToC "Contents" label |
 
-**Note on label weight:** Label uses 400 because Lora's regular weight at 14px has sufficient contrast; no need for a third weight. Two declared weights: 400 and 600/700 (display bold is an extension of the semibold intent, same visual role).
+Declared weights: **400** and **700** only — two weights, no exceptions.
 
-**Code blocks:** Monospace stack — `'Courier Prime', 'Courier New', monospace`. Size: 15px. Weight: 400. Background: secondary surface color. Padding: md (16px).
+**Code blocks:** Monospace stack — `'Courier Prime', 'Courier New', monospace`. Size: 14px (Label scale). Weight: 400. Background: secondary surface color. Padding: md (16px).
 
 ---
 
@@ -120,7 +120,7 @@ Exceptions:
 - Padding: lg (24px) all sides
 - Content order (top to bottom):
   1. Tags row — small pill labels, text-secondary color, xs (4px) gap between pills
-  2. Post title — Heading typography, text-primary, no underline at rest
+  2. Post title — Heading typography (28px, weight 700), text-primary, no underline at rest
   3. Excerpt — Body typography at 16px (one step down from 18px for scan-friendliness), 3 lines max, `overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3`
   4. Metadata row — Label typography, text-secondary: `{date}  ·  {N} min read`
 - Hover state: `transform: translateY(-4px)`, box-shadow `0 8px 24px rgba(44, 36, 24, 0.12)` (light) / `rgba(0,0,0,0.4)` (dark), transition 200ms ease
@@ -148,15 +148,15 @@ Exceptions:
 ### Post Page Layout
 
 - Max-width: 700px centered (optimal prose line length ~70 characters at 18px Lora)
-- Header section: title (Heading 26px), then metadata row (date · reading time), then ToC (if applicable), then `<hr>` divider, then body
-- Post title: Playfair Display, 32px, weight 700 on single post page (larger than card heading)
+- Header section: title (Heading 28px, weight 700), then metadata row (date · reading time), then ToC (if applicable), then `<hr>` divider, then body
+- Post title on single post page uses the same Heading size as cards (28px, weight 700) — unified per typography constraint
 
 ### Table of Contents
 
 - Appears only when post has 3 or more h2/h3 headings (D-14)
 - Position: inline block after metadata, before body prose
 - Container: secondary surface color background, border 1px solid divider, border-radius 4px, padding md (16px)
-- Header row: "Contents" label (Label 14px, weight 600) + toggle button "[ hide ]" / "[ show ]" text button (accent color, no underline, cursor pointer)
+- Header row: "Contents" label (Label 14px, weight 400) + toggle button "[ hide ]" / "[ show ]" text button (accent color, no underline, cursor pointer)
 - Collapsed state: only header row visible, body hidden via `max-height: 0; overflow: hidden`
 - Expanded state: body visible, smooth transition 200ms
 - List items: h2 at body indentation; h3 at md (16px) indent
@@ -167,8 +167,8 @@ Exceptions:
 ### Pagination
 
 - Alignment: centered, below card grid, mt-2xl (48px top margin)
-- Structure: `< Prev` · `1` `2` `3` · `Next >`
-- Active page: accent color text, bold, no link
+- Structure: `← Prev` · `1` `2` `3` · `Next →`
+- Active page: accent color text, weight 700, no link
 - Inactive pages: text-secondary, link to `/posts?page=N`
 - Prev/Next: text-secondary when at boundaries (cursor: default, no link); accent when navigable
 - Touch targets: 44px minimum height, padding sm (8px) horizontal per item
@@ -178,7 +178,7 @@ Exceptions:
 
 - Full page, centered vertically and horizontally
 - Anchor icon (SVG, 48px) in accent color at top
-- Heading: "Lost at Sea" — Playfair Display, 36px, text-primary
+- Heading: "Lost at Sea" — Playfair Display, 36px, weight 700, text-primary
 - Body: "This page has gone overboard. The tide may have taken it, or perhaps it never existed." — Lora 18px, text-secondary
 - CTA button: "Return to the Bar" — links to `/`; accent background color, dominant-surface text, padding md (16px) × lg (24px), border-radius 4px
 
@@ -193,7 +193,7 @@ Exceptions:
 - Background: secondary surface color
 - Border-left: 3px solid accent color
 - Padding: md (16px)
-- Font: `'Courier Prime', 'Courier New', monospace`, 15px
+- Font: `'Courier Prime', 'Courier New', monospace`, 14px (Label scale)
 - Border-radius: 0 4px 4px 0 (flush left edge, rounded right)
 - Overflow: `overflow-x: auto`
 
@@ -319,3 +319,4 @@ No shadcn, no third-party registries. All UI is hand-authored CSS and inline SVG
 | Hex values, card hover, 404 copy, nav layout | CONTEXT.md discretion → specified in this document |
 | No shadcn (Go html/template stack) | REQUIREMENTS.md tech stack, CONTEXT.md code_context |
 | frontend-design skill: distinctive fonts, avoid Inter/system | ~/.claude/skills/frontend-design/SKILL.md |
+| Typography consolidated to 4 sizes (14/18/28/36), 2 weights (400/700) | Checker revision 2026-03-26 |
