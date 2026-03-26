@@ -31,11 +31,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A Go test calling the markdown pipeline with `<script>alert(1)</script>` input produces sanitized HTML (no script tag in output)
   4. `make lint` and `make test` pass; GHA CI runs both on push and reports green
   5. All Makefile targets (build, test, lint, run, docker, migrate) are documented and functional
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [x] 01-01-PLAN.md -- Go module, directory skeleton, config, database, migrations
-- [ ] 01-02-PLAN.md -- Goldmark + bluemonday markdown rendering pipeline
+- [x] 01-02-PLAN.md -- Goldmark + bluemonday markdown rendering pipeline
 - [ ] 01-03-PLAN.md -- Makefile, dev tooling, GHA CI pipeline
 
 ### Phase 2: Public Blog

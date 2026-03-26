@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 4 | 2 tasks | 13 files |
+| Phase 01-foundation P02 | 2 | 1 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,8 @@ Recent decisions affecting current work:
 - [Pre-planning]: Postgres sessions table migration must exist before Phase 3 (admin) work begins
 - [Phase 01-01]: go.mod uses 'go 1.26' without toolchain directive — avoids strict enforcement on local Go 1.23 while targeting Docker build environment
 - [Phase 01-01]: Migrations embedded in db/migrations/embed.go sibling package — go:embed forbids '..' path components so embed must live adjacent to SQL files
+- [Phase 01-02]: goldmark → bluemonday pipeline order locked; html.WithUnsafe() safe only with bluemonday downstream
+- [Phase 01-02]: bluemonday UGCPolicy extended with AllowAttrs("class") for syntax highlighting CSS classes
 
 ### Pending Todos
 
