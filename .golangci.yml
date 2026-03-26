@@ -6,9 +6,6 @@ linters:
     - errcheck
     - govet
     - staticcheck
-    - gosimple
-    - ineffassign
-    - unused
     - sqlclosecheck
     - gosec
   settings:
