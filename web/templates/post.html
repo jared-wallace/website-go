@@ -1,0 +1,32 @@
+{{template "base" .}}
+
+{{define "title"}}{{.Post.Title}} &#8212; The Log{{end}}
+
+{{define "content"}}
+<div class="container container-narrow">
+  <article class="post-page">
+    <h1 class="post-title">{{.Post.Title}}</h1>
+    <div class="post-meta">
+      <time>{{formatDate .Post.CreatedAt}}</time> &middot; {{.ReadingTime}} min read
+    </div>
+
+    {{if .ToC}}
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-header">
+        <span class="toc-label">Contents</span>
+        <button class="toc-toggle" id="toc-toggle">[ hide ]</button>
+      </div>
+      <ol class="toc-list" id="toc-list">
+        {{range .ToC}}
+        <li class="toc-item toc-level-{{.Level}}"><a href="#{{.ID}}">{{.Text}}</a></li>
+        {{end}}
+      </ol>
+    </nav>
+    {{end}}
+
+    <hr class="rope-divider">
+
+    <div class="post-body">{{.RenderedHTML}}</div>
+  </article>
+</div>
+{{end}}
