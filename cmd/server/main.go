@@ -2,13 +2,19 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log/slog"
+	"net/http"
 	"os"
 	"time"
 
 	"github.com/jared-wallace/website-go/internal/config"
 	"github.com/jared-wallace/website-go/internal/database"
+	bloghandler "github.com/jared-wallace/website-go/internal/handler/blog"
+	postrepo "github.com/jared-wallace/website-go/internal/repository/post"
+	postservice "github.com/jared-wallace/website-go/internal/service/post"
 	"github.com/jared-wallace/website-go/internal/server"
+	"github.com/jared-wallace/website-go/web"
 )
 
 func main() {
@@ -37,18 +43,36 @@ func main() {
 	}
 	logger.Info("migrations applied")
 
-	// TODO(Phase 2): wire HTTP handler and register routes.
-	// srv := server.New(cfg.Port, mux)
+	// Build dependency graph: repo -> service -> handler
+	repo := postrepo.New(pool)
+	svc := postservice.New(repo)
+	blog := bloghandler.New(svc)
 
+	// Register routes
+	mux := http.NewServeMux()
+	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(web.Static)))
+	mux.HandleFunc("GET /{$}", blog.ListPosts)          // Home page (exact match)
+	mux.HandleFunc("GET /posts", blog.ListPosts)         // /posts?page=N
+	mux.HandleFunc("GET /posts/{slug}", blog.ShowPost)   // Single post
+	mux.HandleFunc("GET /{path...}", blog.NotFound)      // Catch-all 404
+
+	srv := server.New(cfg.Port, mux)
 	logger.Info("server starting", "port", cfg.Port)
 
-	// Block until signal received (Phase 2 will replace with srv.ListenAndServe).
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			logger.Error("server error", "error", err)
+			os.Exit(1)
+		}
+	}()
+
 	<-ctx.Done()
 	logger.Info("shutdown signal received")
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	_ = shutdownCtx // Phase 2 will pass this to srv.Shutdown(shutdownCtx)
-
+	if err := srv.Shutdown(shutdownCtx); err != nil {
+		logger.Error("shutdown error", "error", err)
+	}
 	logger.Info("server stopped")
 }
