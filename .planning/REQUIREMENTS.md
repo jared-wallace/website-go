@@ -77,13 +77,40 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| *(populated by roadmapper)* | | |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Pending |
+| FOUND-07 | Phase 1 | Pending |
+| BLOG-01 | Phase 2 | Pending |
+| BLOG-02 | Phase 2 | Pending |
+| BLOG-03 | Phase 2 | Pending |
+| BLOG-04 | Phase 2 | Pending |
+| BLOG-05 | Phase 2 | Pending |
+| BLOG-08 | Phase 2 | Pending |
+| BLOG-11 | Phase 2 | Pending |
+| BLOG-12 | Phase 2 | Pending |
+| ADMIN-01 | Phase 3 | Pending |
+| ADMIN-02 | Phase 3 | Pending |
+| ADMIN-03 | Phase 3 | Pending |
+| ADMIN-04 | Phase 3 | Pending |
+| ADMIN-05 | Phase 3 | Pending |
+| ADMIN-06 | Phase 3 | Pending |
+| ADMIN-07 | Phase 3 | Pending |
+| BLOG-06 | Phase 4 | Pending |
+| BLOG-07 | Phase 4 | Pending |
+| BLOG-09 | Phase 4 | Pending |
+| BLOG-10 | Phase 4 | Pending |
+| ADMIN-08 | Phase 5 | Pending |
+| ADMIN-09 | Phase 5 | Pending |
+| FOUND-04 | Phase 6 | Pending |
+| FOUND-05 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 28 total
-- Mapped to phases: 0
-- Unmapped: 28 ⚠️
+- Mapped to phases: 28
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-26*
-*Last updated: 2026-03-26 after initial definition*
+*Last updated: 2026-03-26 after roadmap creation*
