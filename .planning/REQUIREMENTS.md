@@ -14,8 +14,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **FOUND-03**: Database migrations via goose with versioned SQL files
 - [ ] **FOUND-04**: Docker multi-stage build producing minimal container
 - [ ] **FOUND-05**: docker-compose with app + Postgres sidecar, EBS volume mounts
-- [ ] **FOUND-06**: Makefile with build, test, lint, run, docker, and migration targets
-- [ ] **FOUND-07**: GHA CI pipeline running lint, test, and build on push
+- [x] **FOUND-06**: Makefile with build, test, lint, run, docker, and migration targets
+- [x] **FOUND-07**: GHA CI pipeline running lint, test, and build on push
 
 ### Blog
 
@@ -80,8 +80,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Complete |
 | FOUND-03 | Phase 1 | Complete |
-| FOUND-06 | Phase 1 | Pending |
-| FOUND-07 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Complete |
+| FOUND-07 | Phase 1 | Complete |
 | BLOG-01 | Phase 2 | Pending |
 | BLOG-02 | Phase 2 | Pending |
 | BLOG-03 | Phase 2 | Pending |

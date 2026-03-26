@@ -12,7 +12,7 @@ Start with a solid Go project scaffold wired to Postgres, then build the public 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Go project scaffold, Postgres + goose migrations, markdown/bluemonday pipeline, Makefile, GHA CI
+- [x] **Phase 1: Foundation** - Go project scaffold, Postgres + goose migrations, markdown/bluemonday pipeline, Makefile, GHA CI (completed 2026-03-26)
 - [ ] **Phase 2: Public Blog** - Full public reading experience: post listing, single post, slugs, nautical design, dark mode, ToC, 404
 - [ ] **Phase 3: Admin Panel** - Session auth, post CRUD, draft/publish workflow, split-pane markdown editor
 - [ ] **Phase 4: Distribution** - RSS feed, Open Graph meta tags, sitemap, thumbs-up reactions
@@ -31,12 +31,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A Go test calling the markdown pipeline with `<script>alert(1)</script>` input produces sanitized HTML (no script tag in output)
   4. `make lint` and `make test` pass; GHA CI runs both on push and reports green
   5. All Makefile targets (build, test, lint, run, docker, migrate) are documented and functional
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 01-01-PLAN.md -- Go module, directory skeleton, config, database, migrations
 - [x] 01-02-PLAN.md -- Goldmark + bluemonday markdown rendering pipeline
-- [ ] 01-03-PLAN.md -- Makefile, dev tooling, GHA CI pipeline
+- [x] 01-03-PLAN.md -- Makefile, dev tooling, GHA CI pipeline
 
 ### Phase 2: Public Blog
 **Goal**: A reader visiting jared-wallace.com can browse, discover, and read published posts in a distinctive weathered beach bar design, on any device.
@@ -104,7 +104,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/3 | In Progress|  |
+| 1. Foundation | 3/3 | Complete   | 2026-03-26 |
 | 2. Public Blog | 0/? | Not started | - |
 | 3. Admin Panel | 0/? | Not started | - |
 | 4. Distribution | 0/? | Not started | - |
