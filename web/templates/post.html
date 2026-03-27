@@ -2,6 +2,18 @@
 
 {{define "title"}}{{.Post.Title}} &#8212; The Log{{end}}
 
+{{define "meta"}}
+<meta property="og:title" content="{{.Post.Title}}">
+<meta property="og:description" content="{{.Excerpt}}">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://jared-wallace.com/static/og-fallback.png">
+<meta property="og:url" content="https://jared-wallace.com/posts/{{.Post.Slug}}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{.Post.Title}}">
+<meta name="twitter:description" content="{{.Excerpt}}">
+<meta name="twitter:image" content="https://jared-wallace.com/static/og-fallback.png">
+{{end}}
+
 {{define "content"}}
 <div class="container container-narrow">
   <article class="post-page">

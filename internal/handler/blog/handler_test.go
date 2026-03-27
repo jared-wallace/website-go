@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/jared-wallace/website-go/internal/handler/blog"
@@ -110,6 +111,66 @@ func TestListPostsEmpty(t *testing.T) {
 
 	if rec.Code != http.StatusOK {
 		t.Errorf("ListPosts (empty): got status %d, want %d", rec.Code, http.StatusOK)
+	}
+}
+
+// TestPostOGMeta verifies that ShowPost renders OG and Twitter Card meta tags for a post.
+func TestPostOGMeta(t *testing.T) {
+	repo := &mockRepository{
+		posts: []model.Post{
+			{Title: "Test Post Title", Slug: "test-post", Body: "Some test body content for excerpt generation"},
+		},
+		totalCount: 1,
+	}
+	h := newTestHandler(repo)
+
+	req := httptest.NewRequest(http.MethodGet, "/posts/test-post", nil)
+	req.SetPathValue("slug", "test-post")
+	rec := httptest.NewRecorder()
+
+	h.ShowPost(rec, req)
+
+	body := rec.Body.String()
+	checks := []string{
+		`og:title" content="Test Post Title"`,
+		`og:type" content="article"`,
+		`og:url" content="https://jared-wallace.com/posts/test-post"`,
+		`twitter:card" content="summary"`,
+		`og:image" content="https://jared-wallace.com/static/og-fallback.png"`,
+	}
+	for _, want := range checks {
+		if !strings.Contains(body, want) {
+			t.Errorf("TestPostOGMeta: response missing %q", want)
+		}
+	}
+}
+
+// TestListOGMeta verifies that ListPosts renders site-level OG and Twitter Card meta tags.
+func TestListOGMeta(t *testing.T) {
+	repo := &mockRepository{
+		posts: []model.Post{
+			{Title: "Some Post", Slug: "some-post"},
+		},
+		totalCount: 1,
+	}
+	h := newTestHandler(repo)
+
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	h.ListPosts(rec, req)
+
+	body := rec.Body.String()
+	checks := []string{
+		`og:title" content="The Log"`,
+		`og:type" content="website"`,
+		`og:description" content="dispatches from the deep end"`,
+		`twitter:card" content="summary"`,
+	}
+	for _, want := range checks {
+		if !strings.Contains(body, want) {
+			t.Errorf("TestListOGMeta: response missing %q", want)
+		}
 	}
 }
 
