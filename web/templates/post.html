@@ -39,6 +39,13 @@
     <hr class="rope-divider">
 
     <div class="post-body">{{.RenderedHTML}}</div>
+
+    <div class="reaction-bar">
+      <button class="reaction-btn" id="reaction-btn" data-slug="{{.Post.Slug}}" aria-label="Give a thumbs-up">
+        <span class="reaction-icon">&#128077;</span>
+        <span class="reaction-count" id="reaction-count">{{.ReactionCount}}</span>
+      </button>
+    </div>
   </article>
 </div>
 {{end}}

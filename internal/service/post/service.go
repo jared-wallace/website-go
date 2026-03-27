@@ -4,6 +4,7 @@
 package post
 
 import (
+	"context"
 	"html/template"
 
 	postrepo "github.com/jared-wallace/website-go/internal/repository/post"
@@ -31,4 +32,14 @@ func New(repo postrepo.Repository, renderer Renderer) *Service {
 // newServiceWithRenderer is an internal alias used in tests within this package.
 func newServiceWithRenderer(repo postrepo.Repository, renderer Renderer) *Service {
 	return New(repo, renderer)
+}
+
+// AddReaction records a reader's thumbs-up reaction on a post.
+func (s *Service) AddReaction(ctx context.Context, postID int64, ipHash string) (bool, error) {
+	return s.repo.AddReaction(ctx, postID, ipHash)
+}
+
+// CountReactions returns the total reaction count for a post.
+func (s *Service) CountReactions(ctx context.Context, postID int64) (int, error) {
+	return s.repo.CountReactions(ctx, postID)
 }

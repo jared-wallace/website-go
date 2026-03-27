@@ -27,4 +27,40 @@
       tocToggle.textContent = collapsed ? '[ show ]' : '[ hide ]';
     });
   }
+
+  // Thumbs-up reaction
+  var reactionBtn = document.getElementById('reaction-btn');
+  if (reactionBtn) {
+    var slug = reactionBtn.getAttribute('data-slug');
+    var storageKey = 'reacted:' + slug;
+
+    if (localStorage.getItem(storageKey)) {
+      reactionBtn.disabled = true;
+      reactionBtn.classList.add('reacted');
+    }
+
+    reactionBtn.addEventListener('click', function() {
+      if (reactionBtn.disabled) return;
+      reactionBtn.disabled = true;
+
+      fetch('/posts/' + slug + '/react', { method: 'POST' })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          document.getElementById('reaction-count').textContent = data.count;
+          reactionBtn.classList.add('reacted');
+          reactionBtn.classList.add('bounce');
+          reactionBtn.setAttribute('aria-label', 'You gave a thumbs-up');
+          localStorage.setItem(storageKey, '1');
+          var icon = reactionBtn.querySelector('.reaction-icon');
+          if (icon) {
+            icon.addEventListener('animationend', function() {
+              reactionBtn.classList.remove('bounce');
+            }, { once: true });
+          }
+        })
+        .catch(function() {
+          reactionBtn.disabled = false;
+        });
+    });
+  }
 })();

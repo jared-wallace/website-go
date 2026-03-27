@@ -8,6 +8,7 @@ import (
 	postservice "github.com/jared-wallace/website-go/internal/service/post"
 )
 
+
 // ShowPost handles GET /posts/{slug}.
 // It fetches the post by slug and renders the single-post template with the
 // table of contents, rendered HTML body, and reading time. Returns a themed
@@ -32,12 +33,19 @@ func (h *BlogHandler) ShowPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	reactionCount, err := h.svc.CountReactions(r.Context(), detail.Post.ID)
+	if err != nil {
+		slog.Error("CountReactions failed", "slug", slug, "error", err)
+		reactionCount = 0 // degrade gracefully
+	}
+
 	h.render(w, http.StatusOK, "post.html", map[string]interface{}{
-		"Post":         detail.Post,
-		"RenderedHTML": detail.RenderedHTML,
-		"ToC":          detail.ToC,
-		"Tags":         detail.Tags,
-		"ReadingTime":  detail.ReadingTime,
-		"Excerpt":      detail.Excerpt,
+		"Post":          detail.Post,
+		"RenderedHTML":  detail.RenderedHTML,
+		"ToC":           detail.ToC,
+		"Tags":          detail.Tags,
+		"ReadingTime":   detail.ReadingTime,
+		"Excerpt":       detail.Excerpt,
+		"ReactionCount": reactionCount,
 	})
 }

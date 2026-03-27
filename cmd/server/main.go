@@ -105,7 +105,8 @@ func main() {
 	blogMux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
 	blogMux.HandleFunc("GET /{$}", blog.ListPosts)        // Home page (exact match)
 	blogMux.HandleFunc("GET /posts", blog.ListPosts)       // /posts?page=N
-	blogMux.HandleFunc("GET /posts/{slug}", blog.ShowPost) // Single post
+	blogMux.HandleFunc("GET /posts/{slug}", blog.ShowPost)          // Single post
+	blogMux.HandleFunc("POST /posts/{slug}/react", blog.React)      // Thumbs-up reaction
 	blogMux.HandleFunc("GET /rss", blog.ServeRSS)
 	blogMux.HandleFunc("GET /sitemap.xml", blog.ServeSitemap)
 	blogMux.HandleFunc("GET /robots.txt", blog.ServeRobots)
