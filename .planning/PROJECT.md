@@ -18,8 +18,8 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 ### Active
 - [ ] API endpoint for pushing .md files from local machine
-- [ ] RSS feed
-- [ ] Thumbs-up reaction counter on posts
+- [x] RSS feed — Validated in Phase 4: distribution
+- [x] Thumbs-up reaction counter on posts — Validated in Phase 4: distribution
 - [ ] Weathered beach bar nautical design (driftwood, sand, ocean blues, chalkboard vibes)
 - [ ] Dockerized deployment (app + Postgres sidecar via docker-compose)
 - [ ] Organized Makefile following best practices
@@ -85,4 +85,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after Phase 3 completion*
+*Last updated: 2026-03-27 after Phase 4 completion*
