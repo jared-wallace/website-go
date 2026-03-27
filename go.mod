@@ -16,6 +16,7 @@ require (
 
 require (
 	github.com/alecthomas/chroma/v2 v2.23.1 // indirect
+	github.com/alexedwards/scs/pgxstore v0.0.0-20251002162104-209de6e426de // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/gorilla/css v1.0.1 // indirect

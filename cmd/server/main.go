@@ -5,19 +5,45 @@ import (
 	"errors"
 	"io/fs"
 	"log/slog"
+	"net"
 	"net/http"
 	"os"
 	"time"
 
+	"github.com/alexedwards/scs/pgxstore"
+	"github.com/alexedwards/scs/v2"
+
 	"github.com/jared-wallace/website-go/internal/config"
 	"github.com/jared-wallace/website-go/internal/database"
+	adminhandler "github.com/jared-wallace/website-go/internal/handler/admin"
 	bloghandler "github.com/jared-wallace/website-go/internal/handler/blog"
 	"github.com/jared-wallace/website-go/internal/markdown"
+	"github.com/jared-wallace/website-go/internal/middleware"
 	postrepo "github.com/jared-wallace/website-go/internal/repository/post"
 	postservice "github.com/jared-wallace/website-go/internal/service/post"
 	"github.com/jared-wallace/website-go/internal/server"
 	"github.com/jared-wallace/website-go/web"
 )
+
+// hostRouter dispatches HTTP requests to the admin or blog handler based on the
+// Host header. Requests matching cfg.AdminHost go to admin; all others go to blog.
+type hostRouter struct {
+	blog      http.Handler
+	admin     http.Handler
+	adminHost string
+}
+
+func (hr *hostRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	host := r.Host
+	if h, _, err := net.SplitHostPort(host); err == nil {
+		host = h
+	}
+	if host == hr.adminHost {
+		hr.admin.ServeHTTP(w, r)
+		return
+	}
+	hr.blog.ServeHTTP(w, r)
+}
 
 func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{
@@ -48,26 +74,77 @@ func main() {
 	}
 	logger.Info("migrations applied")
 
-	// Build dependency graph: renderer -> repo -> service -> handler
+	// Build dependency graph: renderer -> repo -> service -> handlers
 	renderer := markdown.NewRenderer()
 	repo := postrepo.New(pool)
 	svc := postservice.New(repo, renderer)
+
+	// --- Session Manager (SCS + Postgres-backed store) ---
+	sessionManager := scs.New()
+	sessionManager.Store = pgxstore.New(pool)
+	sessionManager.IdleTimeout = 24 * time.Hour      // D-10: inactivity-based expiry
+	sessionManager.Lifetime = 30 * 24 * time.Hour    // 30-day absolute backstop
+	sessionManager.Cookie.HttpOnly = true
+	sessionManager.Cookie.Secure = cfg.AppEnv == "production" // false in dev for http://localhost
+	sessionManager.Cookie.SameSite = http.SameSiteLaxMode     // D-09, Pitfall 3
+	sessionManager.Cookie.Name = "admin_session"
+
+	// Rate limiter: 5 attempts per minute per IP (D-11)
+	rl := middleware.NewRateLimiter(5, time.Minute)
+
+	// --- Blog mux ---
 	blog := bloghandler.New(svc)
 
-	// Register routes
-	mux := http.NewServeMux()
 	staticFS, err := fs.Sub(web.Static, "static")
 	if err != nil {
 		logger.Error("static fs sub failed", "error", err)
 		os.Exit(1)
 	}
-	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
-	mux.HandleFunc("GET /{$}", blog.ListPosts)          // Home page (exact match)
-	mux.HandleFunc("GET /posts", blog.ListPosts)         // /posts?page=N
-	mux.HandleFunc("GET /posts/{slug}", blog.ShowPost)   // Single post
-	mux.HandleFunc("GET /{path...}", blog.NotFound)      // Catch-all 404
 
-	srv := server.New(cfg.Port, mux)
+	blogMux := http.NewServeMux()
+	blogMux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
+	blogMux.HandleFunc("GET /{$}", blog.ListPosts)        // Home page (exact match)
+	blogMux.HandleFunc("GET /posts", blog.ListPosts)       // /posts?page=N
+	blogMux.HandleFunc("GET /posts/{slug}", blog.ShowPost) // Single post
+	blogMux.HandleFunc("GET /{path...}", blog.NotFound)    // Catch-all 404
+
+	// --- Admin handler + mux ---
+	adminH := adminhandler.New(svc, sessionManager, renderer, rl, cfg)
+
+	adminMux := http.NewServeMux()
+	adminMux.HandleFunc("GET /admin/login", adminH.LoginPage)
+	adminMux.HandleFunc("POST /admin/login", adminH.LoginPost)
+	adminMux.HandleFunc("POST /admin/logout", adminH.Logout)
+
+	requireAuth := middleware.RequireSession(sessionManager)
+	adminMux.Handle("GET /admin/posts", requireAuth(http.HandlerFunc(adminH.Dashboard)))
+	adminMux.Handle("GET /admin/posts/new", requireAuth(http.HandlerFunc(adminH.NewPost)))
+	adminMux.Handle("POST /admin/posts/new", requireAuth(http.HandlerFunc(adminH.SavePost)))
+	adminMux.Handle("GET /admin/posts/{id}/edit", requireAuth(http.HandlerFunc(adminH.EditPost)))
+	adminMux.Handle("POST /admin/posts/{id}/edit", requireAuth(http.HandlerFunc(adminH.SavePost)))
+	adminMux.Handle("POST /admin/posts/{id}/delete", requireAuth(http.HandlerFunc(adminH.DeletePost)))
+	adminMux.Handle("POST /admin/posts/{id}/restore", requireAuth(http.HandlerFunc(adminH.RestorePost)))
+	adminMux.Handle("POST /admin/posts/{id}/publish", requireAuth(http.HandlerFunc(adminH.PublishPost)))
+	adminMux.Handle("POST /admin/posts/{id}/unpublish", requireAuth(http.HandlerFunc(adminH.UnpublishPost)))
+	adminMux.Handle("POST /admin/preview", requireAuth(http.HandlerFunc(adminH.Preview)))
+	adminMux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
+	adminMux.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/admin/posts", http.StatusSeeOther)
+	})
+
+	// Wrap admin mux: CrossOriginProtection (CSRF) + session middleware
+	cop := http.NewCrossOriginProtection()
+	cop.AddTrustedOrigin("https://" + cfg.AdminHost)
+	adminHandler := sessionManager.LoadAndSave(cop.Handler(adminMux))
+
+	// --- Host router ---
+	router := &hostRouter{
+		blog:      blogMux,
+		admin:     adminHandler,
+		adminHost: cfg.AdminHost,
+	}
+
+	srv := server.New(cfg.Port, router)
 	logger.Info("server starting", "port", cfg.Port)
 
 	go func() {
