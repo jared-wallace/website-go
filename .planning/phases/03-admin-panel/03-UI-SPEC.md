@@ -149,6 +149,7 @@ Dark mode equivalents (already declared in main.css):
 - Full `.site-nav` with admin badge replacing public tagline
 - Filter tab row immediately below nav
 - Post table: title (truncated at 60 chars), status pill, published date, action links
+- **Focal point:** The post title column is the primary visual anchor — rendered in `var(--font-display)` at 18px/700, full-width, drawing the eye before the status pill or date. Status pill and action links are secondary and visually recede (14px label size, muted or surface background).
 - Empty state visible when filtered tab has zero results
 - Footer omitted (functional tool, not a reading experience)
 
@@ -184,8 +185,8 @@ Dark mode equivalents (already declared in main.css):
 ### Delete confirmation
 
 - "Delete" link click opens native `<dialog>` element (no JS modal library)
-- Dialog copy: "Delete this post? It will be moved to the Deleted tab and can be restored." with "Cancel" and "Confirm Delete" buttons
-- "Cancel" closes dialog, no action taken
+- Dialog copy: "Delete this post? It will be moved to the Deleted tab and can be restored." with "Keep Post" and "Confirm Delete" buttons
+- "Keep Post" closes dialog, no action taken
 - "Confirm Delete" submits `POST /admin/posts/{id}/delete` form inside the dialog
 
 ### Publish/Unpublish
@@ -218,7 +219,7 @@ Dark mode equivalents (already declared in main.css):
 | Edit action link | "Edit" |
 | Delete dialog heading | "Delete this post?" |
 | Delete dialog body | "It will be moved to the Deleted tab and can be restored." |
-| Delete dialog cancel | "Cancel" |
+| Delete dialog cancel | "Keep Post" |
 | Delete dialog confirm | "Confirm Delete" |
 | Flash save success | "Draft saved." |
 | Flash publish success | "Post published." |
