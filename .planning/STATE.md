@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-admin-panel-01-PLAN.md
-last_updated: "2026-03-27T04:10:44.559Z"
+stopped_at: Completed 03-admin-panel-03-PLAN.md
+last_updated: "2026-03-27T04:26:00.014Z"
 last_activity: 2026-03-27
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 10
-  completed_plans: 7
+  completed_plans: 9
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 03 (admin-panel) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-03-27
 
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-public-blog P01 | 4min | 2 tasks | 12 files |
 | Phase 02-public-blog P02 | 32min | 3 tasks | 12 files |
 | Phase 03-admin-panel P01 | 6min | 2 tasks | 18 files |
+| Phase 03-admin-panel P03 | 10 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - [Phase 02-public-blog]: ExecuteTemplate calls 'base' named template after parsing base+page pair into each template set
 - [Phase 03-admin-panel]: Service.New accepts Renderer interface (not *markdown.Renderer) — mock-friendly without importing markdown package in tests
 - [Phase 03-admin-panel]: pgxstore re-added as direct dep in Plan 02 when session store is wired — go mod tidy correctly removes it when unused
+- [Phase 03-admin-panel]: In-memory filter over ListAll chosen over separate DB queries per tab — blog scale makes this simpler
+- [Phase 03-admin-panel]: successRepo separate from mockRepository — action tests need write ops to succeed; auth tests need them to fail
 
 ### Pending Todos
 
@@ -95,6 +98,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T04:10:44.557Z
-Stopped at: Completed 03-admin-panel-01-PLAN.md
+Last session: 2026-03-27T04:26:00.012Z
+Stopped at: Completed 03-admin-panel-03-PLAN.md
 Resume file: None
