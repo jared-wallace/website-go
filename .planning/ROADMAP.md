@@ -84,10 +84,10 @@ Plans:
   2. /sitemap.xml lists all published post URLs and validates against the sitemap schema
   3. Sharing a post URL on Slack or Twitter renders the correct Open Graph title, description, and image
   4. Reader can tap the thumbs-up on a post; count increments and is rate-limited without requiring login
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
-- [ ] 04-01-PLAN.md -- RSS 2.0 feed, XML sitemap, and robots.txt endpoints
+- [x] 04-01-PLAN.md -- RSS 2.0 feed, XML sitemap, and robots.txt endpoints
 - [ ] 04-02-PLAN.md -- Open Graph and Twitter Card meta tags, RSS auto-discovery, fallback OG image
 - [ ] 04-03-PLAN.md -- Thumbs-up reaction system (migration, handler, JS, CSS)
 
@@ -123,6 +123,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Foundation | 3/3 | Complete   | 2026-03-26 |
 | 2. Public Blog | 1/3 | In Progress|  |
 | 3. Admin Panel | 3/4 | In Progress|  |
-| 4. Distribution | 0/3 | Not started | - |
+| 4. Distribution | 1/3 | In Progress|  |
 | 5. API + Images | 0/? | Not started | - |
 | 6. Docker + Deployment | 0/? | Not started | - |
