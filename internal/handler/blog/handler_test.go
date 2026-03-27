@@ -16,9 +16,11 @@ import (
 
 // mockRepository is a test double for the post repository interface.
 type mockRepository struct {
-	posts      []model.Post
-	totalCount int
-	findErr    error
+	posts          []model.Post
+	totalCount     int
+	findErr        error
+	reactionCount  int
+	alreadyReacted bool
 }
 
 func (m *mockRepository) ListPublished(_ context.Context, limit, offset int) ([]model.Post, error) {
@@ -72,6 +74,14 @@ func (m *mockRepository) Restore(_ context.Context, _ int64) error {
 
 func (m *mockRepository) SetPublished(_ context.Context, _ int64, _ bool) error {
 	return errors.New("not implemented")
+}
+
+func (m *mockRepository) AddReaction(_ context.Context, _ int64, _ string) (bool, error) {
+	return m.alreadyReacted, nil
+}
+
+func (m *mockRepository) CountReactions(_ context.Context, _ int64) (int, error) {
+	return m.reactionCount, nil
 }
 
 // noopRenderer satisfies the postservice.Renderer interface for handler tests

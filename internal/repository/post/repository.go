@@ -39,6 +39,12 @@ type Repository interface {
 	Restore(ctx context.Context, id int64) error
 	// SetPublished toggles the published flag on a non-deleted post.
 	SetPublished(ctx context.Context, id int64, published bool) error
+
+	// AddReaction records a thumbs-up from an IP hash on a post.
+	// Returns true if the reaction already existed (duplicate IP+post).
+	AddReaction(ctx context.Context, postID int64, ipHash string) (alreadyExists bool, err error)
+	// CountReactions returns the number of thumbs-up reactions on a post.
+	CountReactions(ctx context.Context, postID int64) (int, error)
 }
 
 // postgresRepository implements Repository against a pgxpool connection pool.

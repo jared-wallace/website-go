@@ -85,6 +85,14 @@ func (m *editorRepo) SetPublished(_ context.Context, _ int64, _ bool) error {
 	return nil
 }
 
+func (m *editorRepo) AddReaction(_ context.Context, _ int64, _ string) (bool, error) {
+	return false, nil
+}
+
+func (m *editorRepo) CountReactions(_ context.Context, _ int64) (int, error) {
+	return 0, nil
+}
+
 // Ensure editorRepo satisfies the Repository interface at compile time.
 var _ postrepo.Repository = (*editorRepo)(nil)
 

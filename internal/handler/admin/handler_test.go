@@ -59,6 +59,14 @@ func (m *mockRepository) SetPublished(_ context.Context, _ int64, _ bool) error 
 	return errors.New("not implemented")
 }
 
+func (m *mockRepository) AddReaction(_ context.Context, _ int64, _ string) (bool, error) {
+	return false, nil
+}
+
+func (m *mockRepository) CountReactions(_ context.Context, _ int64) (int, error) {
+	return 0, nil
+}
+
 // testSetup holds everything needed to run a single admin handler test.
 type testSetup struct {
 	handler *admin.AdminHandler

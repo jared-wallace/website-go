@@ -61,6 +61,14 @@ func (m *successRepo) SetPublished(_ context.Context, _ int64, _ bool) error {
 	return nil
 }
 
+func (m *successRepo) AddReaction(_ context.Context, _ int64, _ string) (bool, error) {
+	return false, nil
+}
+
+func (m *successRepo) CountReactions(_ context.Context, _ int64) (int, error) {
+	return 0, nil
+}
+
 // Ensure successRepo satisfies the Repository interface at compile time.
 var _ postrepo.Repository = (*successRepo)(nil)
 

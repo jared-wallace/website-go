@@ -62,6 +62,14 @@ func (m *mockRepo) SetPublished(_ context.Context, id int64, published bool) err
 	return m.returnErr
 }
 
+func (m *mockRepo) AddReaction(_ context.Context, _ int64, _ string) (bool, error) {
+	return false, nil
+}
+
+func (m *mockRepo) CountReactions(_ context.Context, _ int64) (int, error) {
+	return 0, nil
+}
+
 // mockRenderer wraps input in <p> tags for deterministic test output.
 type mockRenderer struct{}
 

@@ -216,6 +216,14 @@ func (m *mockRepository) SetPublished(_ context.Context, _ int64, _ bool) error 
 	return errors.New("not implemented")
 }
 
+func (m *mockRepository) AddReaction(_ context.Context, _ int64, _ string) (bool, error) {
+	return false, nil
+}
+
+func (m *mockRepository) CountReactions(_ context.Context, _ int64) (int, error) {
+	return 0, nil
+}
+
 func makePosts(n int) []model.Post {
 	posts := make([]model.Post, n)
 	for i := range posts {
