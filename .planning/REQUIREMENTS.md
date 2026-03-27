@@ -34,12 +34,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Admin
 
-- [ ] **ADMIN-01**: Admin can log in with email/password at admin.jared-wallace.com
-- [ ] **ADMIN-02**: Admin session persists across browser refresh (Postgres-backed)
-- [ ] **ADMIN-03**: Admin can create posts with title, markdown body, and slug
-- [ ] **ADMIN-04**: Admin can edit existing posts
-- [ ] **ADMIN-05**: Admin can soft-delete posts (recoverable)
-- [ ] **ADMIN-06**: Admin can toggle posts between draft and published states
+- [x] **ADMIN-01**: Admin can log in with email/password at admin.jared-wallace.com
+- [x] **ADMIN-02**: Admin session persists across browser refresh (Postgres-backed)
+- [x] **ADMIN-03**: Admin can create posts with title, markdown body, and slug
+- [x] **ADMIN-04**: Admin can edit existing posts
+- [x] **ADMIN-05**: Admin can soft-delete posts (recoverable)
+- [x] **ADMIN-06**: Admin can toggle posts between draft and published states
 - [ ] **ADMIN-07**: Admin can write in split-pane markdown editor with live preview
 - [ ] **ADMIN-08**: Admin can upload images and embed them in posts
 - [ ] **ADMIN-09**: Admin can push .md files via API endpoint with bearer token auth
@@ -90,12 +90,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-08 | Phase 2 | Complete |
 | BLOG-11 | Phase 2 | Complete |
 | BLOG-12 | Phase 2 | Complete |
-| ADMIN-01 | Phase 3 | Pending |
-| ADMIN-02 | Phase 3 | Pending |
-| ADMIN-03 | Phase 3 | Pending |
-| ADMIN-04 | Phase 3 | Pending |
-| ADMIN-05 | Phase 3 | Pending |
-| ADMIN-06 | Phase 3 | Pending |
+| ADMIN-01 | Phase 3 | Complete |
+| ADMIN-02 | Phase 3 | Complete |
+| ADMIN-03 | Phase 3 | Complete |
+| ADMIN-04 | Phase 3 | Complete |
+| ADMIN-05 | Phase 3 | Complete |
+| ADMIN-06 | Phase 3 | Complete |
 | ADMIN-07 | Phase 3 | Pending |
 | BLOG-06 | Phase 4 | Pending |
 | BLOG-07 | Phase 4 | Pending |

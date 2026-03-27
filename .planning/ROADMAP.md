@@ -70,7 +70,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 03-01-PLAN.md -- Data layer: config, migration, repository writes, service writes, slug, middleware, hashpw
+- [x] 03-01-PLAN.md -- Data layer: config, migration, repository writes, service writes, slug, middleware, hashpw
 - [ ] 03-02-PLAN.md -- Auth + admin shell: host router, SCS sessions, login flow, admin base template, CSS foundation
 - [ ] 03-03-PLAN.md -- Dashboard: post table with filter tabs, publish/unpublish/delete/restore actions
 - [ ] 03-04-PLAN.md -- Editor: split-pane markdown editor with live preview, post create/edit, visual verification
