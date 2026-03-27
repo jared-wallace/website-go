@@ -66,13 +66,13 @@ Plans:
   3. Admin can edit an existing post and soft-delete it (post is recoverable, not destroyed)
   4. Admin can toggle a post between draft and published; only published posts appear on public routes
   5. Admin writes in a split-pane editor with live markdown preview updating as they type
-**Plans:** 4 plans
+**Plans:** 3/4 plans executed
 **UI hint**: yes
 
 Plans:
 - [x] 03-01-PLAN.md -- Data layer: config, migration, repository writes, service writes, slug, middleware, hashpw
-- [ ] 03-02-PLAN.md -- Auth + admin shell: host router, SCS sessions, login flow, admin base template, CSS foundation
-- [ ] 03-03-PLAN.md -- Dashboard: post table with filter tabs, publish/unpublish/delete/restore actions
+- [x] 03-02-PLAN.md -- Auth + admin shell: host router, SCS sessions, login flow, admin base template, CSS foundation
+- [x] 03-03-PLAN.md -- Dashboard: post table with filter tabs, publish/unpublish/delete/restore actions
 - [ ] 03-04-PLAN.md -- Editor: split-pane markdown editor with live preview, post create/edit, visual verification
 
 ### Phase 4: Distribution
@@ -117,7 +117,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-26 |
 | 2. Public Blog | 1/3 | In Progress|  |
-| 3. Admin Panel | 0/4 | Not started | - |
+| 3. Admin Panel | 3/4 | In Progress|  |
 | 4. Distribution | 0/? | Not started | - |
 | 5. API + Images | 0/? | Not started | - |
 | 6. Docker + Deployment | 0/? | Not started | - |
