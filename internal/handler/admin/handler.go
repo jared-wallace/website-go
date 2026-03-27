@@ -94,11 +94,7 @@ func (h *AdminHandler) render(w http.ResponseWriter, status int, page string, da
 	}
 }
 
-// Stub handlers — Plans 03-03 and 03-04 replace these with full implementations.
-
-func (h *AdminHandler) Dashboard(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
+// Stub handlers — Plan 03-04 replaces these with full implementations.
 
 func (h *AdminHandler) NewPost(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "not implemented", http.StatusNotImplemented)
@@ -109,22 +105,6 @@ func (h *AdminHandler) EditPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *AdminHandler) SavePost(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
-
-func (h *AdminHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
-
-func (h *AdminHandler) RestorePost(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
-
-func (h *AdminHandler) PublishPost(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
-
-func (h *AdminHandler) UnpublishPost(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "not implemented", http.StatusNotImplemented)
 }
 
