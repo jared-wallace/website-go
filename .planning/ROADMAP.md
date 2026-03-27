@@ -73,7 +73,7 @@ Plans:
 - [x] 03-01-PLAN.md -- Data layer: config, migration, repository writes, service writes, slug, middleware, hashpw
 - [x] 03-02-PLAN.md -- Auth + admin shell: host router, SCS sessions, login flow, admin base template, CSS foundation
 - [x] 03-03-PLAN.md -- Dashboard: post table with filter tabs, publish/unpublish/delete/restore actions
-- [ ] 03-04-PLAN.md -- Editor: split-pane markdown editor with live preview, post create/edit, visual verification
+- [x] 03-04-PLAN.md -- Editor: split-pane markdown editor with live preview, post create/edit, visual verification
 
 ### Phase 4: Distribution
 **Goal**: Published posts are discoverable via RSS, shareable with rich social previews, indexed by search engines via sitemap, and readers can express appreciation with a thumbs-up reaction.

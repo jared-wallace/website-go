@@ -40,7 +40,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ADMIN-04**: Admin can edit existing posts
 - [x] **ADMIN-05**: Admin can soft-delete posts (recoverable)
 - [x] **ADMIN-06**: Admin can toggle posts between draft and published states
-- [ ] **ADMIN-07**: Admin can write in split-pane markdown editor with live preview
+- [x] **ADMIN-07**: Admin can write in split-pane markdown editor with live preview
 - [ ] **ADMIN-08**: Admin can upload images and embed them in posts
 - [ ] **ADMIN-09**: Admin can push .md files via API endpoint with bearer token auth
 
@@ -96,7 +96,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ADMIN-04 | Phase 3 | Complete |
 | ADMIN-05 | Phase 3 | Complete |
 | ADMIN-06 | Phase 3 | Complete |
-| ADMIN-07 | Phase 3 | Pending |
+| ADMIN-07 | Phase 3 | Complete |
 | BLOG-06 | Phase 4 | Pending |
 | BLOG-07 | Phase 4 | Pending |
 | BLOG-09 | Phase 4 | Pending |
