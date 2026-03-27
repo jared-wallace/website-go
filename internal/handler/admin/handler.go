@@ -12,18 +12,24 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/jared-wallace/website-go/internal/config"
-	"github.com/jared-wallace/website-go/internal/markdown"
 	"github.com/jared-wallace/website-go/internal/middleware"
 	postservice "github.com/jared-wallace/website-go/internal/service/post"
 	"github.com/jared-wallace/website-go/web"
 )
+
+// Renderer is the interface used by Preview to convert markdown to HTML.
+// Using an interface (rather than *markdown.Renderer directly) keeps
+// the handler mock-friendly in unit tests without importing the markdown package.
+type Renderer interface {
+	Render(src string) template.HTML
+}
 
 // AdminHandler holds template sets, session manager, and auth state.
 // All fields are goroutine-safe after construction.
 type AdminHandler struct {
 	svc         *postservice.Service
 	sessions    *scs.SessionManager
-	renderer    *markdown.Renderer
+	renderer    Renderer
 	rateLimiter *middleware.RateLimiter
 	funcMap     template.FuncMap
 	templates   map[string]*template.Template
@@ -36,7 +42,7 @@ type AdminHandler struct {
 // It pre-computes a dummy bcrypt hash at startup to ensure constant-time
 // credential checking even when the email doesn't match (Pitfall 6).
 // Panics if any template fails to parse — a programmer error, not a runtime one.
-func New(svc *postservice.Service, sm *scs.SessionManager, r *markdown.Renderer, rl *middleware.RateLimiter, cfg config.Config) *AdminHandler {
+func New(svc *postservice.Service, sm *scs.SessionManager, r Renderer, rl *middleware.RateLimiter, cfg config.Config) *AdminHandler {
 	funcMap := template.FuncMap{
 		"formatDate":  func(t time.Time) string { return t.Format("January 2, 2006") },
 		"currentYear": func() int { return time.Now().Year() },
@@ -94,20 +100,4 @@ func (h *AdminHandler) render(w http.ResponseWriter, status int, page string, da
 	}
 }
 
-// Stub handlers — Plan 03-04 replaces these with full implementations.
-
-func (h *AdminHandler) NewPost(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
-
-func (h *AdminHandler) EditPost(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
-
-func (h *AdminHandler) SavePost(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
-
-func (h *AdminHandler) Preview(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "not implemented", http.StatusNotImplemented)
-}
+// NewPost, EditPost, SavePost, and Preview are implemented in editor.go and preview.go.
