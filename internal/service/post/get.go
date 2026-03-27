@@ -28,10 +28,11 @@ func (s *Service) GetBySlug(ctx context.Context, slug string) (*PostDetail, erro
 		return nil, err
 	}
 
+	enrichedHTML := InjectHeadingIDs(p.RenderedHTML)
 	return &PostDetail{
 		Post:        *p,
-		RenderedHTML: template.HTML(p.RenderedHTML), //nolint:gosec // pre-sanitized by bluemonday at write time
-		ToC:         ExtractToC(p.RenderedHTML),
+		RenderedHTML: template.HTML(enrichedHTML), //nolint:gosec // pre-sanitized by bluemonday at write time
+		ToC:         ExtractToC(enrichedHTML),
 		Tags:        ParseTags(p.Tags),
 		ReadingTime: ReadingTime(p.Body),
 	}, nil

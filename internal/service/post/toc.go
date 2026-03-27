@@ -1,7 +1,9 @@
 package post
 
 import (
+	"regexp"
 	"strings"
+	"unicode"
 
 	"golang.org/x/net/html"
 )
@@ -32,11 +34,15 @@ func ExtractToC(renderedHTML string) []ToCEntry {
 		if n.Type == html.ElementNode {
 			level := headingLevel(n.Data)
 			if level == 2 || level == 3 {
+				text := textContent(n)
 				id := attrVal(n, "id")
+				if id == "" {
+					id = slugify(text)
+				}
 				if id != "" {
 					entries = append(entries, ToCEntry{
 						ID:    id,
-						Text:  textContent(n),
+						Text:  text,
 						Level: level,
 					})
 				}
@@ -74,6 +80,66 @@ func attrVal(n *html.Node, name string) string {
 		}
 	}
 	return ""
+}
+
+var headingRe = regexp.MustCompile(`<(h[23])(\s[^>]*)?>`)
+var nonAlphaNum = regexp.MustCompile(`[^a-z0-9]+`)
+
+// slugify converts heading text to a URL-friendly anchor ID.
+func slugify(s string) string {
+	s = strings.Map(func(r rune) rune {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) || r == ' ' || r == '-' {
+			return unicode.ToLower(r)
+		}
+		return -1
+	}, s)
+	s = strings.TrimSpace(s)
+	s = nonAlphaNum.ReplaceAllString(s, "-")
+	s = strings.Trim(s, "-")
+	return s
+}
+
+// InjectHeadingIDs adds id attributes to h2/h3 tags that lack them, using
+// slugified heading text. This ensures ToC anchor links have matching targets.
+func InjectHeadingIDs(renderedHTML string) string {
+	root, err := html.Parse(strings.NewReader(renderedHTML))
+	if err != nil {
+		return renderedHTML
+	}
+
+	var inject func(*html.Node)
+	inject = func(n *html.Node) {
+		if n.Type == html.ElementNode {
+			level := headingLevel(n.Data)
+			if level == 2 || level == 3 {
+				if attrVal(n, "id") == "" {
+					text := textContent(n)
+					id := slugify(text)
+					if id != "" {
+						n.Attr = append(n.Attr, html.Attribute{Key: "id", Val: id})
+					}
+				}
+			}
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			inject(c)
+		}
+	}
+	inject(root)
+
+	var sb strings.Builder
+	// html.Render wraps in <html><head><body>; extract just the body content
+	html.Render(&sb, root)
+	result := sb.String()
+
+	// html.Parse wraps content in full document; extract body contents
+	if bodyStart := strings.Index(result, "<body>"); bodyStart >= 0 {
+		result = result[bodyStart+6:]
+		if bodyEnd := strings.LastIndex(result, "</body>"); bodyEnd >= 0 {
+			result = result[:bodyEnd]
+		}
+	}
+	return result
 }
 
 // textContent returns the concatenated text content of all descendant text nodes.

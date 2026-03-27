@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"io/fs"
 	"log/slog"
 	"net/http"
 	"os"
@@ -50,7 +51,12 @@ func main() {
 
 	// Register routes
 	mux := http.NewServeMux()
-	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(web.Static)))
+	staticFS, err := fs.Sub(web.Static, "static")
+	if err != nil {
+		logger.Error("static fs sub failed", "error", err)
+		os.Exit(1)
+	}
+	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
 	mux.HandleFunc("GET /{$}", blog.ListPosts)          // Home page (exact match)
 	mux.HandleFunc("GET /posts", blog.ListPosts)         // /posts?page=N
 	mux.HandleFunc("GET /posts/{slug}", blog.ShowPost)   // Single post
