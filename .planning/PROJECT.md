@@ -12,13 +12,11 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Public blog with markdown rendering and image support — Validated in Phase 2: public-blog
+- [x] Admin panel with session-based auth (single admin user) — Validated in Phase 3: admin-panel
+- [x] Web-based markdown editor with preview — Validated in Phase 3: admin-panel
 
 ### Active
-
-- [ ] Public blog with markdown rendering and image support
-- [ ] Admin panel with session-based auth (single admin user)
-- [ ] Web-based markdown editor with preview
 - [ ] API endpoint for pushing .md files from local machine
 - [ ] RSS feed
 - [ ] Thumbs-up reaction counter on posts
@@ -87,4 +85,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-26 after initialization*
+*Last updated: 2026-03-27 after Phase 3 completion*
