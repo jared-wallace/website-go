@@ -3,6 +3,7 @@ package blog_test
 import (
 	"context"
 	"errors"
+	"html/template"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -44,9 +45,45 @@ func (m *mockRepository) FindBySlug(_ context.Context, _ string) (*model.Post, e
 	return &m.posts[0], nil
 }
 
+func (m *mockRepository) FindByID(_ context.Context, _ int64) (*model.Post, error) {
+	return nil, errors.New("not implemented")
+}
+
+func (m *mockRepository) ListAll(_ context.Context) ([]model.Post, error) {
+	return nil, nil
+}
+
+func (m *mockRepository) Create(_ context.Context, _ model.Post) (*model.Post, error) {
+	return nil, errors.New("not implemented")
+}
+
+func (m *mockRepository) Update(_ context.Context, _ model.Post) error {
+	return errors.New("not implemented")
+}
+
+func (m *mockRepository) SoftDelete(_ context.Context, _ int64) error {
+	return errors.New("not implemented")
+}
+
+func (m *mockRepository) Restore(_ context.Context, _ int64) error {
+	return errors.New("not implemented")
+}
+
+func (m *mockRepository) SetPublished(_ context.Context, _ int64, _ bool) error {
+	return errors.New("not implemented")
+}
+
+// noopRenderer satisfies the postservice.Renderer interface for handler tests
+// that never invoke admin write paths.
+type noopRenderer struct{}
+
+func (noopRenderer) Render(src string) template.HTML {
+	return template.HTML(src)
+}
+
 // newTestHandler constructs a BlogHandler with the given repository.
 func newTestHandler(repo *mockRepository) *blog.BlogHandler {
-	svc := postservice.New(repo)
+	svc := postservice.New(repo, noopRenderer{})
 	return blog.New(svc)
 }
 

@@ -12,6 +12,7 @@ import (
 	"github.com/jared-wallace/website-go/internal/config"
 	"github.com/jared-wallace/website-go/internal/database"
 	bloghandler "github.com/jared-wallace/website-go/internal/handler/blog"
+	"github.com/jared-wallace/website-go/internal/markdown"
 	postrepo "github.com/jared-wallace/website-go/internal/repository/post"
 	postservice "github.com/jared-wallace/website-go/internal/service/post"
 	"github.com/jared-wallace/website-go/internal/server"
@@ -26,6 +27,9 @@ func main() {
 
 	cfg := config.Load()
 	logger.Info("config loaded", "env", cfg.AppEnv, "port", cfg.Port)
+	if cfg.AdminEmail == "" {
+		logger.Info("admin credentials not configured; admin panel disabled")
+	}
 
 	ctx, stop := server.GracefulShutdown()
 	defer stop()
@@ -44,9 +48,10 @@ func main() {
 	}
 	logger.Info("migrations applied")
 
-	// Build dependency graph: repo -> service -> handler
+	// Build dependency graph: renderer -> repo -> service -> handler
+	renderer := markdown.NewRenderer()
 	repo := postrepo.New(pool)
-	svc := postservice.New(repo)
+	svc := postservice.New(repo, renderer)
 	blog := bloghandler.New(svc)
 
 	// Register routes

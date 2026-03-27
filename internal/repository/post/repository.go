@@ -23,6 +23,22 @@ type Repository interface {
 	CountPublished(ctx context.Context) (int, error)
 	// FindBySlug returns the post matching slug, or ErrNotFound if none exists.
 	FindBySlug(ctx context.Context, slug string) (*model.Post, error)
+
+	// FindByID returns the post with the given ID, or ErrNotFound if absent.
+	FindByID(ctx context.Context, id int64) (*model.Post, error)
+	// ListAll returns all posts (including unpublished and soft-deleted) ordered by created_at DESC.
+	ListAll(ctx context.Context) ([]model.Post, error)
+	// Create inserts a new post and returns the fully populated record (with ID and timestamps).
+	// Returns ErrSlugExists if the slug is already taken.
+	Create(ctx context.Context, p model.Post) (*model.Post, error)
+	// Update modifies an existing, non-deleted post identified by p.ID.
+	Update(ctx context.Context, p model.Post) error
+	// SoftDelete marks a post as deleted without removing it from the database.
+	SoftDelete(ctx context.Context, id int64) error
+	// Restore clears the deleted_at timestamp and sets published=false on a soft-deleted post.
+	Restore(ctx context.Context, id int64) error
+	// SetPublished toggles the published flag on a non-deleted post.
+	SetPublished(ctx context.Context, id int64, published bool) error
 }
 
 // postgresRepository implements Repository against a pgxpool connection pool.

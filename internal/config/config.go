@@ -8,18 +8,26 @@ import (
 // Config holds all application configuration loaded from environment variables.
 // All values come from the environment — no config files, no viper. (D-03)
 type Config struct {
-	DatabaseURL string
-	Port        string
-	AppEnv      string
+	DatabaseURL       string
+	Port              string
+	AppEnv            string
+	AdminEmail        string // envOr("ADMIN_EMAIL", "")
+	AdminPasswordHash string // envOr("ADMIN_PASSWORD_HASH", "")
+	AdminHost         string // envOr("ADMIN_HOST", "admin.jared-wallace.com")
+	SessionSecret     string // envOr("SESSION_SECRET", "") — reserved for future HMAC signing
 }
 
 // Load reads configuration from environment variables. Panics if required
 // variables are missing (fail-fast is friendlier than a late nil-pointer).
 func Load() Config {
 	return Config{
-		DatabaseURL: mustEnv("DATABASE_URL"),
-		Port:        envOr("PORT", "8080"),
-		AppEnv:      envOr("APP_ENV", "development"),
+		DatabaseURL:       mustEnv("DATABASE_URL"),
+		Port:              envOr("PORT", "8080"),
+		AppEnv:            envOr("APP_ENV", "development"),
+		AdminEmail:        envOr("ADMIN_EMAIL", ""),
+		AdminPasswordHash: envOr("ADMIN_PASSWORD_HASH", ""),
+		AdminHost:         envOr("ADMIN_HOST", "admin.jared-wallace.com"),
+		SessionSecret:     envOr("SESSION_SECRET", ""),
 	}
 }
 
