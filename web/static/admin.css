@@ -130,4 +130,199 @@
   outline-offset: 2px;
 }
 
-/* Placeholder styles for dashboard and editor -- Plans 03-04 will extend */
+/* Dashboard layout */
+.admin-dashboard {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.dashboard-header h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin: 0;
+}
+.new-post-btn {
+  width: auto;
+  padding: 8px 24px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Filter tabs (per UI-SPEC) */
+.filter-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-divider);
+  margin-bottom: 24px;
+}
+.filter-tab {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.filter-tab:hover { color: var(--color-text); }
+.filter-tab.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Post table */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-table th {
+  text-align: left;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--color-divider);
+  background: var(--color-surface);
+}
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--color-divider);
+  font-size: 14px;
+  vertical-align: middle;
+}
+.post-title-cell { width: 40%; }
+.post-title-link {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.post-title-link:hover { color: var(--color-accent); }
+.date-cell {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Status pills */
+.status-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.status-published {
+  background: var(--color-accent);
+  color: #fff;
+}
+.status-draft {
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  color: var(--color-text-muted);
+}
+.status-deleted {
+  background: transparent;
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* Action links */
+.action-link {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.action-link:hover { text-decoration: underline; }
+.action-link--danger { color: var(--color-danger); }
+.inline-form { display: inline; margin: 0; padding: 0; }
+
+/* Confirmation dialog (native <dialog>) per D-15 */
+.confirm-dialog {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+}
+.confirm-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+.confirm-dialog h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+.confirm-dialog p {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin: 0 0 24px;
+}
+.dialog-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+.cta-button--secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-divider);
+  width: auto;
+}
+.cta-button--danger {
+  background: var(--color-danger);
+  width: auto;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--color-text-muted);
+}
+.empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--color-text);
+  margin: 0 0 8px;
+}
+.empty-state p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .admin-table th:nth-child(3),
+  .admin-table td:nth-child(3) {
+    display: none; /* Hide date column on mobile */
+  }
+  .post-title-link { font-size: 16px; }
+  .actions-cell { gap: 4px; }
+}
