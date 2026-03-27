@@ -106,7 +106,10 @@ func main() {
 	blogMux.HandleFunc("GET /{$}", blog.ListPosts)        // Home page (exact match)
 	blogMux.HandleFunc("GET /posts", blog.ListPosts)       // /posts?page=N
 	blogMux.HandleFunc("GET /posts/{slug}", blog.ShowPost) // Single post
-	blogMux.HandleFunc("GET /{path...}", blog.NotFound)    // Catch-all 404
+	blogMux.HandleFunc("GET /rss", blog.ServeRSS)
+	blogMux.HandleFunc("GET /sitemap.xml", blog.ServeSitemap)
+	blogMux.HandleFunc("GET /robots.txt", blog.ServeRobots)
+	blogMux.HandleFunc("GET /{path...}", blog.NotFound) // Catch-all 404
 
 	// --- Admin handler + mux ---
 	adminH := adminhandler.New(svc, sessionManager, renderer, rl, cfg)
