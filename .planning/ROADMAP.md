@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Go project scaffold, Postgres + goose migrations, markdown/bluemonday pipeline, Makefile, GHA CI (completed 2026-03-26)
 - [ ] **Phase 2: Public Blog** - Full public reading experience: post listing, single post, slugs, nautical design, dark mode, ToC, 404
 - [ ] **Phase 3: Admin Panel** - Session auth, post CRUD, draft/publish workflow, split-pane markdown editor
-- [ ] **Phase 4: Distribution** - RSS feed, Open Graph meta tags, sitemap, thumbs-up reactions
+- [x] **Phase 4: Distribution** - RSS feed, Open Graph meta tags, sitemap, thumbs-up reactions (completed 2026-03-27)
 - [ ] **Phase 5: API + Images** - Image upload (magic-byte validated, EBS-stored) and API push endpoint with bearer token
 - [ ] **Phase 6: Docker + Deployment** - Multi-stage Dockerfile, docker-compose with Postgres sidecar, EBS bind-mount, production-ready Makefile targets
 
@@ -84,12 +84,12 @@ Plans:
   2. /sitemap.xml lists all published post URLs and validates against the sitemap schema
   3. Sharing a post URL on Slack or Twitter renders the correct Open Graph title, description, and image
   4. Reader can tap the thumbs-up on a post; count increments and is rate-limited without requiring login
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 04-01-PLAN.md -- RSS 2.0 feed, XML sitemap, and robots.txt endpoints
 - [x] 04-02-PLAN.md -- Open Graph and Twitter Card meta tags, RSS auto-discovery, fallback OG image
-- [ ] 04-03-PLAN.md -- Thumbs-up reaction system (migration, handler, JS, CSS)
+- [x] 04-03-PLAN.md -- Thumbs-up reaction system (migration, handler, JS, CSS)
 
 ### Phase 5: API + Images
 **Goal**: The admin can upload images for embedding in posts and push .md files from a local machine via a bearer-token-authenticated API endpoint.
@@ -123,6 +123,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Foundation | 3/3 | Complete   | 2026-03-26 |
 | 2. Public Blog | 1/3 | In Progress|  |
 | 3. Admin Panel | 3/4 | In Progress|  |
-| 4. Distribution | 2/3 | In Progress|  |
+| 4. Distribution | 3/3 | Complete   | 2026-03-27 |
 | 5. API + Images | 0/? | Not started | - |
 | 6. Docker + Deployment | 0/? | Not started | - |

@@ -28,7 +28,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **BLOG-07**: Search engines can discover all posts via /sitemap.xml
 - [x] **BLOG-08**: Reader sees themed 404 page for invalid URLs
 - [x] **BLOG-09**: Reader can subscribe via RSS feed at /rss with full post content
-- [ ] **BLOG-10**: Reader can give thumbs-up reaction on posts (rate-limited, no auth required)
+- [x] **BLOG-10**: Reader can give thumbs-up reaction on posts (rate-limited, no auth required)
 - [x] **BLOG-11**: Reader can toggle dark mode (CSS prefers-color-scheme + manual toggle)
 - [x] **BLOG-12**: Reader sees auto-generated table of contents on long posts
 
@@ -100,7 +100,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-06 | Phase 4 | Complete |
 | BLOG-07 | Phase 4 | Complete |
 | BLOG-09 | Phase 4 | Complete |
-| BLOG-10 | Phase 4 | Pending |
+| BLOG-10 | Phase 4 | Complete |
 | ADMIN-08 | Phase 5 | Pending |
 | ADMIN-09 | Phase 5 | Pending |
 | FOUND-04 | Phase 6 | Pending |
