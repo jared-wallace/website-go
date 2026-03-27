@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-01-PLAN.md (RSS feed, sitemap, robots.txt)
-last_updated: "2026-03-27T18:13:19.352Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-27T18:15:06.328Z"
 last_activity: 2026-03-27
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 13
-  completed_plans: 9
+  completed_plans: 10
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 ## Current Position
 
 Phase: 04 (distribution) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-03-27
 
@@ -61,6 +61,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-admin-panel P03 | 10 | 2 tasks | 6 files |
 | Phase 03-admin-panel P04 | 7min | 2 tasks | 7 files |
 | Phase 04-distribution P01 | 8min | 2 tasks | 6 files |
+| Phase 04-distribution P02 | 3min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -92,6 +93,8 @@ Recent decisions affecting current work:
 - [Phase 03-admin-panel]: postView struct in EditPost exposes RenderedHTML as template.HTML type to prevent html/template from escaping pre-rendered HTML
 - [Phase 04-distribution]: CDATA type implements xml.Marshaler to prevent double-escaping of HTML in RSS descriptions
 - [Phase 04-distribution]: managingEditor uses jaredwallace@jared-wallace.com (Jared Wallace) per D-02 and RSS 2.0 spec
+- [Phase 04-02]: Excerpt(p.Body, 200) added to PostDetail.GetBySlug — OG description computed at service layer, not template layer
+- [Phase 04-02]: list.html OG meta override is explicit duplicate of base defaults — intentional independence from future base.html changes
 
 ### Pending Todos
 
@@ -105,6 +108,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T18:13:19.350Z
-Stopped at: Completed 04-01-PLAN.md (RSS feed, sitemap, robots.txt)
+Last session: 2026-03-27T18:15:06.326Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
