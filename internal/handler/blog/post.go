@@ -38,5 +38,6 @@ func (h *BlogHandler) ShowPost(w http.ResponseWriter, r *http.Request) {
 		"ToC":          detail.ToC,
 		"Tags":         detail.Tags,
 		"ReadingTime":  detail.ReadingTime,
+		"Excerpt":      detail.Excerpt,
 	})
 }
