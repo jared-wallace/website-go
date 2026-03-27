@@ -1,0 +1,28 @@
+{{define "base"}}<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{block "title" .}}Admin{{end}} -- The Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;700&family=Courier+Prime&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/main.css">
+  <link rel="stylesheet" href="/static/admin.css">
+</head>
+<body class="admin-body">
+  {{block "nav" .}}
+  <nav class="site-nav admin-nav">
+    <a href="/admin/posts" class="site-name">The Log -- Back Office</a>
+    <form method="POST" action="/admin/logout" class="logout-form">
+      <button type="submit" class="logout-link">Go Ashore</button>
+    </form>
+  </nav>
+  {{end}}
+  {{if .FlashSuccess}}<div class="flash-success" role="alert">{{.FlashSuccess}}</div>{{end}}
+  {{if .FlashError}}<div class="flash-error" role="alert">{{.FlashError}}</div>{{end}}
+  {{block "content" .}}{{end}}
+  <script src="/static/admin.js" defer></script>
+</body>
+</html>
+{{end}}
