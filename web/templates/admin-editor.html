@@ -1,4 +1,61 @@
-{{define "title"}}Editor{{end}}
+{{define "title"}}{{if .IsNew}}New Post{{else}}Edit Post{{end}}{{end}}
 {{define "content"}}
-<main><p>Editor placeholder -- Plan 03-04 replaces this.</p></main>
+<main class="admin-editor-page">
+  <form id="editor-form" method="POST" action="{{.Action}}">
+    <input type="hidden" id="editor-action" name="action" value="draft">
+
+    <div class="editor-meta">
+      <div class="form-field">
+        <label for="editor-title">Title</label>
+        <input type="text" id="editor-title" name="title" required
+               value="{{if .Post}}{{.Post.Title}}{{end}}"
+               placeholder="Post title">
+      </div>
+      <div class="form-field">
+        <label for="editor-slug">Slug</label>
+        <input type="text" id="editor-slug" name="slug"
+               value="{{if .Post}}{{.Post.Slug}}{{end}}"
+               placeholder="auto-generated-from-title">
+      </div>
+    </div>
+
+    <div class="admin-tab-bar">
+      <button type="button" id="tab-write" class="tab-btn active">Write</button>
+      <button type="button" id="tab-preview" class="tab-btn">Preview</button>
+    </div>
+
+    <div class="admin-layout">
+      <div id="editor-pane" class="admin-editor-pane">
+        <label class="pane-label">Write</label>
+        <textarea id="editor-body" name="body" aria-label="Markdown editor"
+                  placeholder="Write your post in markdown...">{{if .Post}}{{.Post.Body}}{{end}}</textarea>
+      </div>
+      <div id="preview-pane" class="admin-preview-pane">
+        <label class="pane-label">Preview</label>
+        <div id="preview-content" class="post-body" aria-label="Live preview" aria-live="polite">
+          {{if .Post}}{{.Post.RenderedHTML}}{{end}}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="editor-tags">Tags (comma-separated)</label>
+      <input type="text" id="editor-tags" name="tags"
+             value="{{if .Post}}{{.Post.Tags}}{{end}}"
+             placeholder="go, web, tutorial">
+    </div>
+
+    <div class="admin-toolbar">
+      {{if .Post}}
+        <span class="toolbar-status">
+          {{if .Post.Published}}Published{{else}}Draft{{end}}
+        </span>
+      {{end}}
+      <div class="toolbar-actions">
+        <button type="submit" class="cta-button cta-button--secondary" onclick="document.getElementById('editor-action').value='draft'">Save Draft</button>
+        <button type="submit" class="cta-button" onclick="document.getElementById('editor-action').value='publish'">Publish</button>
+      </div>
+    </div>
+  </form>
+</main>
 {{end}}

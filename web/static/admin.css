@@ -326,3 +326,152 @@
   .post-title-link { font-size: 16px; }
   .actions-cell { gap: 4px; }
 }
+
+/* === Editor page layout === */
+.admin-editor-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.editor-meta {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Mobile tab bar (D-06) -- visible below 768px */
+.admin-tab-bar {
+  display: none;
+  gap: 0;
+  border-bottom: 1px solid var(--color-divider);
+  margin-bottom: 0;
+}
+.tab-btn {
+  flex: 1;
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  min-height: 44px;
+}
+.tab-btn.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Split-pane layout (per UI-SPEC: 50/50 on desktop, stacked on mobile) */
+.admin-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  margin-bottom: 16px;
+  min-height: 60vh;
+}
+.admin-editor-pane {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color-divider);
+}
+.admin-preview-pane {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  overflow-y: auto;
+}
+.pane-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-surface);
+}
+
+/* Editor textarea (D-07: plain textarea, monospace, no toolbar) */
+#editor-body {
+  flex: 1;
+  width: 100%;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: none;
+  resize: none;
+  box-sizing: border-box;
+}
+#editor-body:focus {
+  outline: none;
+}
+
+/* Preview content */
+#preview-content {
+  padding: 16px;
+  flex: 1;
+}
+.preview-error {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* Toolbar */
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+.toolbar-status {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+.toolbar-actions .cta-button {
+  width: auto;
+  padding: 8px 24px;
+  font-size: 14px;
+}
+
+/* Mobile responsive (D-06) */
+@media (max-width: 768px) {
+  .editor-meta {
+    grid-template-columns: 1fr;
+  }
+  .admin-tab-bar {
+    display: flex;
+  }
+  .admin-layout {
+    grid-template-columns: 1fr;
+    min-height: 50vh;
+  }
+  .admin-editor-pane {
+    border-right: none;
+  }
+  .pane-label {
+    display: none; /* Tab bar replaces pane labels on mobile */
+  }
+  .hidden {
+    display: none !important;
+  }
+  .toolbar-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .toolbar-actions .cta-button {
+    width: 100%;
+  }
+}
