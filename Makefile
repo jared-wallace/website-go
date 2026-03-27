@@ -39,6 +39,10 @@ migrate:
 docker:
 	docker build -t website-go:latest .
 
+## hash-password: generate bcrypt hash (usage: make hash-password PW=yourpassword)
+hash-password:
+	@go run ./cmd/hashpw "$(PW)"
+
 ## help: list available targets
 help:
 	@grep -E '^## ' Makefile | sed 's/## //' | column -t -s ':'
