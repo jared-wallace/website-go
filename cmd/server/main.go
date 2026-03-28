@@ -57,6 +57,13 @@ func main() {
 		logger.Info("admin credentials not configured; admin panel disabled")
 	}
 
+	// Ensure the image directory exists on first boot (Pitfall 3).
+	if err := os.MkdirAll(cfg.ImageDir, 0755); err != nil {
+		logger.Error("failed to create image directory", "path", cfg.ImageDir, "error", err)
+		os.Exit(1)
+	}
+	logger.Info("image directory ready", "path", cfg.ImageDir)
+
 	ctx, stop := server.GracefulShutdown()
 	defer stop()
 
@@ -101,8 +108,12 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Image file server — serves uploaded images from EBS volume on both muxes.
+	imageServer := http.StripPrefix("/images/", http.FileServer(http.Dir(cfg.ImageDir)))
+
 	blogMux := http.NewServeMux()
 	blogMux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
+	blogMux.Handle("GET /images/{path...}", imageServer)
 	blogMux.HandleFunc("GET /{$}", blog.ListPosts)        // Home page (exact match)
 	blogMux.HandleFunc("GET /posts", blog.ListPosts)       // /posts?page=N
 	blogMux.HandleFunc("GET /posts/{slug}", blog.ShowPost)          // Single post
@@ -131,6 +142,8 @@ func main() {
 	adminMux.Handle("POST /admin/posts/{id}/publish", requireAuth(http.HandlerFunc(adminH.PublishPost)))
 	adminMux.Handle("POST /admin/posts/{id}/unpublish", requireAuth(http.HandlerFunc(adminH.UnpublishPost)))
 	adminMux.Handle("POST /admin/preview", requireAuth(http.HandlerFunc(adminH.Preview)))
+	adminMux.Handle("POST /admin/images/upload", requireAuth(http.HandlerFunc(adminH.UploadImage)))
+	adminMux.Handle("GET /images/{path...}", imageServer)
 	adminMux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
 	adminMux.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/admin/posts", http.StatusSeeOther)

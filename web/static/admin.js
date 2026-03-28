@@ -98,4 +98,66 @@
       }
     });
   }
+
+  // --- Image Upload (D-01, D-02) ---
+  var uploadBtn = document.getElementById('upload-image-btn');
+  var uploadInput = document.getElementById('upload-image-input');
+  var uploadError = document.getElementById('upload-error');
+
+  if (uploadBtn && uploadInput && editorBody) {
+    uploadBtn.addEventListener('click', function() {
+      uploadInput.click();
+    });
+
+    uploadInput.addEventListener('change', function() {
+      var file = uploadInput.files[0];
+      if (!file) return;
+
+      // Clear previous error
+      uploadError.style.display = 'none';
+      uploadError.textContent = '';
+
+      // Client-side size check (5 MB per D-04)
+      if (file.size > 5 * 1024 * 1024) {
+        uploadError.textContent = 'File exceeds 5 MB limit. Choose a smaller image.';
+        uploadError.style.display = '';
+        uploadInput.value = '';
+        return;
+      }
+
+      uploadBtn.textContent = 'Uploading\u2026';
+      uploadBtn.disabled = true;
+
+      var formData = new FormData();
+      formData.append('image', file);
+
+      fetch('/admin/images/upload', { method: 'POST', body: formData })
+        .then(function(r) {
+          if (r.status === 415) throw new Error('Only JPEG and PNG are accepted.');
+          if (r.status === 400) throw new Error('File exceeds 5 MB limit. Choose a smaller image.');
+          if (!r.ok) throw new Error('Upload failed. Try again.');
+          return r.json();
+        })
+        .then(function(data) {
+          insertAtCursor(editorBody, data.markdownTag);
+        })
+        .catch(function(err) {
+          uploadError.textContent = err.message;
+          uploadError.style.display = '';
+        })
+        .finally(function() {
+          uploadBtn.textContent = 'Upload Image';
+          uploadBtn.disabled = false;
+          uploadInput.value = '';
+        });
+    });
+  }
+
+  function insertAtCursor(textarea, text) {
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    textarea.value = textarea.value.slice(0, start) + text + textarea.value.slice(end);
+    textarea.selectionStart = textarea.selectionEnd = start + text.length;
+    textarea.dispatchEvent(new Event('input')); // triggers live preview debounce
+  }
 })();
