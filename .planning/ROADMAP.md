@@ -38,8 +38,9 @@
   3. Open Graph meta tags and the XML sitemap reference "The Wild Meridian"
   4. The copyright footer reads "2026 Jared Wallace"
   5. A discreet RSS link or icon is visible in the nav or footer, and the HTML head includes `<link rel="alternate" type="application/rss+xml">`
-**Plans**: TBD
-**UI hint**: yes
+**Plans:** 1 plan
+Plans:
+- [ ] 07-01-PLAN.md -- Rebrand all strings + add RSS icon to footer
 
 ### Phase 8: About Page
 **Goal**: Readers can navigate to and read a personal about page that matches the site's nautical design
@@ -62,5 +63,5 @@
 | 4. Distribution | v1.0 | 3/3 | Complete | 2026-03-27 |
 | 5. API + Images | v1.0 | 2/2 | Complete | 2026-03-28 |
 | 6. Docker + Deployment | v1.0 | 2/2 | Complete | 2026-03-28 |
-| 7. Rebrand + Navigation | v1.1 | 0/? | Not started | - |
+| 7. Rebrand + Navigation | v1.1 | 0/1 | In progress | - |
 | 8. About Page | v1.1 | 0/? | Not started | - |
