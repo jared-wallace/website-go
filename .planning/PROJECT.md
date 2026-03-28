@@ -8,51 +8,69 @@ A personal blog platform for jared-wallace.com, built as a Go web server with a 
 
 A reader visits jared-wallace.com and reads well-rendered markdown blog posts with images in a distinctive, memorable design.
 
+## Current State
+
+**Shipped:** v1.0 MVP (2026-03-28)
+**Codebase:** ~29,400 lines of Go across 6 phases
+**Tech stack:** Go 1.26, pgx/v5, goldmark+bluemonday, html/template, SCS sessions, goose migrations
+**Deployment:** Multi-stage Docker (9.9MB alpine), docker-compose with Postgres sidecar, EBS bind-mounts
+
 ## Requirements
 
 ### Validated
 
-- [x] Public blog with markdown rendering and image support — Validated in Phase 2: public-blog
-- [x] Admin panel with session-based auth (single admin user) — Validated in Phase 3: admin-panel
-- [x] Web-based markdown editor with preview — Validated in Phase 3: admin-panel
+- Public blog with markdown rendering, syntax highlighting, and image support -- v1.0
+- Paginated post listing with reading time, excerpts, and tags -- v1.0
+- URL slugs, auto-generated ToC, dark mode toggle, themed 404 -- v1.0
+- Admin panel with bcrypt session auth at admin subdomain -- v1.0
+- Post CRUD with draft/publish workflow and soft-delete -- v1.0
+- Split-pane markdown editor with live preview -- v1.0
+- RSS 2.0 feed, XML sitemap, Open Graph meta tags -- v1.0
+- Thumbs-up reactions with IP deduplication -- v1.0
+- Image upload with magic-byte MIME validation -- v1.0
+- API push endpoint with bearer token auth -- v1.0
+- Docker multi-stage build with Postgres sidecar and EBS mounts -- v1.0
+- Makefile with build, test, lint, run, deploy, logs, status targets -- v1.0
+- GHA CI pipeline (lint, test, build) on free tier -- v1.0
+- Standard Go project layout with minimal dependencies -- v1.0
+- Weathered beach bar nautical design (implemented, mobile visual confirmation pending) -- v1.0
 
 ### Active
-- [x] API endpoint for pushing .md files from local machine — Validated in Phase 5: api-images
-- [x] Image upload with MIME validation and EBS storage — Validated in Phase 5: api-images
-- [x] RSS feed — Validated in Phase 4: distribution
-- [x] Thumbs-up reaction counter on posts — Validated in Phase 4: distribution
-- [ ] Weathered beach bar nautical design (driftwood, sand, ocean blues, chalkboard vibes)
-- [x] Dockerized deployment (app + Postgres sidecar via docker-compose) — Validated in Phase 6: docker-deployment
-- [x] Organized Makefile following best practices — Validated in Phase 6: docker-deployment
-- [ ] GHA CI pipeline (lint, test, build) on free tier
-- [ ] Standard Go project structure with minimal dependencies
-- [ ] LaTeX rendering in posts (stretch goal)
+
+(None -- next milestone requirements TBD via `/gsd:new-milestone`)
 
 ### Out of Scope
 
-- User registration / reader accounts — single-admin blog, no need
-- Comments system — not for v1, maybe later
-- OAuth / social login — session + bcrypt is sufficient for single user
-- S3 image storage — using EBS volume for simplicity
-- Managed database (RDS) — Postgres sidecar on EBS volume instead
+- User registration / reader accounts -- single-admin blog, zero reader value
+- Comments system -- moderation overhead; thumbs-up covers lightweight engagement
+- OAuth / social login -- session + bcrypt is sufficient for single user
+- Full-text search -- pagination + browser search sufficient at blog scale
+- Newsletter / email delivery -- RSS covers follow-me use case; revisit on demand
+- In-app analytics -- use Plausible/Fathom externally instead
+- Image optimization / CDN -- overkill for single-instance personal blog
+- WYSIWYG editor -- markdown philosophy; split-pane preview is sufficient
+- Multi-author support -- personal blog; revisit if needed
+- S3 image storage -- EBS volume is simpler and sufficient
+- Managed database (RDS) -- Postgres sidecar on EBS volume instead
+- LaTeX rendering -- deferred to v2 (ENH-01)
 
 ## Context
 
 - **Existing infrastructure**: AWS infra managed via Terraform in ../aws-infra
   - ALB with TLS termination (ACM cert for jared-wallace.com + wildcards)
-  - ASG (min 1, max 2, desired 1) — effectively single-instance with self-healing
+  - ASG (min 1, max 2, desired 1) -- effectively single-instance with self-healing
   - Nginx on EC2 reverse-proxying to :8080
   - 10GB EBS volume at /var/www/html for persistent storage
   - Docker pre-installed via user data script
   - Route53 DNS with A/AAAA records for root, www, and admin subdomains
   - Lambda + EventBridge for dynamic DNS updates on ASG events
-- **Deployment model**: Docker container running on :8080, Nginx forwards traffic from ALB
-- **Storage**: Postgres data and uploaded images both on the EBS volume
-- **Design direction**: "Weathered bar by the beach" — warm wood tones, sandy off-whites, deep ocean blues, slightly rough/textured feel (driftwood, not yacht club), chalkboard-style elements, rope/knot dividers, anchor accents. Use the `frontend-design` skill for template crafting.
+- **Deployment model**: `make deploy` on EC2 runs docker-compose build + up
+- **Storage**: Postgres data at /var/www/html/pgdata, images at /var/www/html/images
+- **Design direction**: "Weathered bar by the beach" -- warm wood tones, sandy off-whites, deep ocean blues, slightly rough/textured feel (driftwood, not yacht club), chalkboard-style elements, rope/knot dividers, anchor accents
 
 ## Constraints
 
-- **Tech stack**: Go with minimal dependencies — avoid large frameworks, prefer stdlib where reasonable
+- **Tech stack**: Go with minimal dependencies -- avoid large frameworks, prefer stdlib where reasonable
 - **Infrastructure**: Must run as Docker container on port 8080 behind existing Nginx/ALB
 - **Budget**: GHA CI must work on free tier (no paid GitHub features)
 - **Storage**: All persistent data (DB + images) must live on the EBS volume at /var/www/html
@@ -62,28 +80,33 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Postgres sidecar over managed DB | EBS volume available, avoids RDS cost, keeps infra simple | — Pending |
-| Session auth over OAuth | Single admin user, minimal deps philosophy | — Pending |
-| EBS for images over S3 | Simpler, fewer AWS dependencies, sufficient for single-blog scale | — Pending |
-| Subdomain admin panel (admin.jared-wallace.com) | Clean separation of public/admin, already wired in Terraform | — Pending |
-| Dual content workflow (web editor + API push) | Flexibility — quick edits in browser, serious writing from local tools | — Pending |
+| Postgres sidecar over managed DB | EBS volume available, avoids RDS cost, keeps infra simple | Good -- works well for single-instance blog |
+| Session auth over OAuth | Single admin user, minimal deps philosophy | Good -- bcrypt + SCS pgxstore is clean and secure |
+| EBS for images over S3 | Simpler, fewer AWS dependencies, sufficient for single-blog scale | Good -- bind-mount works, no SDK dependency |
+| Subdomain admin panel (admin.jared-wallace.com) | Clean separation of public/admin, already wired in Terraform | Good -- host-based routing in stdlib ServeMux |
+| Dual content workflow (web editor + API push) | Flexibility -- quick edits in browser, serious writing from local tools | Good -- both paths work, UpsertBySlug handles idempotency |
+| Per-page template sets (html/template) | Avoids block name collisions across pages in Go templating | Good -- each page parses base+page pair independently |
+| goldmark html.WithUnsafe() + bluemonday | Allows full HTML rendering then sanitizes; pipeline order is security-critical | Good -- XSS tests pass, rendering is correct |
+| In-memory dashboard filtering over separate queries | Blog scale makes N queries unnecessary; ListAll + filter is simpler | Good -- works at blog scale |
+| API push on blogMux (not adminMux) | Bearer token is the auth gate, not host routing | Good -- decouples API from admin subdomain |
+| CDATA xml.Marshaler for RSS | Prevents double-escaping of HTML in RSS descriptions | Good -- standard RSS 2.0 pattern |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
 **After each phase transition** (via `/gsd:transition`):
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
+1. Requirements invalidated? -> Move to Out of Scope with reason
+2. Requirements validated? -> Move to Validated with phase reference
+3. New requirements emerged? -> Add to Active
+4. Decisions to log? -> Add to Key Decisions
+5. "What This Is" still accurate? -> Update if drifted
 
 **After each milestone** (via `/gsd:complete-milestone`):
 1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
+2. Core Value check -- still the right priority?
+3. Audit Out of Scope -- reasons still valid?
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 5 completion*
+*Last updated: 2026-03-28 after v1.0 milestone*
