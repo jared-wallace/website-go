@@ -13,7 +13,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **FOUND-02**: Postgres connection pool via pgx/v5 with health checks
 - [x] **FOUND-03**: Database migrations via goose with versioned SQL files
 - [x] **FOUND-04**: Docker multi-stage build producing minimal container
-- [ ] **FOUND-05**: docker-compose with app + Postgres sidecar, EBS volume mounts
+- [x] **FOUND-05**: docker-compose with app + Postgres sidecar, EBS volume mounts
 - [x] **FOUND-06**: Makefile with build, test, lint, run, docker, and migration targets
 - [x] **FOUND-07**: GHA CI pipeline running lint, test, and build on push
 
@@ -104,7 +104,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ADMIN-08 | Phase 5 | Complete |
 | ADMIN-09 | Phase 5 | Complete |
 | FOUND-04 | Phase 6 | Complete |
-| FOUND-05 | Phase 6 | Pending |
+| FOUND-05 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 28 total
