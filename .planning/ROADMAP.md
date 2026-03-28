@@ -50,8 +50,9 @@ Plans:
   1. A working "About" link appears in the main site navigation
   2. The about page renders content from a static markdown file on disk (not a database record)
   3. The about page shares the full nautical chrome: header, footer, dark mode toggle, and consistent typography
-**Plans**: TBD
-**UI hint**: yes
+**Plans:** 1 plan
+Plans:
+- [ ] 08-01-PLAN.md -- About page: content, template, handler, nav link, CSS, sitemap
 
 ## Progress
 
@@ -64,4 +65,4 @@ Plans:
 | 5. API + Images | v1.0 | 2/2 | Complete | 2026-03-28 |
 | 6. Docker + Deployment | v1.0 | 2/2 | Complete | 2026-03-28 |
 | 7. Rebrand + Navigation | v1.1 | 0/1 | In progress | - |
-| 8. About Page | v1.1 | 0/? | Not started | - |
+| 8. About Page | v1.1 | 0/1 | Not started | - |
