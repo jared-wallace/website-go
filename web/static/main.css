@@ -674,3 +674,94 @@ body::before {
 [data-theme="dark"] body::before {
   opacity: 0.03;
 }
+
+/* === Animations & Transitions === */
+
+/* --- Entry Animation Keyframe --- */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* --- Page Load Fade-In (ANIM-02) --- */
+
+.container {
+  animation: fade-in 250ms ease-out both;
+}
+
+/* --- Post Card Stagger (ANIM-03) --- */
+
+.card-grid .post-card {
+  animation: fade-in 250ms ease-out both;
+}
+
+.card-grid .post-card:nth-child(1) { animation-delay: 0ms;   }
+.card-grid .post-card:nth-child(2) { animation-delay: 75ms;  }
+.card-grid .post-card:nth-child(3) { animation-delay: 150ms; }
+.card-grid .post-card:nth-child(4) { animation-delay: 225ms; }
+.card-grid .post-card:nth-child(5) { animation-delay: 300ms; }
+.card-grid .post-card:nth-child(6) { animation-delay: 375ms; }
+
+/* --- Dark Mode Color Transitions — .theme-ready Gate (ANIM-04, ANIM-05) --- */
+
+.theme-ready body,
+.theme-ready .site-nav,
+.theme-ready .site-footer,
+.theme-ready .dark-toggle,
+.theme-ready .nav-link,
+.theme-ready .reaction-btn,
+.theme-ready .tag-pill,
+.theme-ready .toc,
+.theme-ready .post-body pre,
+.theme-ready .post-body p code,
+.theme-ready .post-body li code {
+  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
+}
+
+/* Post card: preserve existing hover transitions alongside new color transitions */
+.theme-ready .post-card {
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+/* --- Reduced Motion Guard (ANIM-01) — MUST be last --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    animation: none;
+  }
+
+  .card-grid .post-card,
+  .card-grid .post-card:nth-child(1),
+  .card-grid .post-card:nth-child(2),
+  .card-grid .post-card:nth-child(3),
+  .card-grid .post-card:nth-child(4),
+  .card-grid .post-card:nth-child(5),
+  .card-grid .post-card:nth-child(6) {
+    animation: none;
+  }
+
+  .theme-ready body,
+  .theme-ready .site-nav,
+  .theme-ready .post-card,
+  .theme-ready .site-footer,
+  .theme-ready .dark-toggle,
+  .theme-ready .nav-link,
+  .theme-ready .reaction-btn,
+  .theme-ready .tag-pill,
+  .theme-ready .toc,
+  .theme-ready .post-body pre,
+  .theme-ready .post-body p code,
+  .theme-ready .post-body li code {
+    transition: none;
+  }
+
+  .reaction-btn.bounce .reaction-icon {
+    animation: none;
+  }
+}
