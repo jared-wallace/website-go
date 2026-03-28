@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 Phase: 1 of 6 (Foundation)
 Plan: 3 of 3 in current phase
 Status: Ready to execute
-Last activity: 2026-03-26
+Last activity: 2026-03-28 - Completed quick task 260327-usk: Update README.md
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -83,6 +83,12 @@ None yet.
 - Phase 6 (Docker): Postgres EBS bind-mount requires `chown 999:999` on host before first run — document in Makefile deploy target (Pitfall 3)
 - Phase 6 (Docker): ASG must have `max_size = 1` and `delete_on_termination = false` before any production data is written (Pitfall 8)
 - Phase 3 (Admin): Go 1.26 stdlib may include CrossOriginProtection — confirm before reaching for gorilla/csrf during Phase 3 planning
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260327-usk | Update README.md | 2026-03-28 | dcb12d4 | [260327-usk-update-readme-md](./quick/260327-usk-update-readme-md/) |
 
 ## Session Continuity
 
