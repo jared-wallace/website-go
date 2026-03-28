@@ -42,7 +42,7 @@ func TestServeRSS(t *testing.T) {
 	checks := []string{
 		`<rss version="2.0">`,
 		"<channel>",
-		"<title>The Log</title>",
+		"<title>The Wild Meridian</title>",
 		"<description>dispatches from the deep end</description>",
 		"Jared Wallace",
 	}

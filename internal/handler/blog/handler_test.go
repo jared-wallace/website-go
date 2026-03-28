@@ -172,7 +172,7 @@ func TestListOGMeta(t *testing.T) {
 
 	body := rec.Body.String()
 	checks := []string{
-		`og:title" content="The Log"`,
+		`og:title" content="The Wild Meridian"`,
 		`og:type" content="website"`,
 		`og:description" content="dispatches from the deep end"`,
 		`twitter:card" content="summary"`,

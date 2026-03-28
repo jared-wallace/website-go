@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{block "title" .}}The Log{{end}}</title>
+  <title>{{block "title" .}}The Wild Meridian{{end}}</title>
   <script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}})()</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/main.css">
-  <link rel="alternate" type="application/rss+xml" title="The Log" href="/rss">
+  <link rel="alternate" type="application/rss+xml" title="The Wild Meridian" href="/rss">
   {{block "meta" .}}
-  <meta property="og:title" content="The Log">
+  <meta property="og:title" content="The Wild Meridian">
   <meta property="og:description" content="dispatches from the deep end">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://jared-wallace.com/static/og-fallback.png">
   <meta property="og:url" content="https://jared-wallace.com">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="The Log">
+  <meta name="twitter:title" content="The Wild Meridian">
   <meta name="twitter:description" content="dispatches from the deep end">
   <meta name="twitter:image" content="https://jared-wallace.com/static/og-fallback.png">
   {{end}}
 </head>
 <body>
   <nav class="site-nav">
-    <a href="/" class="site-name">The Log</a>
+    <a href="/" class="site-name">The Wild Meridian</a>
     <span class="site-tagline">dispatches from the deep end</span>
     <button class="dark-toggle" id="dark-toggle" aria-label="Switch to dark mode">
       <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -48,7 +48,18 @@
 
   <footer class="site-footer">
     <hr class="rope-divider">
-    <p>&copy; {{.Year}} The Log</p>
+    <p>
+      &copy; {{.Year}} Jared Wallace
+      <a href="/rss" class="rss-link" aria-label="RSS feed">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <circle cx="5" cy="19" r="1" fill="currentColor" stroke="none"></circle>
+        </svg>
+      </a>
+    </p>
   </footer>
 
   <script src="/static/main.js" defer></script>
