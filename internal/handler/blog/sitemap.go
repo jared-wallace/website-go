@@ -76,5 +76,5 @@ func (h *BlogHandler) ServeSitemap(w http.ResponseWriter, r *http.Request) {
 // Returns plain text with the standard Allow directive and Sitemap location (D-15).
 func (h *BlogHandler) ServeRobots(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-	fmt.Fprintf(w, "User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n", baseURL)
+	_, _ = fmt.Fprintf(w, "User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n", baseURL)
 }

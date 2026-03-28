@@ -25,6 +25,7 @@ func (h *AdminHandler) LoginPage(w http.ResponseWriter, r *http.Request) {
 // performs constant-time credential verification (per D-11, D-08, Pitfall 6),
 // and on success renews the session token before setting the authenticated flag.
 func (h *AdminHandler) LoginPost(w http.ResponseWriter, r *http.Request) {
+	r.Body = http.MaxBytesReader(w, r.Body, 1<<20) // 1 MB limit to prevent memory exhaustion
 	if err := r.ParseForm(); err != nil {
 		h.render(w, http.StatusBadRequest, "admin-login.html", map[string]interface{}{
 			"Error": "Invalid form submission.",

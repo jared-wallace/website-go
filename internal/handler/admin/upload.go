@@ -23,7 +23,7 @@ func (h *AdminHandler) UploadImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 5 MB hard limit on request body (D-04).
-	const maxUpload = 5 << 20 // 5 MB
+	const maxUpload = 5 << 20                              // 5 MB
 	r.Body = http.MaxBytesReader(w, r.Body, maxUpload+512) // +512 for multipart overhead
 
 	if err := r.ParseMultipartForm(maxUpload); err != nil {
@@ -36,7 +36,7 @@ func (h *AdminHandler) UploadImage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "missing image field", http.StatusBadRequest)
 		return
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	// Sniff the first 512 bytes for magic-byte MIME detection (D-12).
 	buf := make([]byte, 512)
@@ -54,30 +54,36 @@ func (h *AdminHandler) UploadImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Rewind past the sniffed bytes so the full file is written to disk.
-	if _, err := file.Seek(0, io.SeekStart); err != nil {
+	if _, seekErr := file.Seek(0, io.SeekStart); seekErr != nil {
 		http.Error(w, "failed to process file", http.StatusInternalServerError)
 		return
 	}
 
 	// Server-generated random hex filename -- never trust the client name.
 	b := make([]byte, 16)
-	if _, err := rand.Read(b); err != nil {
-		slog.Error("crypto/rand failed", "error", err)
+	if _, randErr := rand.Read(b); randErr != nil {
+		slog.Error("crypto/rand failed", "error", randErr)
 		http.Error(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 	filename := hex.EncodeToString(b) + ext
 
-	dst, err := os.Create(filepath.Join(h.imageDir, filename))
+	dst, err := os.Create(filepath.Join(h.imageDir, filename)) //nolint:gosec // filename is server-generated random hex, not user input
 	if err != nil {
 		slog.Error("failed to create image file", "error", err)
 		http.Error(w, "failed to save image", http.StatusInternalServerError)
 		return
 	}
-	defer dst.Close()
 
-	if _, err := io.Copy(dst, file); err != nil {
+	if _, err = io.Copy(dst, file); err != nil {
 		slog.Error("failed to write image file", "error", err)
+		_ = dst.Close()
+		http.Error(w, "failed to save image", http.StatusInternalServerError)
+		return
+	}
+
+	if err = dst.Close(); err != nil {
+		slog.Error("failed to close image file", "error", err)
 		http.Error(w, "failed to save image", http.StatusInternalServerError)
 		return
 	}
@@ -89,7 +95,9 @@ func (h *AdminHandler) UploadImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(resp)
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		slog.Error("failed to encode upload response", "error", err)
+	}
 }
 
 // extensionFromMIME returns the file extension for allowed image MIME types.

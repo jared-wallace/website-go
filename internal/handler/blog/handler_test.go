@@ -16,9 +16,9 @@ import (
 
 // mockRepository is a test double for the post repository interface.
 type mockRepository struct {
+	findErr        error
 	posts          []model.Post
 	totalCount     int
-	findErr        error
 	reactionCount  int
 	alreadyReacted bool
 }

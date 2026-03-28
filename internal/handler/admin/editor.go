@@ -37,13 +37,13 @@ func (h *AdminHandler) EditPost(w http.ResponseWriter, r *http.Request) {
 
 	// Pass RenderedHTML as template.HTML so the preview pane shows it unescaped.
 	type postView struct {
-		ID           int64
+		RenderedHTML template.HTML
 		Title        string
 		Slug         string
 		Body         string
 		Tags         string
+		ID           int64
 		Published    bool
-		RenderedHTML template.HTML
 	}
 	pv := postView{
 		ID:           post.ID,
@@ -65,6 +65,7 @@ func (h *AdminHandler) EditPost(w http.ResponseWriter, r *http.Request) {
 // SavePost handles form submission for both new-post creation and existing-post updates.
 // The hidden "action" field distinguishes "draft" from "publish".
 func (h *AdminHandler) SavePost(w http.ResponseWriter, r *http.Request) {
+	r.Body = http.MaxBytesReader(w, r.Body, 1<<20) // 1 MB limit to prevent memory exhaustion
 	if err := r.ParseForm(); err != nil {
 		h.sessions.Put(r.Context(), "flash_error", "Failed to parse form.")
 		http.Redirect(w, r, "/admin/posts", http.StatusSeeOther)

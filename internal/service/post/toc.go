@@ -129,7 +129,9 @@ func InjectHeadingIDs(renderedHTML string) string {
 
 	var sb strings.Builder
 	// html.Render wraps in <html><head><body>; extract just the body content
-	html.Render(&sb, root)
+	if err := html.Render(&sb, root); err != nil {
+		return renderedHTML // return original on render failure
+	}
 	result := sb.String()
 
 	// html.Parse wraps content in full document; extract body contents

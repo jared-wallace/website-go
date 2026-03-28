@@ -12,12 +12,12 @@ const PostsPerPage = 10
 // PostSummary is a lightweight projection of a Post used in listing views.
 // It includes computed fields (Excerpt, Tags, ReadingTime) so templates need
 // no business logic.
-type PostSummary struct {
+type PostSummary struct { //nolint:govet // fieldalignment: time.Time wall/ext bytes create unavoidable scan region; order is otherwise optimal
+	PublishedAt time.Time
+	Tags        []string
 	Title       string
 	Slug        string
 	Excerpt     string
-	Tags        []string
-	PublishedAt time.Time
 	ReadingTime int
 }
 

@@ -14,8 +14,8 @@ import (
 // with JSON containing count and already_reacted:false.
 func TestReact(t *testing.T) {
 	repo := &mockRepository{
-		posts:         []model.Post{{ID: 1, Slug: "test-slug", Title: "Test Post", Body: "body"}},
-		reactionCount: 1,
+		posts:          []model.Post{{ID: 1, Slug: "test-slug", Title: "Test Post", Body: "body"}},
+		reactionCount:  1,
 		alreadyReacted: false,
 	}
 	h := newTestHandler(repo)

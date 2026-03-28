@@ -20,9 +20,9 @@ func (noopRenderer) Render(src string) template.HTML { return template.HTML(src)
 
 func TestReadingTime(t *testing.T) {
 	cases := []struct {
-		name  string
-		body  string
-		want  int
+		name string
+		body string
+		want int
 	}{
 		{"empty returns minimum 1", "", 1},
 		{"exactly 200 words returns 1", strings.Repeat("word ", 200), 1},
@@ -162,8 +162,8 @@ func TestParseTags(t *testing.T) {
 
 // mockRepository implements post.Repository for testing pagination math without a DB.
 type mockRepository struct {
-	total int
 	posts []model.Post
+	total int
 }
 
 func (m *mockRepository) ListPublished(_ context.Context, limit, offset int) ([]model.Post, error) {
