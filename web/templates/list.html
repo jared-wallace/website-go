@@ -1,0 +1,73 @@
+{{template "base" .}}
+
+{{define "title"}}The Log{{end}}
+
+{{define "meta"}}
+<meta property="og:title" content="The Log">
+<meta property="og:description" content="dispatches from the deep end">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://jared-wallace.com/static/og-fallback.png">
+<meta property="og:url" content="https://jared-wallace.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Log">
+<meta name="twitter:description" content="dispatches from the deep end">
+<meta name="twitter:image" content="https://jared-wallace.com/static/og-fallback.png">
+{{end}}
+
+{{define "content"}}
+<div class="container">
+  {{if not .Posts}}
+  <div class="empty-state">
+    <h2>The Bar Is Quiet</h2>
+    <p>No posts have washed ashore yet. Check back soon.</p>
+  </div>
+  {{else}}
+  <div class="card-grid">
+    {{range .Posts}}
+    <article class="post-card">
+      <div>
+        {{if .Tags}}
+        <div class="tags-row">
+          {{range .Tags}}<span class="tag-pill">{{.}}</span>{{end}}
+        </div>
+        {{end}}
+        <h2 class="post-card-title"><a href="/posts/{{.Slug}}">{{.Title}}</a></h2>
+        <p class="post-card-excerpt">{{.Excerpt}}</p>
+      </div>
+      <div class="post-card-meta">
+        <time>{{formatDate .PublishedAt}}</time> &middot; {{.ReadingTime}} min read
+      </div>
+    </article>
+    {{end}}
+  </div>
+
+  {{if gt .TotalPages 1}}
+  <nav class="pagination" aria-label="Post pages">
+    {{if .HasPrev}}
+    <a href="/posts?page={{prevPage .CurrentPage}}">&#8592; Prev</a>
+    {{else}}
+    <span class="pagination-disabled">&#8592; Prev</span>
+    {{end}}
+
+    <span class="pagination-sep">&middot;</span>
+
+    {{range pages .TotalPages}}
+    {{if eq . $.CurrentPage}}
+    <span class="pagination-active">{{.}}</span>
+    {{else}}
+    <a href="/posts?page={{.}}">{{.}}</a>
+    {{end}}
+    {{end}}
+
+    <span class="pagination-sep">&middot;</span>
+
+    {{if .HasNext}}
+    <a href="/posts?page={{nextPage .CurrentPage}}">Next &#8594;</a>
+    {{else}}
+    <span class="pagination-disabled">Next &#8594;</span>
+    {{end}}
+  </nav>
+  {{end}}
+  {{end}}
+</div>
+{{end}}

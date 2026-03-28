@@ -1,0 +1,51 @@
+{{template "base" .}}
+
+{{define "title"}}{{.Post.Title}} &#8212; The Log{{end}}
+
+{{define "meta"}}
+<meta property="og:title" content="{{.Post.Title}}">
+<meta property="og:description" content="{{.Excerpt}}">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://jared-wallace.com/static/og-fallback.png">
+<meta property="og:url" content="https://jared-wallace.com/posts/{{.Post.Slug}}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{.Post.Title}}">
+<meta name="twitter:description" content="{{.Excerpt}}">
+<meta name="twitter:image" content="https://jared-wallace.com/static/og-fallback.png">
+{{end}}
+
+{{define "content"}}
+<div class="container container-narrow">
+  <article class="post-page">
+    <h1 class="post-title">{{.Post.Title}}</h1>
+    <div class="post-meta">
+      <time>{{formatDate .Post.CreatedAt}}</time> &middot; {{.ReadingTime}} min read
+    </div>
+
+    {{if .ToC}}
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-header">
+        <span class="toc-label">Contents</span>
+        <button class="toc-toggle" id="toc-toggle">[ hide ]</button>
+      </div>
+      <ol class="toc-list" id="toc-list">
+        {{range .ToC}}
+        <li class="toc-item toc-level-{{.Level}}"><a href="#{{.ID}}">{{.Text}}</a></li>
+        {{end}}
+      </ol>
+    </nav>
+    {{end}}
+
+    <hr class="rope-divider">
+
+    <div class="post-body">{{.RenderedHTML}}</div>
+
+    <div class="reaction-bar">
+      <button class="reaction-btn" id="reaction-btn" data-slug="{{.Post.Slug}}" aria-label="Give a thumbs-up">
+        <span class="reaction-icon">&#128077;</span>
+        <span class="reaction-count" id="reaction-count">{{.ReactionCount}}</span>
+      </button>
+    </div>
+  </article>
+</div>
+{{end}}

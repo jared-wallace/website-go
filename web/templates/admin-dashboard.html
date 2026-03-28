@@ -1,0 +1,93 @@
+{{define "title"}}Dashboard{{end}}
+{{define "content"}}
+<main class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Posts</h1>
+    <a href="/admin/posts/new" class="cta-button new-post-btn">New Post</a>
+  </div>
+
+  <div class="filter-tabs">
+    <a href="/admin/posts" class="filter-tab{{if eq .Filter ""}} active{{end}}">All</a>
+    <a href="/admin/posts?filter=published" class="filter-tab{{if eq .Filter "published"}} active{{end}}">Published</a>
+    <a href="/admin/posts?filter=drafts" class="filter-tab{{if eq .Filter "drafts"}} active{{end}}">Drafts</a>
+    <a href="/admin/posts?filter=deleted" class="filter-tab{{if eq .Filter "deleted"}} active{{end}}">Deleted</a>
+  </div>
+
+  {{if .Posts}}
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{range .Posts}}
+      <tr>
+        <td class="post-title-cell">
+          <a href="/admin/posts/{{.ID}}/edit" class="post-title-link">{{.Title}}</a>
+        </td>
+        <td>
+          {{if .DeletedAt}}
+            <span class="status-pill status-deleted">Deleted</span>
+          {{else if .Published}}
+            <span class="status-pill status-published">Published</span>
+          {{else}}
+            <span class="status-pill status-draft">Draft</span>
+          {{end}}
+        </td>
+        <td class="date-cell">{{formatDate .CreatedAt}}</td>
+        <td class="actions-cell">
+          {{if .DeletedAt}}
+            <form method="POST" action="/admin/posts/{{.ID}}/restore" class="inline-form">
+              <button type="submit" class="action-link">Restore</button>
+            </form>
+          {{else}}
+            <a href="/admin/posts/{{.ID}}/edit" class="action-link">Edit</a>
+            {{if .Published}}
+              <form method="POST" action="/admin/posts/{{.ID}}/unpublish" class="inline-form">
+                <button type="submit" class="action-link">Unpublish</button>
+              </form>
+            {{else}}
+              <form method="POST" action="/admin/posts/{{.ID}}/publish" class="inline-form">
+                <button type="submit" class="action-link">Publish</button>
+              </form>
+            {{end}}
+            <button type="button" class="action-link action-link--danger" onclick="document.getElementById('delete-dialog-{{.ID}}').showModal()">Delete</button>
+            <dialog id="delete-dialog-{{.ID}}" class="confirm-dialog">
+              <h2>Delete this post?</h2>
+              <p>It will be moved to the Deleted tab and can be restored.</p>
+              <div class="dialog-actions">
+                <button type="button" class="cta-button cta-button--secondary" onclick="this.closest('dialog').close()">Keep Post</button>
+                <form method="POST" action="/admin/posts/{{.ID}}/delete" class="inline-form">
+                  <button type="submit" class="cta-button cta-button--danger">Confirm Delete</button>
+                </form>
+              </div>
+            </dialog>
+          {{end}}
+        </td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+  {{else}}
+    <div class="empty-state">
+      {{if eq .Filter "published"}}
+        <h2>No published posts.</h2>
+        <p>Publish a draft to see it here.</p>
+      {{else if eq .Filter "drafts"}}
+        <h2>No drafts.</h2>
+        <p>New posts start here.</p>
+      {{else if eq .Filter "deleted"}}
+        <h2>Nothing deleted.</h2>
+        <p>Soft-deleted posts appear here for recovery.</p>
+      {{else}}
+        <h2>Nothing here yet.</h2>
+        <p>Create your first post to get started.</p>
+      {{end}}
+    </div>
+  {{end}}
+</main>
+{{end}}

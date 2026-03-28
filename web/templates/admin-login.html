@@ -1,0 +1,20 @@
+{{define "title"}}Sign In{{end}}
+{{define "nav"}}{{end}}
+{{define "content"}}
+<main class="admin-login">
+  <h1 class="site-name">The Log</h1>
+  <p class="login-subtitle">Back Office</p>
+  <form method="POST" action="/admin/login" class="login-form">
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="email" value="{{.Email}}">
+    </div>
+    <div class="form-field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required autocomplete="current-password">
+    </div>
+    {{if .Error}}<p class="flash-error" role="alert">{{.Error}}</p>{{end}}
+    <button type="submit" class="cta-button">Sign In</button>
+  </form>
+</main>
+{{end}}

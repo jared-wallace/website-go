@@ -13,6 +13,7 @@ type Post struct {
 	Slug         string
 	Body         string
 	RenderedHTML string
+	Tags         string
 	ID           int64
 	Published    bool
 }
