@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 Phase: 11
 Plan: Not started
 Status: Phase complete — ready for verification
-Last activity: 2026-03-28
+Last activity: 2026-03-28 - Completed quick task 260328-i3b: Rework the about page with user input
 
 Progress: [█████░░░░░] 50%
 
