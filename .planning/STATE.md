@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 5 UI-SPEC approved
-last_updated: "2026-03-27T22:32:56.287Z"
-last_activity: 2026-03-27
+status: executing
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-28T00:31:09Z"
+last_activity: 2026-03-28 -- Completed 05-01 image upload plan
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 13
-  completed_plans: 11
-  percent: 0
+  completed_plans: 12
+  percent: 80
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
-Status: Phase complete — ready for verification
-Last activity: 2026-03-27
+Phase: 05 (api-images) — EXECUTING
+Plan: 2 of 2
+Status: Executing Phase 05
+Last activity: 2026-03-28 -- Completed 05-01 image upload plan
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-distribution P01 | 8min | 2 tasks | 6 files |
 | Phase 04-distribution P02 | 3min | 2 tasks | 6 files |
 | Phase 04-distribution P03 | 4min | 2 tasks | 13 files |
+| Phase 05-api-images P01 | 4min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,9 @@ Recent decisions affecting current work:
 - [Phase 04-02]: list.html OG meta override is explicit duplicate of base defaults — intentional independence from future base.html changes
 - [Phase 04-distribution]: IP hashed via SHA-256 before storage in reactions table — never store raw IP; RowsAffected()==0 from ON CONFLICT DO NOTHING detects duplicate without error
 - [Phase 04-distribution]: Reaction JS kept inside existing IIFE in main.js; Service exposes AddReaction/CountReactions as thin pass-throughs to maintain handler-to-service dependency pattern
+- [Phase 05-01]: MaxBytesReader used instead of ParseMultipartForm maxMemory for hard 5MB upload limit enforcement
+- [Phase 05-01]: APIToken config field added alongside ImageDir to avoid re-modifying config.go in Plan 02
+- [Phase 05-01]: SetImageDir test helper on AdminHandler for t.TempDir injection in upload tests
 
 ### Pending Todos
 
@@ -111,6 +115,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T22:32:56.285Z
-Stopped at: Phase 5 UI-SPEC approved
-Resume file: .planning/phases/05-api-images/05-UI-SPEC.md
+Last session: 2026-03-28T00:31:09Z
+Stopped at: Completed 05-01-PLAN.md (image upload)
+Resume file: .planning/phases/05-api-images/05-02-PLAN.md

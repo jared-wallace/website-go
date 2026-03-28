@@ -103,7 +103,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 05-01-PLAN.md -- Image upload: MIME validation handler, editor UI, /images/ file server
+- [x] 05-01-PLAN.md -- Image upload: MIME validation handler, editor UI, /images/ file server
 - [ ] 05-02-PLAN.md -- API push: bearer token middleware, UpsertBySlug, POST /api/push endpoint
 
 ### Phase 6: Docker + Deployment
