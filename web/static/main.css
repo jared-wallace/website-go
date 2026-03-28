@@ -537,6 +537,25 @@ body {
 
 .site-footer p {
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rss-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: 8px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.rss-link:hover {
+  color: var(--color-accent);
 }
 
 /* --- Reaction bar --- */
