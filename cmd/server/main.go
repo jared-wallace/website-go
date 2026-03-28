@@ -126,6 +126,9 @@ func main() {
 	apiH := apihandler.New(svc, renderer)
 	requireToken := middleware.RequireAPIToken(cfg.APIToken)
 	blogMux.Handle("POST /api/push", requireToken(http.HandlerFunc(apiH.PushPost)))
+	blogMux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
 
 	blogMux.HandleFunc("GET /{path...}", blog.NotFound) // Catch-all 404
 
