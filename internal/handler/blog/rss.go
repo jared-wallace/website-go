@@ -88,7 +88,7 @@ func buildRSSFeed(posts []model.Post) RSSFeed {
 	return RSSFeed{
 		Version: "2.0",
 		Channel: RSSChannel{
-			Title:          "The Log",
+			Title:          "The Wild Meridian",
 			Link:           baseURL,
 			Description:    "dispatches from the deep end",
 			Language:       "en-us",
