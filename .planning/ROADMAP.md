@@ -52,7 +52,7 @@ Plans:
   3. The about page shares the full nautical chrome: header, footer, dark mode toggle, and consistent typography
 **Plans:** 1 plan
 Plans:
-- [ ] 08-01-PLAN.md -- About page: content, template, handler, nav link, CSS, sitemap
+- [x] 08-01-PLAN.md -- About page: content, template, handler, nav link, CSS, sitemap
 
 ## Progress
 

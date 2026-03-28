@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: The Wild Meridian
-status: Milestone v1.0 shipped
-stopped_at: Phase 8 context gathered
-last_updated: "2026-03-28T08:33:42.841Z"
+status: verifying
+stopped_at: Completed 08-01-PLAN.md
+last_updated: "2026-03-28T09:11:41.325Z"
 last_activity: 2026-03-28
 progress:
   total_phases: 2
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
+  completed_phases: 2
+  total_plans: 2
+  completed_plans: 2
   percent: 100
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A reader visits jared-wallace.com and reads well-rendered markdown blog posts with images in a distinctive, memorable design.
-**Current focus:** Planning next milestone
+**Current focus:** Phase 08 — about-page
 
 ## Current Position
 
-Phase: 8
-Plan: Not started
-Status: Milestone v1.0 shipped
+Phase: 08 (about-page) — EXECUTING
+Plan: 1 of 1
+Status: Phase complete — ready for verification
 Last activity: 2026-03-28
 
 Progress: [##########] 100%
@@ -53,6 +53,7 @@ Progress: [##########] 100%
 | 05-api-images P02 | 1 | 4min | 4min | 8 |
 | 06-docker P02 | 1 | 2min | 2min | 2 |
 | Phase 07-rebrand-navigation P01 | 2min | 2 tasks | 10 files |
+| Phase 08-about-page P01 | 3min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -61,6 +62,8 @@ Progress: [##########] 100%
 See PROJECT.md Key Decisions table (updated at v1.0 milestone).
 
 - [Phase 07-rebrand-navigation]: Added display:flex to .site-footer p for RSS icon alignment alongside copyright text
+- [Phase 08-about-page]: Dedicated content/ package with go:embed string directive for about.md — cleaner separation from web assets
+- [Phase 08-about-page]: Renderer created per-request in AboutPage — simpler than modifying BlogHandler.New() signature for a single static page
 
 ### Pending Todos
 
@@ -80,6 +83,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-28T08:33:42.839Z
-Stopped at: Phase 8 context gathered
-Resume file: .planning/phases/08-about-page/08-CONTEXT.md
+Last session: 2026-03-28T09:11:41.323Z
+Stopped at: Completed 08-01-PLAN.md
+Resume file: None
