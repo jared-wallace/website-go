@@ -11,14 +11,14 @@ Requirements for the Shore Leave Polish milestone. Each maps to roadmap phases.
 
 - [ ] **ATMO-01**: Site displays a subtle grain/noise texture overlay on the page background in both light and dark modes
 - [ ] **ATMO-02**: Post cards display a warm two-layer resting shadow that provides depth context for the existing hover lift
-- [ ] **ATMO-03**: Rope dividers render as an inline SVG twisted rope pattern replacing the current dashed border
+- [x] **ATMO-03**: Rope dividers render as an inline SVG twisted rope pattern replacing the current dashed border
 
 ### Navigation & Footer
 
-- [ ] **NAV-01**: About link is removed from the navigation bar and appears in the footer
-- [ ] **NAV-02**: Footer displays a two-section layout with navigation links and copyright/utility area
-- [ ] **NAV-03**: Footer includes a short nautical personality phrase matching the site's voice
-- [ ] **NAV-04**: Footer navigation has proper `aria-label` and primary nav gets a matching label for landmark disambiguation
+- [x] **NAV-01**: About link is removed from the navigation bar and appears in the footer
+- [x] **NAV-02**: Footer displays a two-section layout with navigation links and copyright/utility area
+- [x] **NAV-03**: Footer includes a short nautical personality phrase matching the site's voice
+- [x] **NAV-04**: Footer navigation has proper `aria-label` and primary nav gets a matching label for landmark disambiguation
 
 ### Animations & Transitions
 
@@ -32,7 +32,7 @@ Requirements for the Shore Leave Polish milestone. Each maps to roadmap phases.
 
 - [ ] **TYPO-01**: Tag pills display with a filled semi-transparent background visible in both light and dark modes
 - [ ] **TYPO-02**: Reaction button uses `border-radius: 4px` matching the site's design system
-- [ ] **TYPO-03**: List page displays a hero heading/tagline area above the post card grid
+- [x] **TYPO-03**: List page displays a hero heading/tagline area above the post card grid
 
 ### Housekeeping
 
@@ -67,11 +67,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | ATMO-01 | Phase 9 | Pending |
 | ATMO-02 | Phase 9 | Pending |
-| ATMO-03 | Phase 11 | Pending |
-| NAV-01 | Phase 11 | Pending |
-| NAV-02 | Phase 11 | Pending |
-| NAV-03 | Phase 11 | Pending |
-| NAV-04 | Phase 11 | Pending |
+| ATMO-03 | Phase 11 | Complete |
+| NAV-01 | Phase 11 | Complete |
+| NAV-02 | Phase 11 | Complete |
+| NAV-03 | Phase 11 | Complete |
+| NAV-04 | Phase 11 | Complete |
 | ANIM-01 | Phase 10 | Pending |
 | ANIM-02 | Phase 10 | Pending |
 | ANIM-03 | Phase 10 | Pending |
@@ -79,7 +79,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ANIM-05 | Phase 10 | Pending |
 | TYPO-01 | Phase 9 | Pending |
 | TYPO-02 | Phase 9 | Pending |
-| TYPO-03 | Phase 11 | Pending |
+| TYPO-03 | Phase 11 | Complete |
 | HOUSE-01 | Phase 9 | Pending |
 
 **Coverage:**

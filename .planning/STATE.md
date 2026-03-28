@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: completed
-stopped_at: Completed 11-01-PLAN.md
-last_updated: "2026-03-28T17:30:04.169Z"
-last_activity: 2026-03-28 -- Plan 11-01 completed (RED tests)
+milestone: v1.2
+milestone_name: Shore Leave Polish
+status: verifying
+stopped_at: Completed 11-02-PLAN.md
+last_updated: "2026-03-28T17:36:08.561Z"
+last_activity: 2026-03-28
 progress:
   total_phases: 3
-  completed_phases: 2
-  total_plans: 2
-  completed_plans: 3
+  completed_phases: 3
+  total_plans: 4
+  completed_plans: 4
   percent: 50
 ---
 
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 
 Phase: 11 (template-changes) — EXECUTING
 Plan: 2 of 2
-Status: Completed Plan 01, proceeding to Plan 02
-Last activity: 2026-03-28 -- Plan 11-01 completed (RED tests)
+Status: Phase complete — ready for verification
+Last activity: 2026-03-28
 
 Progress: [█████░░░░░] 50%
 
@@ -55,6 +55,7 @@ Progress: [█████░░░░░] 50%
 | Phase 07-rebrand-navigation P01 | 2min | 2 tasks | 10 files |
 | Phase 08-about-page P01 | 3min | 2 tasks | 10 files |
 | Phase 11 P01 | 1min | 1 tasks | 1 files |
+| Phase 11-template-changes P02 | 3min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,7 @@ Progress: [█████░░░░░] 50%
 See PROJECT.md Key Decisions table (updated at v1.1 milestone).
 
 - [Phase 11]: Used strings.Contains assertions for template tests — matches existing handler_test.go pattern, avoids HTML parser dependency
+- [Phase 11-template-changes]: Footer About link uses footer-link+nav-link classes to disambiguate from nav-bar pattern
 
 ### Pending Todos
 
@@ -82,6 +84,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-28T17:30:04.167Z
-Stopped at: Completed 11-01-PLAN.md
+Last session: 2026-03-28T17:36:08.559Z
+Stopped at: Completed 11-02-PLAN.md
 Resume file: None
