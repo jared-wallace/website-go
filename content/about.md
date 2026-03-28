@@ -26,8 +26,7 @@ As I alluded to earlier, I have been heavily using Claude Code this year, with m
 
 ## The Wild Meridian
 
-Every good bar needs a name, and every good blog needs one too. The name comes from the idea of a point you navigate toward — somewhere out past the known chart. Dispatches from the deep end, as it were. Pull up a stool, order something with salt on the rim, and stay a while.
-
+Every good bar needs a name, and every good blog needs one too. Mine comes from Jimmy Buffett's classic tune, The Pascagoula Run. Pull up a stool, order something with salt on the rim, and stay a while.
 ---
 
 *Thanks for reading.*
