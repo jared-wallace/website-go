@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Shore Leave Polish
-status: Ready to plan
-stopped_at: null
-last_updated: "2026-03-28"
-last_activity: 2026-03-28
+status: planning
+stopped_at: Phase 9 context gathered
+last_updated: "2026-03-28T10:53:11.283Z"
+last_activity: 2026-03-28 — Roadmap created for v1.2 Shore Leave Polish
 progress:
   total_phases: 3
   completed_phases: 0
@@ -62,6 +62,7 @@ Progress: [░░░░░░░░░░] 0%
 See PROJECT.md Key Decisions table (updated at v1.1 milestone).
 
 Recent decisions affecting v1.2:
+
 - CSS changes land before template changes (classes must exist before markup uses them)
 - Dark mode transitions gated behind `.theme-ready` JS class to prevent page-load flash
 - `prefers-reduced-motion` guard ships alongside new animations AND fixes existing `reaction-bounce`
@@ -87,6 +88,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-28
-Stopped at: v1.2 roadmap created — 3 phases (9-11), 16 requirements mapped, ready to plan Phase 9
-Resume file: None
+Last session: 2026-03-28T10:53:11.281Z
+Stopped at: Phase 9 context gathered
+Resume file: .planning/phases/09-css-foundation/09-CONTEXT.md
