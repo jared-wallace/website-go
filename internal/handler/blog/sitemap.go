@@ -29,12 +29,18 @@ type SitemapURL struct {
 
 // buildSitemap constructs a URLSet from all published posts, prepending the homepage.
 func buildSitemap(posts []model.Post) URLSet {
-	urls := make([]SitemapURL, 0, len(posts)+1)
+	urls := make([]SitemapURL, 0, len(posts)+2)
 	// Homepage is always first and highest priority (D-14)
 	urls = append(urls, SitemapURL{
 		Loc:        baseURL + "/",
 		ChangeFreq: "daily",
 		Priority:   "1.0",
+	})
+	// About page — static, infrequently updated
+	urls = append(urls, SitemapURL{
+		Loc:        baseURL + "/about",
+		ChangeFreq: "monthly",
+		Priority:   "0.5",
 	})
 	for _, p := range posts {
 		urls = append(urls, SitemapURL{
