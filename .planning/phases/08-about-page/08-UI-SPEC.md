@@ -57,13 +57,13 @@ Exceptions:
 |------|------|--------|-------------|-------------|
 | Body | 18px | 400 (regular) | 1.7 | Lora, Georgia, serif |
 | Label / Meta | 14px | 400 (regular) | 1.4 | Lora, Georgia, serif |
-| Heading (h2/h3 in post body) | 28px / 22px | 700 (bold) | 1.2 | Playfair Display, Times New Roman, serif |
+| Heading (h2 in post body) | 28px | 700 (bold) | 1.2 | Playfair Display, Times New Roman, serif |
 | Display (page title, site name) | 36px | 700 (bold) | 1.15 | Playfair Display, Times New Roman, serif |
 
 **About page heading rules:**
 - Page-level `<h1>` ("About") rendered at 36px / weight 700 / Playfair Display / line-height 1.15 — matches `.site-name` scale.
 - Section headings inside the markdown body (`<h2>`) rendered at 28px / weight 700 / line-height 1.2 — inherits `.post-body h2` rule.
-- Sub-headings (`<h3>`) rendered at 22px / weight 700 / line-height 1.2 — inherits `.post-body h3` rule.
+- Sub-headings (`<h3>`) rendered at 18px / weight 700 / line-height 1.2 — same size as body text, distinguished by weight alone.
 
 **Source:** `body`, `.site-name`, `.post-body h2`, `.post-body h3` rules in `web/static/main.css`.
 
@@ -146,6 +146,8 @@ On mobile (`max-width: 767px`): the tagline already hides. The About link must r
 ---
 
 ## Page Structure
+
+**Primary focal point:** `<h1 class="about-title">` — 36px Playfair Display, first element in the content area.
 
 The about page template follows the per-page template set pattern from `post.html`:
 
