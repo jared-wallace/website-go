@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: The Wild Meridian
-status: Milestone v1.1 shipped
-stopped_at: v1.1 The Wild Meridian complete
-last_updated: "2026-03-28T09:19:14.753Z"
+milestone: v1.2
+milestone_name: Shore Leave Polish
+status: Defining requirements
+stopped_at: null
+last_updated: "2026-03-28"
 last_activity: 2026-03-28
 progress:
-  total_phases: 2
-  completed_phases: 2
-  total_plans: 2
-  completed_plans: 2
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -21,16 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A reader visits jared-wallace.com and reads well-rendered markdown blog posts with images in a distinctive, memorable design.
-**Current focus:** Planning next milestone
+**Current focus:** Defining requirements for v1.2
 
 ## Current Position
 
-Phase: Complete
-Plan: All shipped
-Status: Milestone v1.1 shipped
-Last activity: 2026-03-28
-
-Progress: [##########] 100%
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-28 — Milestone v1.2 started
 
 ## Performance Metrics
 

@@ -39,9 +39,32 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 - Discreet RSS icon in footer with autodiscovery link tag -- v1.1
 - About page from embedded markdown with nautical chrome and nav link -- v1.1
 
+## Current Milestone: v1.2 Shore Leave Polish
+
+**Goal:** Elevate the site's visual cohesion and nautical atmosphere through CSS/template-level design polish — no backend changes.
+
+**Target features:**
+- Move About link to footer and expand footer into a proper navigation/personality block
+- Add background texture (CSS noise/grain) for weathered atmosphere
+- Improve post card depth, tag visibility, and rope divider as a design motif
+- Add dark mode color transitions and subtle page entry animations
+- Fix reaction button radius consistency and add homepage heading
+- Fix stale "The Log" CSS comment
+
 ### Active
 
-(No active requirements -- planning next milestone)
+- [ ] About link relocated to footer
+- [ ] Footer expanded with navigation and personality
+- [ ] Background texture/grain for weathered atmosphere
+- [ ] Post card depth and visual weight improvements
+- [ ] Rope divider strengthened as design motif
+- [ ] Dark mode color transitions
+- [ ] Tag pill visibility improvements
+- [ ] Page entry animations (fade-in, card stagger)
+- [ ] Reaction button radius consistency (pill → 4px)
+- [ ] Homepage heading/hero area
+- [ ] CSS comment rebrand fix
+- [ ] Mobile nav cleanup (resolved by About move)
 
 ### Out of Scope
 
@@ -114,4 +137,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after v1.1 milestone completion*
+*Last updated: 2026-03-28 after v1.2 milestone start*
