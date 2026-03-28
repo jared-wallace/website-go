@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Shore Leave Polish
-status: Defining requirements
+status: Ready to plan
 stopped_at: null
 last_updated: "2026-03-28"
 last_activity: 2026-03-28
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,14 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A reader visits jared-wallace.com and reads well-rendered markdown blog posts with images in a distinctive, memorable design.
-**Current focus:** Defining requirements for v1.2
+**Current focus:** Phase 9 — CSS Foundation (ready to plan)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 9 of 11 (CSS Foundation)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-03-28 — Milestone v1.2 started
+Status: Ready to plan
+Last activity: 2026-03-28 — Roadmap created for v1.2 Shore Leave Polish
+
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
@@ -59,6 +61,13 @@ Last activity: 2026-03-28 — Milestone v1.2 started
 
 See PROJECT.md Key Decisions table (updated at v1.1 milestone).
 
+Recent decisions affecting v1.2:
+- CSS changes land before template changes (classes must exist before markup uses them)
+- Dark mode transitions gated behind `.theme-ready` JS class to prevent page-load flash
+- `prefers-reduced-motion` guard ships alongside new animations AND fixes existing `reaction-bounce`
+- Background grain uses `position: fixed` pseudo-element (never `background-attachment: fixed`) for mobile scroll performance
+- No new CSS files for v1.2 — all changes appended to `main.css` with labeled block comments
+
 ### Pending Todos
 
 None.
@@ -67,6 +76,7 @@ None.
 
 - ASG must have `max_size = 1` and `delete_on_termination = false` before any production data is written
 - Postgres EBS bind-mount requires `chown 999:999` on host before first `make deploy`
+- Grain texture mobile performance: verify on physical low-end Android device before shipping Phase 9
 
 ### Quick Tasks Completed
 
@@ -78,5 +88,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-28
-Stopped at: v1.1 The Wild Meridian shipped
+Stopped at: v1.2 roadmap created — 3 phases (9-11), 16 requirements mapped, ready to plan Phase 9
 Resume file: None

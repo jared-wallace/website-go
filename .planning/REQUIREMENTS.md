@@ -65,28 +65,28 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ATMO-01 | TBD | Pending |
-| ATMO-02 | TBD | Pending |
-| ATMO-03 | TBD | Pending |
-| NAV-01 | TBD | Pending |
-| NAV-02 | TBD | Pending |
-| NAV-03 | TBD | Pending |
-| NAV-04 | TBD | Pending |
-| ANIM-01 | TBD | Pending |
-| ANIM-02 | TBD | Pending |
-| ANIM-03 | TBD | Pending |
-| ANIM-04 | TBD | Pending |
-| ANIM-05 | TBD | Pending |
-| TYPO-01 | TBD | Pending |
-| TYPO-02 | TBD | Pending |
-| TYPO-03 | TBD | Pending |
-| HOUSE-01 | TBD | Pending |
+| ATMO-01 | Phase 9 | Pending |
+| ATMO-02 | Phase 9 | Pending |
+| ATMO-03 | Phase 11 | Pending |
+| NAV-01 | Phase 11 | Pending |
+| NAV-02 | Phase 11 | Pending |
+| NAV-03 | Phase 11 | Pending |
+| NAV-04 | Phase 11 | Pending |
+| ANIM-01 | Phase 10 | Pending |
+| ANIM-02 | Phase 10 | Pending |
+| ANIM-03 | Phase 10 | Pending |
+| ANIM-04 | Phase 10 | Pending |
+| ANIM-05 | Phase 10 | Pending |
+| TYPO-01 | Phase 9 | Pending |
+| TYPO-02 | Phase 9 | Pending |
+| TYPO-03 | Phase 11 | Pending |
+| HOUSE-01 | Phase 9 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 16 total
-- Mapped to phases: 0
-- Unmapped: 16 ⚠️
+- Mapped to phases: 16
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-28 after initial definition*
+*Last updated: 2026-03-28 after roadmap creation*
