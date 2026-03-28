@@ -1,0 +1,15 @@
+.env
+.env.local
+.env.example
+bin/
+.git/
+.planning/
+.claire/
+.claude/
+*.md
+docker-compose*.yml
+Makefile
+.air.toml
+tmp/
+.idea/
+.vscode/
