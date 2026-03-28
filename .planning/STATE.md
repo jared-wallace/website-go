@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Shore Leave Polish
-status: complete
-stopped_at: Milestone v1.2 complete
-last_updated: "2026-03-28"
+status: verifying
+stopped_at: Completed 11-02-PLAN.md
+last_updated: "2026-03-28T18:09:00.000Z"
 last_activity: 2026-03-28
 progress:
   total_phases: 3
   completed_phases: 3
   total_plans: 4
   completed_plans: 4
-  percent: 100
+  percent: 50
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 
 ## Current Position
 
-Phase: 11 (final)
-Plan: Complete
-Status: Milestone v1.2 shipped
+Phase: 11
+Plan: Not started
+Status: Phase complete — ready for verification
 Last activity: 2026-03-28
 
-Progress: [██████████] 100%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -81,6 +81,7 @@ None.
 |---|-------------|------|--------|-----------|
 | 260327-vu6 | Create comprehensive README with dev setup and deployment instructions | 2026-03-28 | 227e33f | [260327-vu6-create-comprehensive-readme-with-dev-set](./quick/260327-vu6-create-comprehensive-readme-with-dev-set/) |
 | 260327-wm3 | Fix all 31 golangci-lint CI failures (errcheck, gofmt, gosec, govet) | 2026-03-28 | e1ddd4f | [260327-wm3-fix-ci-linter-failures](./quick/260327-wm3-fix-ci-linter-failures/) |
+| 260328-i3b | Rework about page with user-provided content (Who/What/When/Where/Why/How) | 2026-03-28 | 2503fea | [260328-i3b-rework-the-about-page-with-user-input](./quick/260328-i3b-rework-the-about-page-with-user-input/) |
 
 ## Session Continuity
 
