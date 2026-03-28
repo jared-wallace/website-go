@@ -4,17 +4,13 @@ services:
     restart: unless-stopped
     env_file:
       - /var/www/html/.env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       # EBS bind-mount. Host dir MUST exist with correct ownership:
       #   sudo mkdir -p /var/www/html/pgdata
       #   sudo chown 999:999 /var/www/html/pgdata
       - /var/www/html/pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
       interval: 5s
       timeout: 5s
       retries: 5
