@@ -67,14 +67,13 @@ make dev-up
 
 # Configure environment
 cp .env.example .env.local
-# Edit .env.local — set DATABASE_URL to:
-#   postgres://website:website@localhost:5432/website_dev?sslmode=disable
+# Edit .env.local — at minimum, set:
+#   DATABASE_URL=postgres://website:website@localhost:5432/website_dev?sslmode=disable
 
-# Run migrations
-DATABASE_URL="postgres://website:website@localhost:5432/website_dev?sslmode=disable" make migrate
-
-# Start dev server with hot reload on :8080
-DATABASE_URL="postgres://website:website@localhost:5432/website_dev?sslmode=disable" make dev
+# Source your env and run migrations + dev server
+export $(grep -v '^#' .env.local | xargs)
+make migrate
+make dev    # hot reload on :8080
 ```
 
 Visit http://localhost:8080 for the public blog.
@@ -187,29 +186,25 @@ Route53 (jared-wallace.com)
 
 Infrastructure is managed via Terraform in the `../aws-infra` directory (S3 backend, `us-east-1`).
 
-### Deploy Steps (on EC2)
-
-```bash
-ssh ec2-user@<instance-ip>
-cd /var/www/html/app
-
-# First time only:
-# 1. Create /var/www/html/.env from .env.example with production values
-# 2. chown 999:999 /var/www/html/postgres-data  (Postgres container UID)
-
-make deploy   # git pull, docker compose build --no-cache, docker compose up -d
-make logs     # watch output
-make status   # verify containers are healthy
-```
-
 ### First-Time Infrastructure Setup
 
 1. `cd ../aws-infra && terraform init && terraform apply`
 2. Create an EC2 key pair in the AWS console
-3. SSH to the instance
+3. SSH to the new instance
 4. Clone the repo to `/var/www/html/app`
-5. Create `/var/www/html/.env` with production values
-6. `make deploy`
+5. Create `/var/www/html/.env` from `.env.example` with production values
+6. `chown 999:999 /var/www/html/pgdata` (Postgres container UID)
+7. `make deploy`
+
+### Subsequent Deploys (on EC2)
+
+```bash
+ssh ec2-user@<instance-ip>
+cd /var/www/html/app
+make deploy   # git pull, docker compose build --no-cache, docker compose up -d
+make logs     # watch output
+make status   # verify containers are healthy
+```
 
 ## Database
 

@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 Phase: Complete
 Plan: Complete
 Status: Milestone v1.0 shipped
-Last activity: 2026-03-28
+Last activity: 2026-03-28 - Completed quick task 260327-vu6: Create comprehensive README
 
 Progress: [##########] 100%
 
@@ -67,6 +67,12 @@ None.
 
 - ASG must have `max_size = 1` and `delete_on_termination = false` before any production data is written
 - Postgres EBS bind-mount requires `chown 999:999` on host before first `make deploy`
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260327-vu6 | Create comprehensive README with dev setup and deployment instructions | 2026-03-28 | 227e33f | [260327-vu6-create-comprehensive-readme-with-dev-set](./quick/260327-vu6-create-comprehensive-readme-with-dev-set/) |
 
 ## Session Continuity
 
