@@ -99,4 +99,4 @@ Plans:
 | 8. About Page | v1.1 | 1/1 | Complete | 2026-03-28 |
 | 9. CSS Foundation | v1.2 | 1/1 | Complete   | 2026-03-28 |
 | 10. Animations & Transitions | v1.2 | 1/1 | Complete    | 2026-03-28 |
-| 11. Template Changes | v1.2 | 2/2 | Complete   | 2026-03-28 |
+| 11. Template Changes | v1.2 | 2/2 | Complete    | 2026-03-28 |
