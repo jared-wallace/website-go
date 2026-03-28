@@ -10,8 +10,8 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 ## Current State
 
-**Shipped:** v1.0 MVP (2026-03-28)
-**Codebase:** ~29,400 lines of Go across 6 phases
+**Shipped:** v1.0 MVP (2026-03-28), v1.1 The Wild Meridian (2026-03-28)
+**Codebase:** ~29,400 lines of Go across 8 phases
 **Tech stack:** Go 1.26, pgx/v5, goldmark+bluemonday, html/template, SCS sessions, goose migrations
 **Deployment:** Multi-stage Docker (9.9MB alpine), docker-compose with Postgres sidecar, EBS bind-mounts
 
@@ -47,7 +47,11 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 ### Active
 
-- [ ] About page rendered from static markdown file
+(No active requirements — milestone v1.1 complete)
+
+### Validated in Phase 08
+
+- [x] About page rendered from static markdown file (personal bio, nautical tone, nav link, sitemap) -- Phase 08
 
 ### Validated in Phase 07
 
@@ -125,4 +129,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 07 completion*
+*Last updated: 2026-03-28 after Phase 08 completion*
