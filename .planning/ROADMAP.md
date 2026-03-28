@@ -79,7 +79,10 @@ Plans:
   4. Both the primary nav and the footer nav have distinct `aria-label` values so screen readers can distinguish landmarks
   5. Rope dividers render as a twisted rope SVG pattern rather than a dashed CSS border
   6. The list page displays a hero heading and tagline above the post card grid
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 11-01-PLAN.md — Wave 0 test scaffolds for all six Phase 11 requirements
+- [ ] 11-02-PLAN.md — Nav restructure, footer rebuild, rope SVG, list hero, and Phase 11 CSS
 **UI hint**: yes
 
 ## Progress
@@ -96,4 +99,4 @@ Plans:
 | 8. About Page | v1.1 | 1/1 | Complete | 2026-03-28 |
 | 9. CSS Foundation | v1.2 | 1/1 | Complete   | 2026-03-28 |
 | 10. Animations & Transitions | v1.2 | 1/1 | Complete    | 2026-03-28 |
-| 11. Template Changes | v1.2 | 0/? | Not started | - |
+| 11. Template Changes | v1.2 | 0/2 | Not started | - |
