@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: The Wild Meridian
-status: verifying
-stopped_at: Completed 08-01-PLAN.md
-last_updated: "2026-03-28T09:14:22.604Z"
+status: Milestone v1.1 shipped
+stopped_at: v1.1 The Wild Meridian complete
+last_updated: "2026-03-28T09:19:14.753Z"
 last_activity: 2026-03-28
 progress:
   total_phases: 2
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A reader visits jared-wallace.com and reads well-rendered markdown blog posts with images in a distinctive, memorable design.
-**Current focus:** Phase 08 — about-page
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 08
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: Complete
+Plan: All shipped
+Status: Milestone v1.1 shipped
 Last activity: 2026-03-28
 
 Progress: [##########] 100%
@@ -59,11 +59,7 @@ Progress: [##########] 100%
 
 ### Decisions
 
-See PROJECT.md Key Decisions table (updated at v1.0 milestone).
-
-- [Phase 07-rebrand-navigation]: Added display:flex to .site-footer p for RSS icon alignment alongside copyright text
-- [Phase 08-about-page]: Dedicated content/ package with go:embed string directive for about.md — cleaner separation from web assets
-- [Phase 08-about-page]: Renderer created per-request in AboutPage — simpler than modifying BlogHandler.New() signature for a single static page
+See PROJECT.md Key Decisions table (updated at v1.1 milestone).
 
 ### Pending Todos
 
@@ -83,6 +79,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-28T09:11:41.323Z
-Stopped at: Completed 08-01-PLAN.md
+Last session: 2026-03-28
+Stopped at: v1.1 The Wild Meridian shipped
 Resume file: None

@@ -43,6 +43,40 @@
 - Model mix: primarily opus for planning/execution, sonnet for verification/integration checks
 - Notable: 6 phases completed in ~3 days of development time
 
+## Milestone: v1.1 -- The Wild Meridian
+
+**Shipped:** 2026-03-28
+**Phases:** 2 | **Plans:** 2 | **Timeline:** ~1 hour
+
+### What Was Built
+- Full rebrand from "The Log" to "The Wild Meridian" across all public surfaces (header, RSS, OG, sitemap, admin)
+- Discreet RSS broadcast icon in footer with 44px touch target and autodiscovery link tag
+- /about page with embedded markdown content, nautical template, nav link, and sitemap entry
+
+### What Worked
+- Small, focused milestone shipped fast -- 2 phases, 2 plans, done in an hour
+- go:embed string directive for about.md (dedicated content/ package) was cleaner than embedding under web/
+- Phase 8 executor agent completed all work autonomously with zero intervention
+- Verification caught the stale REQUIREMENTS.md traceability table (BRAND/NAV still "Pending" despite Phase 7 passing)
+
+### What Was Inefficient
+- SUMMARY.md one-liner frontmatter still empty -- same issue as v1.0, automated extraction returned garbage
+- ROADMAP.md progress table showed Phase 7 as "0/1 In progress" and Phase 8 as "0/1 Not started" despite both being complete on disk
+- REQUIREMENTS.md traceability not auto-updated for Phase 7 requirements (BRAND-01-04, NAV-01-02 stayed "Pending")
+
+### Patterns Established
+- Dedicated content/ package with go:embed for static pages -- scales to future static pages without touching web/
+- .nav-link CSS class pattern with 44px touch target, hover/focus-visible states -- reusable for future nav items
+
+### Key Lessons
+1. Milestone tooling (`summary-extract`) needs a fallback when one-liner frontmatter is empty -- extract from SUMMARY body instead
+2. For tiny milestones (2-3 phases), skip the audit -- overhead exceeds value when everything fits in one context window
+3. Progress table staleness is a recurring issue -- consider making gsd-tools update it atomically with plan completion
+
+### Cost Observations
+- Model mix: opus orchestrator, sonnet executor + verifier
+- Notable: entire milestone (plan + execute + verify + complete) in a single session
+
 ---
 
 ## Cross-Milestone Trends
@@ -52,14 +86,17 @@
 | Milestone | Commits | Phases | Key Change |
 |-----------|---------|--------|------------|
 | v1.0 | 125 | 6 | Initial process -- established GSD workflow patterns |
+| v1.1 | ~10 | 2 | Small milestone -- fast execution, same tooling gaps surfaced |
 
 ### Cumulative Quality
 
 | Milestone | Go LOC | Test Packages | Human Items Deferred |
 |-----------|--------|---------------|---------------------|
 | v1.0 | ~29,400 | 11 | 16 |
+| v1.1 | ~29,600 | 11 | 3 (visual checks) |
 
 ### Top Lessons (Verified Across Milestones)
 
 1. Minimal dependencies + stdlib-first approach keeps the codebase simple and the binary small (9.9MB)
 2. Render-on-write (not render-on-read) eliminates redundant markdown processing on every page view
+3. ROADMAP progress table and REQUIREMENTS traceability drift between phases -- needs atomic tooling updates (v1.0 + v1.1)

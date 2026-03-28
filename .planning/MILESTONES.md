@@ -1,5 +1,23 @@
 # Milestones
 
+## v1.1 The Wild Meridian (Shipped: 2026-03-28)
+
+**Phases completed:** 2 phases, 2 plans, 4 tasks
+**Files changed:** 18 files, +214/-19 lines
+**Timeline:** 2026-03-28 (same day as v1.0 — shipped in ~1 hour)
+
+**Key accomplishments:**
+
+- Rebranded all public surfaces from "The Log" to "The Wild Meridian" (header, RSS, OG meta, sitemap, admin panel)
+- Updated copyright footer to "2026 Jared Wallace" with dynamic year
+- Added discreet RSS broadcast icon in footer with 44px touch target and autodiscovery link tag
+- Added /about page with embedded markdown rendered through Goldmark, nautical template, and nav link
+- About page includes sitemap entry, focus-visible states, and mobile-responsive nav link
+
+**Archive:** [v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md) | [v1.1-REQUIREMENTS.md](milestones/v1.1-REQUIREMENTS.md)
+
+---
+
 ## v1.0 MVP (Shipped: 2026-03-28)
 
 **Phases completed:** 6 phases, 17 plans, 125 commits
@@ -16,6 +34,7 @@
 - Docker deployment: 9.9MB multi-stage alpine image with docker-compose Postgres sidecar and EBS bind-mounts
 
 **Known gaps (accepted as tech debt):**
+
 - BLOG-05 mobile responsive visual confirmation deferred to post-deploy
 - 16 human verification items requiring live server/browser (all implementations complete)
 - Nyquist validation not executed (6/6 phases draft)

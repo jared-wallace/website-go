@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A personal blog platform for jared-wallace.com, built as a Go web server with a "weathered beach bar" nautical design. The public blog lives at jared-wallace.com, with an admin panel at admin.jared-wallace.com for writing and managing markdown posts. Deployed as a Docker container behind an existing AWS ALB + Nginx reverse proxy.
+A personal blog platform for jared-wallace.com branded as "The Wild Meridian", built as a Go web server with a weathered nautical design. The public blog lives at jared-wallace.com, with an admin panel at admin.jared-wallace.com for writing and managing markdown posts. Deployed as a Docker container behind an existing AWS ALB + Nginx reverse proxy.
 
 ## Core Value
 
@@ -11,7 +11,7 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 ## Current State
 
 **Shipped:** v1.0 MVP (2026-03-28), v1.1 The Wild Meridian (2026-03-28)
-**Codebase:** ~29,400 lines of Go across 8 phases
+**Codebase:** ~29,600 lines of Go across 8 phases
 **Tech stack:** Go 1.26, pgx/v5, goldmark+bluemonday, html/template, SCS sessions, goose migrations
 **Deployment:** Multi-stage Docker (9.9MB alpine), docker-compose with Postgres sidecar, EBS bind-mounts
 
@@ -33,31 +33,15 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 - Makefile with build, test, lint, run, deploy, logs, status targets -- v1.0
 - GHA CI pipeline (lint, test, build) on free tier -- v1.0
 - Standard Go project layout with minimal dependencies -- v1.0
-- Weathered beach bar nautical design (implemented, mobile visual confirmation pending) -- v1.0
-
-## Current Milestone: v1.1 The Wild Meridian
-
-**Goal:** Rebrand the blog identity, add an about page, and refine navigation with discreet RSS discovery.
-
-**Target features:**
-- Rename "The Log" to "The Wild Meridian" across all surfaces
-- Update copyright to "2026 Jared Wallace"
-- About page from static markdown file (personal bio + blog purpose, nautical tone)
-- Discreet RSS link/icon in nav or footer
+- Weathered beach bar nautical design -- v1.0
+- Rebrand from "The Log" to "The Wild Meridian" across all surfaces -- v1.1
+- Copyright footer with dynamic year and "Jared Wallace" -- v1.1
+- Discreet RSS icon in footer with autodiscovery link tag -- v1.1
+- About page from embedded markdown with nautical chrome and nav link -- v1.1
 
 ### Active
 
-(No active requirements — milestone v1.1 complete)
-
-### Validated in Phase 08
-
-- [x] About page rendered from static markdown file (personal bio, nautical tone, nav link, sitemap) -- Phase 08
-
-### Validated in Phase 07
-
-- [x] Rebrand from "The Log" to "The Wild Meridian" (header, RSS, meta, sitemap, etc.) -- Phase 07
-- [x] Update copyright to "2026 Jared Wallace" -- Phase 07
-- [x] Discreet RSS link in navigation -- Phase 07
+(No active requirements -- planning next milestone)
 
 ### Out of Scope
 
@@ -72,7 +56,7 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 - Multi-author support -- personal blog; revisit if needed
 - S3 image storage -- EBS volume is simpler and sufficient
 - Managed database (RDS) -- Postgres sidecar on EBS volume instead
-- LaTeX rendering -- deferred to v2 (ENH-01)
+- LaTeX rendering -- deferred to future milestone (ENH-01)
 
 ## Context
 
@@ -110,12 +94,13 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 | In-memory dashboard filtering over separate queries | Blog scale makes N queries unnecessary; ListAll + filter is simpler | Good -- works at blog scale |
 | API push on blogMux (not adminMux) | Bearer token is the auth gate, not host routing | Good -- decouples API from admin subdomain |
 | CDATA xml.Marshaler for RSS | Prevents double-escaping of HTML in RSS descriptions | Good -- standard RSS 2.0 pattern |
+| Embedded about.md (content package) over DB | Static content that rarely changes; avoids admin UI complexity | Good -- go:embed string, zero-dependency |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
-**After each phase transition** (via `/gsd:transition`):
+**After each phase transition:**
 1. Requirements invalidated? -> Move to Out of Scope with reason
 2. Requirements validated? -> Move to Validated with phase reference
 3. New requirements emerged? -> Add to Active
@@ -129,4 +114,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 08 completion*
+*Last updated: 2026-03-28 after v1.1 milestone completion*
