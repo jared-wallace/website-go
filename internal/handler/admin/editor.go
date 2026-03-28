@@ -37,13 +37,13 @@ func (h *AdminHandler) EditPost(w http.ResponseWriter, r *http.Request) {
 
 	// Pass RenderedHTML as template.HTML so the preview pane shows it unescaped.
 	type postView struct {
-		ID           int64
+		RenderedHTML template.HTML
 		Title        string
 		Slug         string
 		Body         string
 		Tags         string
+		ID           int64
 		Published    bool
-		RenderedHTML template.HTML
 	}
 	pv := postView{
 		ID:           post.ID,

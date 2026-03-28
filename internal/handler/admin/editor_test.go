@@ -30,11 +30,11 @@ func (noopRendererEditor) Render(src string) template.HTML { return template.HTM
 // editorRepo is a mock repository wired for editor/preview tests.
 // It returns a fixed post for FindByID and records calls to Create/Update/SetPublished.
 type editorRepo struct {
+	createReturn       *model.Post
+	createErr          error
 	createCalled       bool
 	updateCalled       bool
 	setPublishedCalled bool
-	createReturn       *model.Post
-	createErr          error
 }
 
 func (m *editorRepo) ListPublished(_ context.Context, _, _ int) ([]model.Post, error) {

@@ -34,9 +34,9 @@ type AdminHandler struct {
 	funcMap     template.FuncMap
 	templates   map[string]*template.Template
 	adminEmail  string
+	imageDir    string // filesystem path for uploaded images (EBS-backed)
 	adminHash   []byte
 	dummyHash   []byte // pre-computed hash for timing-safe comparison when email doesn't match
-	imageDir    string // filesystem path for uploaded images (EBS-backed)
 }
 
 // New parses admin templates and returns a ready-to-use AdminHandler.

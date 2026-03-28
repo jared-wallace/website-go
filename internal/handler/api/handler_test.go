@@ -23,10 +23,10 @@ func (m *mockMetaRenderer) RenderWithMeta(src string) (template.HTML, map[string
 
 // mockPostService records UpsertBySlug calls.
 type mockPostService struct {
+	returnErr   error
 	calledTitle string
 	calledSlug  string
 	calledBody  string
-	returnErr   error
 }
 
 func (m *mockPostService) UpsertBySlug(_ context.Context, title, slug, body string) error {

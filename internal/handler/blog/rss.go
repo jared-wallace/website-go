@@ -66,8 +66,8 @@ type RSSItem struct {
 
 // RSSGuid is the unique identifier for a feed item.
 type RSSGuid struct {
-	IsPermaLink bool   `xml:"isPermaLink,attr"`
 	Value       string `xml:",chardata"`
+	IsPermaLink bool   `xml:"isPermaLink,attr"`
 }
 
 // buildRSSFeed constructs an RSSFeed from a slice of published posts.

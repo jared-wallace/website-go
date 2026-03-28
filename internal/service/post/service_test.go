@@ -162,8 +162,8 @@ func TestParseTags(t *testing.T) {
 
 // mockRepository implements post.Repository for testing pagination math without a DB.
 type mockRepository struct {
-	total int
 	posts []model.Post
+	total int
 }
 
 func (m *mockRepository) ListPublished(_ context.Context, limit, offset int) ([]model.Post, error) {

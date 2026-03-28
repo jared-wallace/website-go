@@ -12,18 +12,15 @@ import (
 
 // mockRepo records calls for assertion in tests.
 type mockRepo struct {
+	createPost      *model.Post
+	updatePost      *model.Post
+	returnPost      *model.Post
+	returnErr       error  // default error for most operations
+	findErr         *error // overrides returnErr for FindBySlug when non-nil
 	softDeleteID    int64
 	restoreID       int64
 	setPublishedID  int64
 	setPublishedVal bool
-	createPost      *model.Post
-	updatePost      *model.Post
-
-	returnErr  error // default error for most operations
-	returnPost *model.Post
-
-	// findErr overrides returnErr for FindBySlug when non-nil.
-	findErr *error
 }
 
 func (m *mockRepo) ListPublished(_ context.Context, _, _ int) ([]model.Post, error) {

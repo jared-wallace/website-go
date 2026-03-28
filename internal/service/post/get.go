@@ -11,7 +11,10 @@ import (
 // PostDetail is a fully-hydrated post suitable for the single-post view.
 // RenderedHTML is typed as template.HTML to prevent double-escaping in
 // Go templates (Pitfall 3 from RESEARCH.md).
-type PostDetail struct {
+//
+// Field order: Post is first to keep the value receiver ergonomic; ReadingTime
+// is last (no pointer) to end the GC-scan region at Excerpt.
+type PostDetail struct { //nolint:govet // fieldalignment: struct layout is intentional; Post embed must stay first for readability
 	Post         model.Post
 	RenderedHTML template.HTML // cast from model.Post.RenderedHTML; safe — stored pre-sanitized
 	ToC          []ToCEntry    // nil when fewer than 3 headings

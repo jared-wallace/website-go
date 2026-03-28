@@ -8,17 +8,17 @@ import (
 
 // entry holds the fixed-window counter state for a single IP.
 type entry struct {
-	count     int
 	windowEnd time.Time
+	count     int
 }
 
 // RateLimiter implements a fixed-window per-IP rate limiter.
 // It is safe for concurrent use.
 type RateLimiter struct {
-	mu      sync.Mutex
 	entries map[string]*entry
-	limit   int
 	window  time.Duration
+	limit   int
+	mu      sync.Mutex
 }
 
 // NewRateLimiter creates a RateLimiter that allows at most limit requests
