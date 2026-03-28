@@ -33,7 +33,7 @@
 **Milestone Goal:** Elevate visual cohesion and nautical atmosphere through CSS/template-level design polish — no backend changes.
 
 - [x] **Phase 9: CSS Foundation** - Pure CSS atmosphere and component fixes
-- [ ] **Phase 10: Animations & Transitions** - Motion system with reduced-motion safety and dark mode transitions
+- [x] **Phase 10: Animations & Transitions** - Motion system with reduced-motion safety and dark mode transitions (completed 2026-03-28)
 - [ ] **Phase 11: Template Changes** - Footer redesign, rope divider, and homepage hero
 
 ## Phase Details
@@ -63,9 +63,9 @@ Plans:
   3. Toggling dark mode produces a smooth color transition across all themed surfaces rather than an instant switch
   4. Dark mode does not flash white or produce a visible color transition on initial page load
   5. A user with `prefers-reduced-motion: reduce` set sees no animation, including the existing reaction bounce
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 10-01-PLAN.md — Animation CSS, .theme-ready gate, and reduced-motion guards
+- [x] 10-01-PLAN.md — Animation CSS, .theme-ready gate, and reduced-motion guards
 **UI hint**: yes
 
 ### Phase 11: Template Changes
@@ -95,5 +95,5 @@ Plans:
 | 7. Rebrand + Navigation | v1.1 | 1/1 | Complete | 2026-03-28 |
 | 8. About Page | v1.1 | 1/1 | Complete | 2026-03-28 |
 | 9. CSS Foundation | v1.2 | 1/1 | Complete   | 2026-03-28 |
-| 10. Animations & Transitions | v1.2 | 0/1 | Planned | - |
+| 10. Animations & Transitions | v1.2 | 1/1 | Complete   | 2026-03-28 |
 | 11. Template Changes | v1.2 | 0/? | Not started | - |
