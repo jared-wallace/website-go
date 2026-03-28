@@ -19,8 +19,11 @@ type mockRepo struct {
 	createPost      *model.Post
 	updatePost      *model.Post
 
-	returnErr    error
-	returnPost   *model.Post
+	returnErr  error // default error for most operations
+	returnPost *model.Post
+
+	// findErr overrides returnErr for FindBySlug when non-nil.
+	findErr *error
 }
 
 func (m *mockRepo) ListPublished(_ context.Context, _, _ int) ([]model.Post, error) {
@@ -28,6 +31,9 @@ func (m *mockRepo) ListPublished(_ context.Context, _, _ int) ([]model.Post, err
 }
 func (m *mockRepo) CountPublished(_ context.Context) (int, error) { return 0, m.returnErr }
 func (m *mockRepo) FindBySlug(_ context.Context, _ string) (*model.Post, error) {
+	if m.findErr != nil {
+		return m.returnPost, *m.findErr
+	}
 	return m.returnPost, m.returnErr
 }
 func (m *mockRepo) FindByID(_ context.Context, _ int64) (*model.Post, error) {

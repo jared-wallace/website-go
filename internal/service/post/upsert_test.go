@@ -10,7 +10,8 @@ import (
 )
 
 func TestUpsertBySlug_NewPost(t *testing.T) {
-	repo := &mockRepo{returnErr: postrepo.ErrNotFound, returnPost: nil}
+	findErr := error(postrepo.ErrNotFound)
+	repo := &mockRepo{findErr: &findErr, returnPost: nil}
 	svc := newServiceWithRenderer(repo, &mockRenderer{})
 
 	err := svc.UpsertBySlug(context.Background(), "Test Title", "test-slug", "# Hello")

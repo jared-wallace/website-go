@@ -2,8 +2,10 @@ package post
 
 import (
 	"context"
+	"errors"
 
 	"github.com/jared-wallace/website-go/internal/model"
+	postrepo "github.com/jared-wallace/website-go/internal/repository/post"
 )
 
 // Create renders body markdown, then inserts a new post via the repository.
@@ -33,6 +35,35 @@ func (s *Service) Update(ctx context.Context, id int64, title, slug, body, tags 
 		Tags:         tags,
 	}
 	return s.repo.Update(ctx, p)
+}
+
+// UpsertBySlug creates or updates a post identified by slug.
+// New posts land as unpublished drafts (D-11). On update, existing
+// tags are preserved -- the admin sets tags from the web UI.
+func (s *Service) UpsertBySlug(ctx context.Context, title, slug, body string) error {
+	rendered := s.renderer.Render(body)
+	existing, err := s.repo.FindBySlug(ctx, slug)
+	if err != nil {
+		if errors.Is(err, postrepo.ErrNotFound) {
+			_, createErr := s.repo.Create(ctx, model.Post{
+				Title:        title,
+				Slug:         slug,
+				Body:         body,
+				RenderedHTML: string(rendered),
+				Published:    false,
+			})
+			return createErr
+		}
+		return err
+	}
+	return s.repo.Update(ctx, model.Post{
+		ID:           existing.ID,
+		Title:        title,
+		Slug:         slug,
+		Body:         body,
+		RenderedHTML: string(rendered),
+		Tags:         existing.Tags,
+	})
 }
 
 // SoftDelete marks a post deleted without removing it from the database.
