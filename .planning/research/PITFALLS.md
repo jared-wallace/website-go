@@ -288,6 +288,239 @@ In the Go server, read `r.Host` for subdomain routing, but verify it matches exp
 
 ---
 
+## CSS Design Polish Pitfalls (v1.2 Shore Leave Polish)
+
+These pitfalls are specific to the v1.2 milestone: adding CSS noise textures, dark mode transitions, page entry animations, and footer redesign to the existing site.
+
+---
+
+### Pitfall 14: CSS Noise Texture via `background-attachment: fixed` Kills Mobile Scrolling
+
+**What goes wrong:**
+A noise or grain overlay implemented with `background-attachment: fixed` causes full-page repaints on every scroll frame. On desktop this is merely sluggish. On iOS Safari and Android Chrome it drops to single-digit fps, because those browsers disable fixed-background compositing when the address bar animates during scroll — forcing a CPU repaint instead of a GPU composite. The bug is documented and intentional — browsers will not fix it.
+
+**Why it happens:**
+`background-attachment: fixed` tells the browser the background stays in viewport coordinates, which breaks the scroll compositor path. Developers reach for it because it looks correct in DevTools desktop emulation, which does not replicate this rendering path.
+
+**How to avoid:**
+Never use `background-attachment: fixed` for the noise overlay. Instead, apply the texture via a `::before` pseudo-element on `body` with `position: fixed; inset: 0; z-index: -1; pointer-events: none`. This creates a single composited layer that costs one paint at load time and zero repaints on scroll:
+
+```css
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,..."); /* inline SVG feTurbulence */
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] body::before {
+  mix-blend-mode: overlay;
+  opacity: 0.06;
+}
+```
+
+Use an inline SVG `feTurbulence` filter as the background source — not a PNG. The SVG compresses to ~900 bytes and requires no additional HTTP request. Keep `opacity` at 0.03–0.06 max.
+
+**Warning signs:**
+- Any `background-attachment: fixed` on `body` or a full-bleed container
+- Chrome DevTools "Show paint flashing" turns the entire viewport red on scroll
+
+**Phase to address:** Background texture phase. Must be implemented correctly on first pass — retrofitting this after animations are layered in disrupts z-index stacking.
+
+---
+
+### Pitfall 15: Dark Mode Transitions Fire on Page Load and Flash White
+
+**What goes wrong:**
+Adding `transition: background-color 300ms ease, color 300ms ease` to `:root` or `body` looks great when the user clicks the dark mode toggle. But on page load, the browser fires the transition from the default light values to the dark values — producing a 300ms white-to-dark flash that is more jarring than no transition at all. This happens even though the blocking script in `base.html` `<head>` sets `data-theme="dark"` before first paint.
+
+**Why it happens:**
+CSS transitions do not distinguish "set before paint by a blocking script" from "set by user interaction." Any attribute change triggers registered transitions, including the initial one applied during HTML parsing.
+
+**How to avoid:**
+Gate all color transitions behind a `.theme-ready` class that is added by JavaScript only after the page has fully loaded. The class must never be present in the initial HTML:
+
+```css
+/* No transitions by default */
+:root { --color-bg: #F5F0E8; /* ... */ }
+
+/* Transitions activate only after JS adds .theme-ready */
+.theme-ready * {
+  transition: background-color 250ms ease, color 250ms ease,
+              border-color 250ms ease;
+}
+```
+
+```js
+/* In main.js, after existing dark toggle code */
+window.addEventListener('load', function() {
+  document.documentElement.classList.add('theme-ready');
+});
+```
+
+The `load` event fires after all subresources are parsed — the class is never present during the blocking script's initial `data-theme` set.
+
+**Warning signs:**
+- Any `transition` on `:root`, `html`, or `body` without a `.theme-ready` guard
+- White flash visible when navigating between pages with dark mode active
+- DevTools Timeline shows a full-page style recalculation immediately after DOMContentLoaded
+
+**Phase to address:** Dark mode transitions phase. Must be addressed before any other color transitions are added anywhere in the cascade.
+
+---
+
+### Pitfall 16: Page Entry Animations Cause Cumulative Layout Shift (CLS)
+
+**What goes wrong:**
+Card stagger animations that animate `margin`, `padding`, `height`, or absolute positioning properties cause CLS and tank Lighthouse scores. Even correct `transform` + `opacity` animations cause CLS if the initial `opacity: 0` state is set via JavaScript after paint — the element is visible for one frame before the animation resets it. `animation-fill-mode: none` (the default) also leaves elements invisible after animation completes.
+
+**Why it happens:**
+- Developers set `opacity: 0` in a JS `onload` handler rather than in CSS, which fires after the browser has already painted the element visible
+- Stagger code uses CSS custom property delays without `animation-fill-mode: both`, so elements snap back to their initial (invisible) state after animating
+- "Card rise" effects animate `box-shadow` or `border` instead of `transform`
+
+**How to avoid:**
+Set the start state in CSS, not JavaScript. Use only `transform` and `opacity`. Always use `animation-fill-mode: both`. Gate everything behind `prefers-reduced-motion: no-preference` so the initial state is visible by default:
+
+```css
+/* Elements are visible by default — motion is progressive enhancement */
+@media (prefers-reduced-motion: no-preference) {
+  .post-card {
+    opacity: 0;
+    animation: card-enter 400ms ease both;
+  }
+  .post-card:nth-child(2) { animation-delay: 80ms; }
+  .post-card:nth-child(3) { animation-delay: 160ms; }
+  .post-card:nth-child(4) { animation-delay: 240ms; }
+}
+
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+```
+
+The `prefers-reduced-motion: no-preference` wrapper means `.post-card` has no `opacity: 0` unless motion is allowed — users with reduced motion see fully visible cards instantly.
+
+**Warning signs:**
+- `opacity: 0` in a `<script>` block rather than in CSS
+- Animations on `margin-top`, `top`, `height`, or `max-height`
+- Missing `animation-fill-mode: both` or `fill-mode: both` on entrance animations
+- Lighthouse CLS score degrades after animations are added (target: ≤ 0.1)
+
+**Phase to address:** Page entry animations phase. Run Lighthouse before and after as the gating check.
+
+---
+
+### Pitfall 17: `prefers-reduced-motion` Not Respected — Existing and New Animations
+
+**What goes wrong:**
+The existing `.reaction-bounce` animation (in `main.css`, lines 640–645) and all new stagger/fade animations will run for users who have enabled "Reduce Motion" in their OS accessibility settings. This is a WCAG 2.3.3 failure and can trigger vestibular disorder symptoms.
+
+**Why it happens:**
+Reduced-motion handling is an afterthought. The existing `reaction-bounce` has no reduced-motion guard. New animations added for v1.2 will repeat this pattern if not deliberately prevented.
+
+**How to avoid:**
+Add a single override block at the bottom of `main.css` that covers all motion — both the existing animation and any new ones:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+Do not use `animation: none` — this breaks `animation-fill-mode: both` and leaves elements with `opacity: 0` permanently invisible. Setting duration to `0.01ms` preserves fill-mode while making motion imperceptible.
+
+**Warning signs:**
+- Any `@keyframes` block without a corresponding reduced-motion guard
+- The existing `reaction-bounce` animation ships without a fix alongside the new animations
+
+**Phase to address:** Earliest animation phase — bundle the `reaction-bounce` fix into the same CSS edit that adds new animations.
+
+---
+
+### Pitfall 18: Footer Expansion Breaks ARIA Landmark Semantics
+
+**What goes wrong:**
+Adding a navigation block inside the footer without proper labeling creates ambiguous ARIA landmarks. If the footer gains a `<nav>` element and the primary site nav in the header also has no `aria-label`, screen reader users hear two identical "navigation" landmark announcements and cannot distinguish between them. Additionally, if the footer is structurally moved inside a `<main>` or `<div>` wrapper, it loses its implicit `contentinfo` landmark role.
+
+**Why it happens:**
+Footer redesigns focus on visual layout (flex columns, personality block) and miss that the `<footer>` element has an implicit ARIA role that depends on its position in the DOM. Adding unlabeled `<nav>` elements inside it is the most common regression.
+
+**How to avoid:**
+Label the footer nav distinctly from the primary nav. The primary `<nav>` in `base.html` currently has no `aria-label` — acceptable when it is the only nav on the page. Once a second `<nav>` is added to the footer, both require distinct labels:
+
+```html
+<!-- In base.html: add aria-label to primary nav -->
+<nav class="site-nav" aria-label="Primary navigation">
+  ...
+</nav>
+
+<!-- In the footer -->
+<footer class="site-footer">
+  <nav aria-label="Footer navigation">
+    <a href="/about">About</a>
+    <a href="/rss">RSS</a>
+  </nav>
+  <p>&copy; {{.Year}} Jared Wallace ...</p>
+</footer>
+```
+
+Keep the `<footer>` as a direct child of `<body>` — do not nest it inside `<main>` or a wrapper `<div>`.
+
+**Warning signs:**
+- Two `<nav>` elements in the page with no `aria-label` on either
+- `<footer>` moved inside a layout wrapper or `<main>` tag during the redesign
+- Axe DevTools reports "Landmark region must have accessible name" after the footer update
+
+**Phase to address:** Footer redesign phase. Run an Axe DevTools scan before and after as the pass/fail criterion.
+
+---
+
+### Pitfall 19: `mix-blend-mode` on Noise Overlay Inverts in Dark Mode
+
+**What goes wrong:**
+A noise overlay using `mix-blend-mode: multiply` looks correct on the light sandy `#F5F0E8` background. In dark mode (`#1A1F2E`), `multiply` absorbs all remaining light and makes the background pitch-black or introduces a muddy color cast. The reverse — `mix-blend-mode: screen` — washes out the light mode background.
+
+**Why it happens:**
+Developers prototype in one color mode, ship it, and discover the other mode is broken after deploy.
+
+**How to avoid:**
+Use separate blend modes per theme. Test both modes before committing:
+
+```css
+body::before {
+  mix-blend-mode: multiply; /* correct for light sandy bg */
+  opacity: 0.04;
+}
+
+[data-theme="dark"] body::before {
+  mix-blend-mode: overlay;  /* or soft-light for dark backgrounds */
+  opacity: 0.06;
+}
+```
+
+Correct opacity range: 0.03–0.05 light mode, 0.05–0.08 dark mode. Above 0.08 reads as grime.
+
+**Warning signs:**
+- Single `mix-blend-mode` with no dark-mode override
+- Dark mode body background appears darker than `--color-bg: #1A1F2E` should produce
+- Light mode fine, dark mode screenshots show a solid dark vignette over content
+
+**Phase to address:** Background texture phase — treat dark mode verification as a required step, not a post-launch check.
+
+---
+
 ## Phase-Specific Warnings
 
 | Phase Topic | Likely Pitfall | Mitigation |
@@ -304,6 +537,27 @@ In the Go server, read `r.Host` for subdomain routing, but verify it matches exp
 | Deployment | EBS data loss on ASG scale event (Pitfall 8) | `max_size = 1`, `delete_on_termination = false`, EBS snapshot schedule |
 | Request logging / middleware | X-Forwarded-For spoofing (Pitfall 7) | Read rightmost IP, document trusted proxy chain |
 | RSS feed | Draft post exposure (Pitfall 13) | Filter by `published = true` on all public queries |
+| Background texture (v1.2) | Mobile scroll lag from `background-attachment: fixed` (Pitfall 14) | Use `position: fixed` pseudo-element; verify on a physical mobile device |
+| Dark mode transitions (v1.2) | Load flash from transition firing on theme init (Pitfall 15) | `.theme-ready` class guard; `window.addEventListener('load', ...)` in `main.js` |
+| Page entry animations (v1.2) | CLS regression and invisible elements after animation (Pitfall 16) | CSS-only initial state; `animation-fill-mode: both`; Lighthouse CLS ≤ 0.1 |
+| Any animation (v1.2) | `prefers-reduced-motion` not respected (Pitfall 17) | Add nuclear reduced-motion override block; fix existing `reaction-bounce` in same pass |
+| Footer redesign (v1.2) | Duplicate unlabeled nav landmarks, contentinfo lost (Pitfall 18) | `aria-label` on both `<nav>` elements; footer stays direct child of `<body>` |
+| Noise texture dark mode (v1.2) | `mix-blend-mode: multiply` inverts dark bg (Pitfall 19) | Separate blend mode override for `[data-theme="dark"] body::before` |
+
+---
+
+## "Looks Done But Isn't" Checklist (v1.2 CSS Polish)
+
+- [ ] **Noise texture on mobile:** Scroll test on a physical iOS or Android device — no visible lag, no full-page paint flash in Chrome DevTools "Show paint flashing"
+- [ ] **Dark mode transition — no load flash:** Open a fresh browser tab with dark mode active. Zero visible white flash before the page is interactive
+- [ ] **Reduced motion:** Enable OS "Reduce Motion" setting — all animations are imperceptible, no elements are left in `opacity: 0` state permanently
+- [ ] **CLS after animations:** Lighthouse CLS score ≤ 0.1 before and after adding card stagger
+- [ ] **Footer ARIA:** Axe DevTools reports zero landmark or label violations after footer expansion
+- [ ] **RSS icon location:** RSS icon remains in the footer's top-level visible area regardless of expanded layout — not hidden inside a collapsed section
+- [ ] **Copyright year:** `{{.Year}}` template variable still renders correctly after footer HTML restructure
+- [ ] **Noise texture blend mode:** Both light and dark mode screenshots show texture visible but not dominant — background color reads as intended in both modes
+- [ ] **Reaction button radius:** Visual check that `.reacted` and `.bounce` state buttons also display the new `4px` radius (they inherit, but verify in browser)
+- [ ] **CSS comment rebrand:** `grep -r "The Log" web/static/` returns zero results
 
 ---
 
@@ -312,19 +566,21 @@ In the Go server, read `r.Host` for subdomain routing, but verify it matches exp
 - [OWASP Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
 - [Building a Secure Session Manager in Go](https://themsaid.com/building-secure-session-manager-in-go)
 - [OWASP File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html)
-- [File Upload Vulnerabilities 2025 - DEV Community](https://dev.to/karthiks2116/file-upload-vulnerabilities-2025-55di)
 - [bluemonday - Go Packages](https://pkg.go.dev/github.com/microcosm-cc/bluemonday)
-- [yuin/goldmark - GitHub](https://github.com/yuin/goldmark)
-- [CVE-2025-24981: XSS in Markdown Library](https://thesecmaster.com/blog/how-to-fix-cve-2025-24981-mitigating-xss-vulnerability-in-markdown-library-for-we)
-- [Go template.HTML XSS Vulnerability - Sourcery](https://www.sourcery.ai/vulnerabilities/go-template-html-vulnerable)
 - [The complete guide to Go net/http timeouts - Cloudflare](https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/)
-- [Standard net/http config will break your production environment](https://medium.com/@simonfrey/go-as-in-golang-standard-net-http-config-will-break-your-production-environment-1360871cb72b)
-- [Common Pitfalls When Using database/sql in Go - SolarWinds](https://orangematter.solarwinds.com/2017/03/23/common-pitfalls-when-using-database-sql-in-go/)
-- [ForwardedHeaders and Reverse Proxies: The Trust Boundary Guide](https://dapiq.com/insights/forwarded-headers-reverse-proxy-trust-boundary)
-- [Docker Volumes in Production: Named Volumes vs Bind Mounts](https://blog.shukebeta.com/2024/10/23/docker-volumes-in-production-a-practical-guide-to-named-volumes-vs-bind-mounts/)
 - [Postgres data volume wrong ownership - Docker forums](https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963)
 - [ASG with stateful Docker containers - Portworx](https://portworx.com/blog/auto-scaling-groups-ebs-docker/)
-- [Go Project Structure: Practices & Patterns - Glukhov](https://www.glukhov.org/post/2025/12/go-project-structure/)
-- [bcrypt cost factor guide - DeepSource](https://deepsource.com/directory/go/issues/GO-S1045)
-- [Password Security in 2025: Hashing Algorithms](https://clxon.com/en/blog/password-security-hashing-algorithms-2025)
-- [CSRF Protection in Go Web Applications](https://themsaid.com/csrf-protection-go-web-applications)
+- [CSS-Tricks: Grainy Gradients](https://css-tricks.com/grainy-gradients/) — SVG feTurbulence technique, browser inconsistencies
+- [Frontend Masters: Grainy Gradients](https://frontendmasters.com/blog/grainy-gradients/) — implementation approach
+- [freeCodeCamp: Grainy CSS Backgrounds using SVG Filters](https://www.freecodecamp.org/news/grainy-css-backgrounds-using-svg-filters/) — SVG vs PNG weight comparison
+- [CSS-Tricks: Fixed Background Attachment Hack](https://css-tricks.com/the-fixed-background-attachment-hack/) — pseudo-element workaround for mobile performance
+- [Mozilla Bugzilla #90198](https://bugzilla.mozilla.org/show_bug.cgi?id=90198) — fixed-background repaints on scroll (intentional browser behavior)
+- [web.dev: Optimize CLS](https://web.dev/articles/optimize-cls) — safe vs unsafe animation properties, transform-only rule
+- [Motion.dev: Web Animation Performance Tier List](https://motion.dev/magazine/web-animation-performance-tier-list) — compositor-only properties (transform, opacity, filter)
+- [dev.to: Light/dark mode avoid flickering on reload](https://dev.to/ayc0/light-dark-mode-avoid-flickering-on-reload-1567) — blocking script pattern for dark mode
+- [Blog of Maxime Heckel: Fixing dark mode flash on server-rendered sites](https://blog.maximeheckel.com/posts/switching-off-the-lights-part-2-fixing-dark-mode-flashing-on-servered-rendered-website/) — `.theme-ready` deferred class pattern
+- [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion) — media query specification
+- [W3C WAI: C39 — Using prefers-reduced-motion](https://www.w3.org/WAI/WCAG22/Techniques/css/C39.html) — WCAG technique
+- [MDN: ARIA navigation role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/navigation_role) — landmark labeling requirements when multiple nav elements exist
+- [MDN: ARIA contentinfo role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/contentinfo_role) — footer landmark rules, position requirements
+- [W3C WAI: Landmark Regions](https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/) — multiple nav labeling requirement
