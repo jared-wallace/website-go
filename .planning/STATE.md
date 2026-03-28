@@ -4,7 +4,7 @@ milestone: v1.2
 milestone_name: Shore Leave Polish
 status: verifying
 stopped_at: Completed 11-02-PLAN.md
-last_updated: "2026-03-28T17:39:10.119Z"
+last_updated: "2026-03-28T18:09:00.000Z"
 last_activity: 2026-03-28
 progress:
   total_phases: 3
@@ -81,6 +81,7 @@ None.
 |---|-------------|------|--------|-----------|
 | 260327-vu6 | Create comprehensive README with dev setup and deployment instructions | 2026-03-28 | 227e33f | [260327-vu6-create-comprehensive-readme-with-dev-set](./quick/260327-vu6-create-comprehensive-readme-with-dev-set/) |
 | 260327-wm3 | Fix all 31 golangci-lint CI failures (errcheck, gofmt, gosec, govet) | 2026-03-28 | e1ddd4f | [260327-wm3-fix-ci-linter-failures](./quick/260327-wm3-fix-ci-linter-failures/) |
+| 260328-i3b | Rework about page with user-provided content (Who/What/When/Where/Why/How) | 2026-03-28 | 2503fea | [260328-i3b-rework-the-about-page-with-user-input](./quick/260328-i3b-rework-the-about-page-with-user-input/) |
 
 ## Session Continuity
 
