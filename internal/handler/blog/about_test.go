@@ -44,6 +44,28 @@ func TestAboutPage(t *testing.T) {
 		}
 	})
 
+	t.Run("body contains Chicago from rendered markdown", func(t *testing.T) {
+		req := httptest.NewRequest(http.MethodGet, "/about", nil)
+		rec := httptest.NewRecorder()
+
+		h.AboutPage(rec, req)
+
+		if !strings.Contains(rec.Body.String(), "Chicago") {
+			t.Error("AboutPage: body missing 'Chicago' from rendered markdown")
+		}
+	})
+
+	t.Run("body contains distributed compute from rendered markdown", func(t *testing.T) {
+		req := httptest.NewRequest(http.MethodGet, "/about", nil)
+		rec := httptest.NewRecorder()
+
+		h.AboutPage(rec, req)
+
+		if !strings.Contains(rec.Body.String(), "distributed compute") {
+			t.Error("AboutPage: body missing 'distributed compute' from rendered markdown")
+		}
+	})
+
 	t.Run("Content-Type is text/html charset=utf-8", func(t *testing.T) {
 		req := httptest.NewRequest(http.MethodGet, "/about", nil)
 		rec := httptest.NewRecorder()
