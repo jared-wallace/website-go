@@ -23,10 +23,9 @@
   {{end}}
 </head>
 <body>
-  <nav class="site-nav">
+  <nav class="site-nav" aria-label="Main navigation">
     <a href="/" class="site-name">The Wild Meridian</a>
     <span class="site-tagline">dispatches from the deep end</span>
-    <a href="/about" class="nav-link">About</a>
     <button class="dark-toggle" id="dark-toggle" aria-label="Switch to dark mode">
       <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="5"></circle>
@@ -48,19 +47,32 @@
   {{block "content" .}}{{end}}
 
   <footer class="site-footer">
-    <hr class="rope-divider">
-    <p>
-      &copy; {{.Year}} Jared Wallace
-      <a href="/rss" class="rss-link" aria-label="RSS feed">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 11a9 9 0 0 1 9 9"></path>
-          <path d="M4 4a16 16 0 0 1 16 16"></path>
-          <circle cx="5" cy="19" r="1" fill="currentColor" stroke="none"></circle>
-        </svg>
-      </a>
-    </p>
+    <svg class="rope-divider" xmlns="http://www.w3.org/2000/svg"
+         width="100%" height="12" aria-hidden="true" preserveAspectRatio="none"
+         viewBox="0 0 300 12">
+      <path d="M0,6 C10,1 20,11 30,6 C40,1 50,11 60,6 C70,1 80,11 90,6 C100,1 110,11 120,6 C130,1 140,11 150,6 C160,1 170,11 180,6 C190,1 200,11 210,6 C220,1 230,11 240,6 C250,1 260,11 270,6 C280,1 290,11 300,6"
+            fill="none" stroke="var(--color-divider)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M0,6 C10,11 20,1 30,6 C40,11 50,1 60,6 C70,11 80,1 90,6 C100,11 110,1 120,6 C130,11 140,1 150,6 C160,11 170,1 180,6 C190,11 200,1 210,6 C220,11 230,1 240,6 C250,11 260,1 270,6 C280,11 290,1 300,6"
+            fill="none" stroke="var(--color-divider)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    </svg>
+    <div class="footer-inner">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/about" class="footer-link nav-link">About</a>
+        <a href="/rss" class="rss-link" aria-label="RSS feed">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 11a9 9 0 0 1 9 9"></path>
+            <path d="M4 4a16 16 0 0 1 16 16"></path>
+            <circle cx="5" cy="19" r="1" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+      </nav>
+      <div class="footer-copyright">
+        <p class="footer-phrase">Still anchored. Still writing.</p>
+        <p class="footer-copyright-line">&copy; {{.Year}} Jared Wallace</p>
+      </div>
+    </div>
   </footer>
 
   <script src="/static/main.js" defer></script>
