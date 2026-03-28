@@ -118,7 +118,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md -- Dockerfile, .dockerignore, .env.example, /health endpoint
+- [x] 06-01-PLAN.md -- Dockerfile, .dockerignore, .env.example, /health endpoint
 - [ ] 06-02-PLAN.md -- Production docker-compose.yml, Makefile deploy/logs/status targets
 
 ## Progress

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Phase 6 context gathered
-last_updated: "2026-03-28T00:57:56.283Z"
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-28T02:07:48.490Z"
 last_activity: 2026-03-28
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 15
-  completed_plans: 13
+  total_plans: 17
+  completed_plans: 14
   percent: 80
 ---
 
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 ## Current Position
 
-Phase: 6
-Plan: Not started
-Status: Phase complete — ready for verification
-Last activity: 2026-03-28
+Phase: 06 (docker-deployment) — EXECUTING
+Plan: 2 of 2
+Status: Executing Phase 06
+Last activity: 2026-03-28 -- Completed 06-01-PLAN.md
 
-Progress: [████████░░] 80%
+Progress: [████████░░] 82%
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ Progress: [████████░░] 80%
 | Phase 04-distribution P03 | 4min | 2 tasks | 13 files |
 | Phase 05-api-images P01 | 4min | 2 tasks | 7 files |
 | Phase 05 P02 | 4min | 2 tasks | 8 files |
+| Phase 06 P01 | 2min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -106,6 +107,8 @@ Recent decisions affecting current work:
 - [Phase 05]: Upserter interface in api handler decouples from concrete Service for testability
 - [Phase 05]: LimitReader reads maxBody+1 bytes then checks length for exact size enforcement without silent truncation
 - [Phase 05]: API push route on blogMux (not adminMux) -- bearer token is the auth gate, not host routing
+- [Phase 06]: 9.9MB final image via alpine:3.21 + stripped static binary -- well under 30MB target
+- [Phase 06]: /health returns bare 200 with no DB ping -- Postgres liveness handled by compose pg_isready
 
 ### Pending Todos
 
@@ -119,6 +122,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-28T00:57:56.281Z
-Stopped at: Phase 6 context gathered
-Resume file: .planning/phases/06-docker-deployment/06-CONTEXT.md
+Last session: 2026-03-28T02:07:48.487Z
+Stopped at: Completed 06-01-PLAN.md
+Resume file: None
