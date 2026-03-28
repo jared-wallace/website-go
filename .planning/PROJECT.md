@@ -47,10 +47,13 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 ### Active
 
-- [ ] Rebrand from "The Log" to "The Wild Meridian" (header, RSS, meta, sitemap, etc.)
-- [ ] Update copyright to "2026 Jared Wallace"
 - [ ] About page rendered from static markdown file
-- [ ] Discreet RSS link in navigation
+
+### Validated in Phase 07
+
+- [x] Rebrand from "The Log" to "The Wild Meridian" (header, RSS, meta, sitemap, etc.) -- Phase 07
+- [x] Update copyright to "2026 Jared Wallace" -- Phase 07
+- [x] Discreet RSS link in navigation -- Phase 07
 
 ### Out of Scope
 
@@ -122,4 +125,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after v1.1 milestone start*
+*Last updated: 2026-03-28 after Phase 07 completion*
