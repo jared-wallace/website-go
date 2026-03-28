@@ -35,9 +35,22 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 - Standard Go project layout with minimal dependencies -- v1.0
 - Weathered beach bar nautical design (implemented, mobile visual confirmation pending) -- v1.0
 
+## Current Milestone: v1.1 The Wild Meridian
+
+**Goal:** Rebrand the blog identity, add an about page, and refine navigation with discreet RSS discovery.
+
+**Target features:**
+- Rename "The Log" to "The Wild Meridian" across all surfaces
+- Update copyright to "2026 Jared Wallace"
+- About page from static markdown file (personal bio + blog purpose, nautical tone)
+- Discreet RSS link/icon in nav or footer
+
 ### Active
 
-(None -- next milestone requirements TBD via `/gsd:new-milestone`)
+- [ ] Rebrand from "The Log" to "The Wild Meridian" (header, RSS, meta, sitemap, etc.)
+- [ ] Update copyright to "2026 Jared Wallace"
+- [ ] About page rendered from static markdown file
+- [ ] Discreet RSS link in navigation
 
 ### Out of Scope
 
@@ -109,4 +122,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after v1.0 milestone*
+*Last updated: 2026-03-28 after v1.1 milestone start*
