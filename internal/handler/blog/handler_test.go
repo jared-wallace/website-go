@@ -184,6 +184,148 @@ func TestListOGMeta(t *testing.T) {
 	}
 }
 
+// ---------------------------------------------------------------------------
+// Phase 11 Wave 0 — template validation tests (RED: expected to fail until
+// Plan 02 updates the templates)
+// ---------------------------------------------------------------------------
+
+// TestNavAboutLinkRemoved verifies NAV-01: About link is no longer in the
+// top nav but still reachable from the footer.
+func TestNavAboutLinkRemoved(t *testing.T) {
+	repo := &mockRepository{
+		posts:      []model.Post{{Title: "Test Post", Slug: "test-post"}},
+		totalCount: 1,
+	}
+	h := newTestHandler(repo)
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	h.ListPosts(rec, req)
+	body := rec.Body.String()
+
+	// The About nav-link next to the dark-toggle should be gone.
+	if strings.Contains(body, `<a href="/about" class="nav-link">About</a>`) {
+		t.Error("TestNavAboutLinkRemoved: About link still present in top nav")
+	}
+	// But an About link should still exist somewhere (footer).
+	if !strings.Contains(body, `href="/about"`) {
+		t.Error("TestNavAboutLinkRemoved: About link missing entirely — expected in footer")
+	}
+}
+
+// TestFooterTwoSection verifies NAV-02: footer has inner and copyright
+// sections plus a footer navigation landmark.
+func TestFooterTwoSection(t *testing.T) {
+	repo := &mockRepository{
+		posts:      []model.Post{{Title: "Test Post", Slug: "test-post"}},
+		totalCount: 1,
+	}
+	h := newTestHandler(repo)
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	h.ListPosts(rec, req)
+	body := rec.Body.String()
+
+	for _, want := range []string{
+		`class="footer-inner"`,
+		`class="footer-copyright"`,
+		`aria-label="Footer navigation"`,
+	} {
+		if !strings.Contains(body, want) {
+			t.Errorf("TestFooterTwoSection: missing %q", want)
+		}
+	}
+}
+
+// TestFooterPersonalityPhrase verifies NAV-03: footer contains the
+// personality phrase element.
+func TestFooterPersonalityPhrase(t *testing.T) {
+	repo := &mockRepository{
+		posts:      []model.Post{{Title: "Test Post", Slug: "test-post"}},
+		totalCount: 1,
+	}
+	h := newTestHandler(repo)
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	h.ListPosts(rec, req)
+	body := rec.Body.String()
+
+	if !strings.Contains(body, `class="footer-phrase"`) {
+		t.Error("TestFooterPersonalityPhrase: missing footer-phrase element")
+	}
+	if !strings.Contains(body, `Still anchored. Still writing.`) {
+		t.Error("TestFooterPersonalityPhrase: missing personality phrase text")
+	}
+}
+
+// TestNavAriaLabels verifies NAV-04: both nav and footer nav carry proper
+// ARIA labels.
+func TestNavAriaLabels(t *testing.T) {
+	repo := &mockRepository{
+		posts:      []model.Post{{Title: "Test Post", Slug: "test-post"}},
+		totalCount: 1,
+	}
+	h := newTestHandler(repo)
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	h.ListPosts(rec, req)
+	body := rec.Body.String()
+
+	if !strings.Contains(body, `aria-label="Main navigation"`) {
+		t.Error("TestNavAriaLabels: missing Main navigation aria-label")
+	}
+	if !strings.Contains(body, `aria-label="Footer navigation"`) {
+		t.Error("TestNavAriaLabels: missing Footer navigation aria-label")
+	}
+}
+
+// TestRopeDividerSVG verifies ATMO-03: rope divider is an SVG element, not
+// an <hr>.
+func TestRopeDividerSVG(t *testing.T) {
+	repo := &mockRepository{
+		posts:      []model.Post{{Title: "Test Post", Slug: "test-post"}},
+		totalCount: 1,
+	}
+	h := newTestHandler(repo)
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	h.ListPosts(rec, req)
+	body := rec.Body.String()
+
+	if !strings.Contains(body, `<svg class="rope-divider"`) {
+		t.Error("TestRopeDividerSVG: missing SVG rope-divider element")
+	}
+	if strings.Contains(body, `<hr class="rope-divider">`) {
+		t.Error("TestRopeDividerSVG: old HR rope-divider still present")
+	}
+}
+
+// TestListHero verifies TYPO-03: homepage renders a hero area with the site
+// title and tagline, even when there are no posts.
+func TestListHero(t *testing.T) {
+	h := newTestHandler(&mockRepository{posts: nil, totalCount: 0})
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+
+	h.ListPosts(rec, req)
+	body := rec.Body.String()
+
+	for _, want := range []string{
+		`class="list-hero"`,
+		`class="list-hero-title"`,
+		`The Wild Meridian</h1>`,
+		`dispatches from the deep end</p>`,
+	} {
+		if !strings.Contains(body, want) {
+			t.Errorf("TestListHero: missing %q", want)
+		}
+	}
+}
+
 // TestShowPostNotFound verifies that ShowPost returns HTTP 404 for a missing slug.
 func TestShowPostNotFound(t *testing.T) {
 	repo := &mockRepository{
