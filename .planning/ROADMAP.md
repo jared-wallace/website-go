@@ -115,7 +115,11 @@ Plans:
   2. `docker compose up` starts the app and Postgres; app serves traffic on :8080 within 30 seconds
   3. Postgres data directory is bind-mounted from /var/www/html/pgdata; container stops and restarts without data loss
   4. Makefile `deploy` target documents (and enforces) the `chown 999:999` prerequisite for the Postgres bind-mount directory
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 06-01-PLAN.md -- Dockerfile, .dockerignore, .env.example, /health endpoint
+- [ ] 06-02-PLAN.md -- Production docker-compose.yml, Makefile deploy/logs/status targets
 
 ## Progress
 
@@ -129,4 +133,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Admin Panel | 3/4 | In Progress|  |
 | 4. Distribution | 3/3 | Complete   | 2026-03-27 |
 | 5. API + Images | 2/2 | Complete   | 2026-03-28 |
-| 6. Docker + Deployment | 0/? | Not started | - |
+| 6. Docker + Deployment | 0/2 | Not started | - |
