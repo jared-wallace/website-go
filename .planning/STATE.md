@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 Phase: Complete
 Plan: Complete
 Status: Milestone v1.0 shipped
-Last activity: 2026-03-28 - Completed quick task 260327-vu6: Create comprehensive README
+Last activity: 2026-03-28 - Completed quick task 260327-wm3: Fix CI linter failures
 
 Progress: [##########] 100%
 
