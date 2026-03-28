@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.2 Shore Leave Polish (Shipped: 2026-03-28)
+
+**Phases completed:** 3 phases, 4 plans
+**Files changed:** 5 files, +377/-48 lines (excluding .planning)
+**Timeline:** 2026-03-28 (same day as v1.1)
+
+**Key accomplishments:**
+
+- SVG feTurbulence grain texture overlay with iOS-safe positioning and separate light/dark opacities
+- Motion system with page fade-in, 6-card stagger entrance, and .theme-ready-gated dark mode transitions
+- prefers-reduced-motion guard covering all animations including legacy reaction-bounce (WCAG 2.3.3)
+- Footer redesigned as two-section personality block with relocated About link and ARIA landmarks
+- Inline SVG twisted rope divider replacing CSS dashed border, theme-aware via custom properties
+- List page hero heading with "The Wild Meridian" h1 and tagline
+
+**Archive:** [v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md) | [v1.2-REQUIREMENTS.md](milestones/v1.2-REQUIREMENTS.md)
+
+---
+
 ## v1.1 The Wild Meridian (Shipped: 2026-03-28)
 
 **Phases completed:** 2 phases, 2 plans, 4 tasks

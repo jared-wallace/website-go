@@ -10,8 +10,8 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 ## Current State
 
-**Shipped:** v1.0 MVP (2026-03-28), v1.1 The Wild Meridian (2026-03-28)
-**Codebase:** ~29,600 lines of Go across 8 phases
+**Shipped:** v1.0 MVP (2026-03-28), v1.1 The Wild Meridian (2026-03-28), v1.2 Shore Leave Polish (2026-03-28)
+**Codebase:** ~29,600 lines of Go + 377 lines CSS/template across 11 phases
 **Tech stack:** Go 1.26, pgx/v5, goldmark+bluemonday, html/template, SCS sessions, goose migrations
 **Deployment:** Multi-stage Docker (9.9MB alpine), docker-compose with Postgres sidecar, EBS bind-mounts
 
@@ -38,33 +38,23 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 - Copyright footer with dynamic year and "Jared Wallace" -- v1.1
 - Discreet RSS icon in footer with autodiscovery link tag -- v1.1
 - About page from embedded markdown with nautical chrome and nav link -- v1.1
-
-## Current Milestone: v1.2 Shore Leave Polish
-
-**Goal:** Elevate the site's visual cohesion and nautical atmosphere through CSS/template-level design polish — no backend changes.
-
-**Target features:**
-- Move About link to footer and expand footer into a proper navigation/personality block
-- Add background texture (CSS noise/grain) for weathered atmosphere
-- Improve post card depth, tag visibility, and rope divider as a design motif
-- Add dark mode color transitions and subtle page entry animations
-- Fix reaction button radius consistency and add homepage heading
-- Fix stale "The Log" CSS comment
+- Background grain/noise texture overlay in both light and dark modes -- v1.2
+- Post card two-layer resting shadows with warm depth -- v1.2
+- Tag pill filled semi-transparent backgrounds -- v1.2
+- Reaction button radius consistency (4px design system) -- v1.2
+- CSS header comment rebranded to "The Wild Meridian" -- v1.2
+- Page fade-in and card stagger entrance animations -- v1.2
+- Dark mode smooth color transitions with flash prevention -- v1.2
+- prefers-reduced-motion guard on all animations -- v1.2
+- Footer redesigned with two-section personality layout -- v1.2
+- About link relocated from nav bar to footer -- v1.2
+- ARIA landmark disambiguation on nav and footer -- v1.2
+- SVG twisted rope divider replacing dashed CSS border -- v1.2
+- List page hero heading with tagline -- v1.2
 
 ### Active
 
-- [x] About link relocated to footer -- Phase 11
-- [x] Footer expanded with navigation and personality -- Phase 11
-- [x] Background texture/grain for weathered atmosphere -- Phase 9
-- [x] Post card depth and visual weight improvements -- Phase 9
-- [x] Rope divider strengthened as design motif -- Phase 11
-- [x] Dark mode color transitions -- Phase 10
-- [x] Tag pill visibility improvements -- Phase 9
-- [x] Page entry animations (fade-in, card stagger) -- Phase 10
-- [x] Reaction button radius consistency (pill → 4px) -- Phase 9
-- [x] Homepage heading/hero area -- Phase 11
-- [x] CSS comment rebrand fix -- Phase 9
-- [x] Mobile nav cleanup (resolved by About move) -- Phase 11
+(No active requirements -- next milestone not yet planned)
 
 ### Out of Scope
 
@@ -137,4 +127,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 11 completion (v1.2 final phase)*
+*Last updated: 2026-03-28 after v1.2 milestone*

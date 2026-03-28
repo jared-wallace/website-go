@@ -77,6 +77,47 @@
 - Model mix: opus orchestrator, sonnet executor + verifier
 - Notable: entire milestone (plan + execute + verify + complete) in a single session
 
+## Milestone: v1.2 -- Shore Leave Polish
+
+**Shipped:** 2026-03-28
+**Phases:** 3 | **Plans:** 4 | **Timeline:** ~1 day (same day as v1.1)
+
+### What Was Built
+- CSS grain texture overlay with SVG feTurbulence and iOS-safe positioning
+- Motion system: page fade-in, 6-card stagger, dark mode color blends
+- .theme-ready flash prevention gate via requestAnimationFrame
+- prefers-reduced-motion guard covering all animations including legacy reaction-bounce
+- Two-section footer with personality phrase, relocated About link, ARIA landmarks
+- Inline SVG twisted rope divider with theme-aware CSS variable stroke
+- List page hero heading with "The Wild Meridian" h1 and tagline
+
+### What Worked
+- Pure CSS/template milestone with zero backend changes -- clean separation of concerns
+- TDD approach in Phase 11 (Wave 0 RED tests then GREEN implementation) caught a class-name collision between nav and footer About links before it shipped
+- .theme-ready gate pattern elegantly solved the flash-of-transition problem with a single requestAnimationFrame callback
+- Phase 9 research identified the iOS scroll jank risk with background-attachment: fixed -- avoided a mobile bug before writing any code
+- Card stagger cap at 6 kept animation total under 400ms -- good UX constraint
+
+### What Was Inefficient
+- REQUIREMENTS.md traceability table drifted again -- Phase 9 and 10 requirements stayed "Pending" despite phases completing. Same issue as v1.0 and v1.1
+- Phase 11 plan 01 (Wave 0 tests) was only 1 minute of work -- could have been inlined into plan 02 for less overhead
+
+### Patterns Established
+- .theme-ready CSS gate: JS adds class after first paint, CSS transitions only fire for user-initiated changes
+- prefers-reduced-motion as final CSS block covering all animations (new and legacy)
+- Inline SVG decorative elements with aria-hidden=true and stroke=var(--color-divider) for theme awareness
+- Footer two-section flex layout with 767px column stacking breakpoint
+- footer-link + nav-link dual-class pattern for footer links that share nav styling but need test disambiguation
+
+### Key Lessons
+1. REQUIREMENTS.md traceability drift is now a 3-milestone pattern -- it needs atomic tooling or should be dropped as a manual artifact
+2. Very small test-only plans (< 2 minutes) add planning overhead without proportional value -- consider inlining into implementation plans
+3. CSS-only milestones are fast and low-risk -- good candidates for shipping same-day alongside feature milestones
+
+### Cost Observations
+- Model mix: opus for planning/orchestration, sonnet for execution
+- Notable: 3 phases in ~30 minutes of execution time (excluding planning/research)
+
 ---
 
 ## Cross-Milestone Trends
@@ -87,6 +128,7 @@
 |-----------|---------|--------|------------|
 | v1.0 | 125 | 6 | Initial process -- established GSD workflow patterns |
 | v1.1 | ~10 | 2 | Small milestone -- fast execution, same tooling gaps surfaced |
+| v1.2 | ~38 | 3 | CSS-only milestone -- fast, low-risk, TDD for templates |
 
 ### Cumulative Quality
 
@@ -94,9 +136,11 @@
 |-----------|--------|---------------|---------------------|
 | v1.0 | ~29,400 | 11 | 16 |
 | v1.1 | ~29,600 | 11 | 3 (visual checks) |
+| v1.2 | ~29,600 | 11 | 0 |
 
 ### Top Lessons (Verified Across Milestones)
 
 1. Minimal dependencies + stdlib-first approach keeps the codebase simple and the binary small (9.9MB)
 2. Render-on-write (not render-on-read) eliminates redundant markdown processing on every page view
-3. ROADMAP progress table and REQUIREMENTS traceability drift between phases -- needs atomic tooling updates (v1.0 + v1.1)
+3. REQUIREMENTS.md traceability drift is a persistent issue across all 3 milestones -- needs atomic tooling or retirement as manual artifact
+4. CSS-only milestones ship fast and carry minimal risk -- good for batching visual improvements between feature work
