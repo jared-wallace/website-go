@@ -1,7 +1,8 @@
 .PHONY: build test lint run dev dev-up dev-down migrate docker hash-password deps check-deps deploy logs status help
 
-BINARY := bin/server
-GO     := go
+BINARY       := bin/server
+GO           := go
+DATABASE_URL ?= postgres://website:website@localhost:5432/website_dev?sslmode=disable
 
 ## build: compile the server binary
 build:
