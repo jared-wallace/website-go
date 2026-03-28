@@ -1,5 +1,5 @@
 /* ===================================================================
-   Design System — The Log (weathered beach bar nautical theme)
+   Design System — The Wild Meridian (weathered beach bar nautical theme)
    Light and dark mode via CSS custom properties.
    =================================================================== */
 
@@ -189,6 +189,9 @@ body {
   flex-direction: column;
   justify-content: space-between;
   transition: transform 200ms ease, box-shadow 200ms ease;
+  box-shadow:
+    0 1px 3px rgba(44, 36, 24, 0.08),
+    0 4px 12px rgba(44, 36, 24, 0.05);
 }
 
 .post-card:hover {
@@ -198,6 +201,12 @@ body {
 
 [data-theme="dark"] .post-card:hover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .post-card {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .post-card:focus-visible {
@@ -216,13 +225,17 @@ body {
 
 .tag-pill {
   display: inline-block;
-  padding: 2px 4px;
+  padding: 4px 8px;
   border: 1px solid var(--color-divider);
   border-radius: 2px;
   font-size: 14px;
   color: var(--color-text-muted);
-  background: transparent;
+  background: rgba(44, 95, 122, 0.08);
   line-height: 1.4;
+}
+
+[data-theme="dark"] .tag-pill {
+  background: rgba(201, 168, 76, 0.12);
 }
 
 /* --- Post Card Title --- */
@@ -608,7 +621,7 @@ body {
 .reaction-btn {
   background: none;
   border: 2px solid var(--color-accent);
-  border-radius: 2rem;
+  border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
   font-size: 18px;
