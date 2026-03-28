@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: Shore Leave Polish
-status: executing
-stopped_at: Phase 11 UI-SPEC approved
-last_updated: "2026-03-28T17:12:11.973Z"
-last_activity: 2026-03-28
+milestone: v1.0
+milestone_name: milestone
+status: completed
+stopped_at: Completed 11-01-PLAN.md
+last_updated: "2026-03-28T17:30:04.169Z"
+last_activity: 2026-03-28 -- Plan 11-01 completed (RED tests)
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 2
-  completed_plans: 2
-  percent: 33
+  completed_plans: 3
+  percent: 50
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A reader visits jared-wallace.com and reads well-rendered markdown blog posts with images in a distinctive, memorable design.
-**Current focus:** Phase 10 — animations-transitions
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 11
-Plan: Not started
-Status: Executing Phase 10
-Last activity: 2026-03-28
+Phase: 11 (template-changes) — EXECUTING
+Plan: 2 of 2
+Status: Completed Plan 01, proceeding to Plan 02
+Last activity: 2026-03-28 -- Plan 11-01 completed (RED tests)
 
-Progress: [███░░░░░░░] 33%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -54,7 +54,7 @@ Progress: [███░░░░░░░] 33%
 | 06-docker P02 | 1 | 2min | 2min | 2 |
 | Phase 07-rebrand-navigation P01 | 2min | 2 tasks | 10 files |
 | Phase 08-about-page P01 | 3min | 2 tasks | 10 files |
-| Phase 09-css-foundation P01 | ~10min | 3 tasks | 1 file |
+| Phase 11 P01 | 1min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -62,13 +62,7 @@ Progress: [███░░░░░░░] 33%
 
 See PROJECT.md Key Decisions table (updated at v1.1 milestone).
 
-Recent decisions affecting v1.2:
-
-- CSS changes land before template changes (classes must exist before markup uses them)
-- Dark mode transitions gated behind `.theme-ready` JS class to prevent page-load flash
-- `prefers-reduced-motion` guard ships alongside new animations AND fixes existing `reaction-bounce`
-- Background grain uses `position: fixed` pseudo-element (never `background-attachment: fixed`) for mobile scroll performance
-- No new CSS files for v1.2 — all changes appended to `main.css` with labeled block comments
+- [Phase 11]: Used strings.Contains assertions for template tests — matches existing handler_test.go pattern, avoids HTML parser dependency
 
 ### Pending Todos
 
@@ -78,7 +72,6 @@ None.
 
 - ASG must have `max_size = 1` and `delete_on_termination = false` before any production data is written
 - Postgres EBS bind-mount requires `chown 999:999` on host before first `make deploy`
-- Grain texture mobile performance: verify on physical low-end Android device before shipping Phase 9
 
 ### Quick Tasks Completed
 
@@ -89,6 +82,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-28T17:12:11.971Z
-Stopped at: Phase 11 UI-SPEC approved
-Resume file: .planning/phases/11-template-changes/11-UI-SPEC.md
+Last session: 2026-03-28T17:30:04.167Z
+Stopped at: Completed 11-01-PLAN.md
+Resume file: None
