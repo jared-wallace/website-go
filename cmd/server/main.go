@@ -21,8 +21,8 @@ import (
 	"github.com/jared-wallace/website-go/internal/markdown"
 	"github.com/jared-wallace/website-go/internal/middleware"
 	postrepo "github.com/jared-wallace/website-go/internal/repository/post"
-	postservice "github.com/jared-wallace/website-go/internal/service/post"
 	"github.com/jared-wallace/website-go/internal/server"
+	postservice "github.com/jared-wallace/website-go/internal/service/post"
 	"github.com/jared-wallace/website-go/web"
 )
 
@@ -59,7 +59,7 @@ func main() {
 	}
 
 	// Ensure the image directory exists on first boot (Pitfall 3).
-	if err := os.MkdirAll(cfg.ImageDir, 0755); err != nil {
+	if err := os.MkdirAll(cfg.ImageDir, 0750); err != nil {
 		logger.Error("failed to create image directory", "path", cfg.ImageDir, "error", err)
 		os.Exit(1)
 	}
@@ -76,8 +76,8 @@ func main() {
 	defer pool.Close()
 	logger.Info("database connected")
 
-	if err := database.RunMigrations(ctx, pool); err != nil {
-		logger.Error("migrations failed", "error", err)
+	if migErr := database.RunMigrations(ctx, pool); migErr != nil {
+		logger.Error("migrations failed", "error", migErr)
 		os.Exit(1)
 	}
 	logger.Info("migrations applied")
@@ -90,8 +90,8 @@ func main() {
 	// --- Session Manager (SCS + Postgres-backed store) ---
 	sessionManager := scs.New()
 	sessionManager.Store = pgxstore.New(pool)
-	sessionManager.IdleTimeout = 24 * time.Hour      // D-10: inactivity-based expiry
-	sessionManager.Lifetime = 30 * 24 * time.Hour    // 30-day absolute backstop
+	sessionManager.IdleTimeout = 24 * time.Hour   // D-10: inactivity-based expiry
+	sessionManager.Lifetime = 30 * 24 * time.Hour // 30-day absolute backstop
 	sessionManager.Cookie.HttpOnly = true
 	sessionManager.Cookie.Secure = cfg.AppEnv == "production" // false in dev for http://localhost
 	sessionManager.Cookie.SameSite = http.SameSiteLaxMode     // D-09, Pitfall 3
@@ -115,10 +115,10 @@ func main() {
 	blogMux := http.NewServeMux()
 	blogMux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(staticFS)))
 	blogMux.Handle("GET /images/{path...}", imageServer)
-	blogMux.HandleFunc("GET /{$}", blog.ListPosts)        // Home page (exact match)
-	blogMux.HandleFunc("GET /posts", blog.ListPosts)       // /posts?page=N
-	blogMux.HandleFunc("GET /posts/{slug}", blog.ShowPost)          // Single post
-	blogMux.HandleFunc("POST /posts/{slug}/react", blog.React)      // Thumbs-up reaction
+	blogMux.HandleFunc("GET /{$}", blog.ListPosts)             // Home page (exact match)
+	blogMux.HandleFunc("GET /posts", blog.ListPosts)           // /posts?page=N
+	blogMux.HandleFunc("GET /posts/{slug}", blog.ShowPost)     // Single post
+	blogMux.HandleFunc("POST /posts/{slug}/react", blog.React) // Thumbs-up reaction
 	blogMux.HandleFunc("GET /rss", blog.ServeRSS)
 	blogMux.HandleFunc("GET /sitemap.xml", blog.ServeSitemap)
 	blogMux.HandleFunc("GET /robots.txt", blog.ServeRobots)
@@ -160,7 +160,10 @@ func main() {
 
 	// Wrap admin mux: CrossOriginProtection (CSRF) + session middleware
 	cop := http.NewCrossOriginProtection()
-	cop.AddTrustedOrigin("https://" + cfg.AdminHost)
+	if err := cop.AddTrustedOrigin("https://" + cfg.AdminHost); err != nil {
+		logger.Error("failed to add trusted origin", "host", cfg.AdminHost, "error", err)
+		os.Exit(1)
+	}
 	adminHandler := sessionManager.LoadAndSave(cop.Handler(adminMux))
 
 	// --- Host router ---

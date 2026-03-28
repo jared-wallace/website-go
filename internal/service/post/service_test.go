@@ -20,9 +20,9 @@ func (noopRenderer) Render(src string) template.HTML { return template.HTML(src)
 
 func TestReadingTime(t *testing.T) {
 	cases := []struct {
-		name  string
-		body  string
-		want  int
+		name string
+		body string
+		want int
 	}{
 		{"empty returns minimum 1", "", 1},
 		{"exactly 200 words returns 1", strings.Repeat("word ", 200), 1},

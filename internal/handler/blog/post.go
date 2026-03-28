@@ -8,7 +8,6 @@ import (
 	postservice "github.com/jared-wallace/website-go/internal/service/post"
 )
 
-
 // ShowPost handles GET /posts/{slug}.
 // It fetches the post by slug and renders the single-post template with the
 // table of contents, rendered HTML body, and reading time. Returns a themed

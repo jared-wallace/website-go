@@ -30,11 +30,11 @@ func (noopRendererEditor) Render(src string) template.HTML { return template.HTM
 // editorRepo is a mock repository wired for editor/preview tests.
 // It returns a fixed post for FindByID and records calls to Create/Update/SetPublished.
 type editorRepo struct {
-	createCalled      bool
-	updateCalled      bool
+	createCalled       bool
+	updateCalled       bool
 	setPublishedCalled bool
-	createReturn      *model.Post
-	createErr         error
+	createReturn       *model.Post
+	createErr          error
 }
 
 func (m *editorRepo) ListPublished(_ context.Context, _, _ int) ([]model.Post, error) {
@@ -78,8 +78,8 @@ func (m *editorRepo) Update(_ context.Context, _ model.Post) error {
 	m.updateCalled = true
 	return nil
 }
-func (m *editorRepo) SoftDelete(_ context.Context, _ int64) error  { return nil }
-func (m *editorRepo) Restore(_ context.Context, _ int64) error     { return nil }
+func (m *editorRepo) SoftDelete(_ context.Context, _ int64) error { return nil }
+func (m *editorRepo) Restore(_ context.Context, _ int64) error    { return nil }
 func (m *editorRepo) SetPublished(_ context.Context, _ int64, _ bool) error {
 	m.setPublishedCalled = true
 	return nil
