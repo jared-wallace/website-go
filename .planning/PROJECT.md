@@ -53,18 +53,18 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 
 ### Active
 
-- [ ] About link relocated to footer
-- [ ] Footer expanded with navigation and personality
-- [ ] Background texture/grain for weathered atmosphere
-- [ ] Post card depth and visual weight improvements
-- [ ] Rope divider strengthened as design motif
-- [ ] Dark mode color transitions
-- [ ] Tag pill visibility improvements
-- [ ] Page entry animations (fade-in, card stagger)
-- [ ] Reaction button radius consistency (pill → 4px)
-- [ ] Homepage heading/hero area
-- [ ] CSS comment rebrand fix
-- [ ] Mobile nav cleanup (resolved by About move)
+- [x] About link relocated to footer -- Phase 11
+- [x] Footer expanded with navigation and personality -- Phase 11
+- [x] Background texture/grain for weathered atmosphere -- Phase 9
+- [x] Post card depth and visual weight improvements -- Phase 9
+- [x] Rope divider strengthened as design motif -- Phase 11
+- [x] Dark mode color transitions -- Phase 10
+- [x] Tag pill visibility improvements -- Phase 9
+- [x] Page entry animations (fade-in, card stagger) -- Phase 10
+- [x] Reaction button radius consistency (pill → 4px) -- Phase 9
+- [x] Homepage heading/hero area -- Phase 11
+- [x] CSS comment rebrand fix -- Phase 9
+- [x] Mobile nav cleanup (resolved by About move) -- Phase 11
 
 ### Out of Scope
 
@@ -137,4 +137,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after v1.2 milestone start*
+*Last updated: 2026-03-28 after Phase 11 completion (v1.2 final phase)*
