@@ -93,7 +93,8 @@ func TestUploadImage_ValidPNG(t *testing.T) {
 	ts, _ := uploadTestSetup(t)
 
 	content := make([]byte, 1024)
-	copy(content, []byte{0x89, 0x50, 0x4E, 0x47})
+	// Full 8-byte PNG signature required for http.DetectContentType
+	copy(content, []byte{0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A})
 
 	req := createMultipartRequest(t, "screenshot.png", content)
 	rec := ts.serve(ts.handler.UploadImage, req)

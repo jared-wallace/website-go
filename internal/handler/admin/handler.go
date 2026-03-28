@@ -36,6 +36,7 @@ type AdminHandler struct {
 	adminEmail  string
 	adminHash   []byte
 	dummyHash   []byte // pre-computed hash for timing-safe comparison when email doesn't match
+	imageDir    string // filesystem path for uploaded images (EBS-backed)
 }
 
 // New parses admin templates and returns a ready-to-use AdminHandler.
@@ -77,6 +78,7 @@ func New(svc *postservice.Service, sm *scs.SessionManager, r Renderer, rl *middl
 		adminEmail:  cfg.AdminEmail,
 		adminHash:   []byte(cfg.AdminPasswordHash),
 		dummyHash:   dummy,
+		imageDir:    cfg.ImageDir,
 	}
 }
 
@@ -100,4 +102,8 @@ func (h *AdminHandler) render(w http.ResponseWriter, status int, page string, da
 	}
 }
 
+// SetImageDir overrides the image directory — used in tests with t.TempDir().
+func (h *AdminHandler) SetImageDir(dir string) { h.imageDir = dir }
+
 // NewPost, EditPost, SavePost, and Preview are implemented in editor.go and preview.go.
+// UploadImage is implemented in upload.go.
