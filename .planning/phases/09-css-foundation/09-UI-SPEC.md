@@ -42,8 +42,8 @@ Declared values (multiples of 4 only):
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| xs | 4px | Tags row gap, inline pill padding |
-| sm | 8px | Nav padding (vertical), card margin, reaction bar padding |
+| xs | 4px | Tags row gap, inline pill padding (vertical) |
+| sm | 8px | Nav padding (vertical), card margin, reaction bar padding, inline pill padding (horizontal) |
 | md | 16px | Nav padding (horizontal), nav-link margin, reaction button padding |
 | lg | 24px | Post card padding, card grid gap |
 | xl | 32px | Container padding (horizontal), reaction bar top margin |
@@ -177,7 +177,7 @@ Constraints:
 
 ```
 background: rgba(44, 95, 122, 0.08);   /* light mode */
-padding: 2px 6px;                       /* increased from 2px 4px */
+padding: 4px 8px;                       /* increased from 2px 4px; on-grid values */
 ```
 
 **Dark mode override (add `[data-theme="dark"] .tag-pill`):**
@@ -188,7 +188,7 @@ background: rgba(201, 168, 76, 0.12);
 
 Constraints:
 - Existing `1px solid var(--color-divider)` border remains — do not remove it
-- Padding adjustment from `2px 4px` to `2px 6px` is at executor's discretion — check by eye
+- Padding is `4px 8px` (xs vertical, sm horizontal) — both values are on the 4-point grid
 
 ### 4. Reaction Button Radius (TYPO-02) — edit `.reaction-btn` at line 611
 
@@ -285,7 +285,7 @@ Single file target. All edits land in `web/static/main.css`.
 | HOUSE-01 | Lines 1–4 | String replacement |
 | ATMO-02 | Lines 183–192 (`.post-card`) | Add `box-shadow` property |
 | ATMO-02 | After line 201 | Add `[data-theme="dark"] .post-card` block |
-| TYPO-01 | Lines 217–226 (`.tag-pill`) | Change `background`, adjust `padding` |
+| TYPO-01 | Lines 217–226 (`.tag-pill`) | Change `background`, set `padding: 4px 8px` |
 | TYPO-01 | After line 226 | Add `[data-theme="dark"] .tag-pill` block |
 | TYPO-02 | Line 611 (`.reaction-btn`) | Change `border-radius` value |
 | ATMO-01 | End of file | Append grain pseudo-element block |
@@ -303,6 +303,7 @@ Single file target. All edits land in `web/static/main.css`.
 | Hover shadow unchanged | CONTEXT.md D-06 |
 | Tag pill fill rgba values | CONTEXT.md D-07 |
 | Tag pill border preserved | CONTEXT.md D-08 |
+| Tag pill padding: 4px 8px (on-grid) | Spacing contract (multiples of 4); revised from off-grid 2px 6px |
 | Reaction button `border-radius: 4px` | CONTEXT.md D-09 |
 | CSS comment rebrand copy | CONTEXT.md D-10 |
 | Color palette (all values) | `web/static/main.css` lines 8–27 |
