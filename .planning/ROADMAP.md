@@ -32,7 +32,7 @@
 
 **Milestone Goal:** Elevate visual cohesion and nautical atmosphere through CSS/template-level design polish — no backend changes.
 
-- [ ] **Phase 9: CSS Foundation** - Pure CSS atmosphere and component fixes
+- [x] **Phase 9: CSS Foundation** - Pure CSS atmosphere and component fixes
 - [ ] **Phase 10: Animations & Transitions** - Motion system with reduced-motion safety and dark mode transitions
 - [ ] **Phase 11: Template Changes** - Footer redesign, rope divider, and homepage hero
 
@@ -48,9 +48,9 @@
   3. Tag pills display a filled semi-transparent background that is legible in both light and dark modes
   4. Reaction button corners are visually consistent with the site's 4px design system (no pill shape)
   5. The CSS file header comment reads "The Wild Meridian" and no reference to "The Log" remains
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 09-01-PLAN.md — CSS atmosphere and component fixes (grain, shadows, fills, radius, rebrand)
+- [x] 09-01-PLAN.md — CSS atmosphere and component fixes (grain, shadows, fills, radius, rebrand)
 **UI hint**: yes
 
 ### Phase 10: Animations & Transitions
@@ -92,6 +92,6 @@ Plans:
 | 6. Docker + Deployment | v1.0 | 2/2 | Complete | 2026-03-28 |
 | 7. Rebrand + Navigation | v1.1 | 1/1 | Complete | 2026-03-28 |
 | 8. About Page | v1.1 | 1/1 | Complete | 2026-03-28 |
-| 9. CSS Foundation | v1.2 | 0/1 | Not started | - |
+| 9. CSS Foundation | v1.2 | 1/1 | Complete   | 2026-03-28 |
 | 10. Animations & Transitions | v1.2 | 0/? | Not started | - |
 | 11. Template Changes | v1.2 | 0/? | Not started | - |
