@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-28T00:31:09Z"
-last_activity: 2026-03-28 -- Completed 05-01 image upload plan
+status: verifying
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-28T00:39:43.608Z"
+last_activity: 2026-03-28
 progress:
   total_phases: 6
-  completed_phases: 3
-  total_plans: 13
-  completed_plans: 12
+  completed_phases: 4
+  total_plans: 15
+  completed_plans: 13
   percent: 80
 ---
 
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-03-26)
 
 Phase: 05 (api-images) — EXECUTING
 Plan: 2 of 2
-Status: Executing Phase 05
-Last activity: 2026-03-28 -- Completed 05-01 image upload plan
+Status: Phase complete — ready for verification
+Last activity: 2026-03-28
 
 Progress: [████████░░] 80%
 
@@ -64,6 +64,7 @@ Progress: [████████░░] 80%
 | Phase 04-distribution P02 | 3min | 2 tasks | 6 files |
 | Phase 04-distribution P03 | 4min | 2 tasks | 13 files |
 | Phase 05-api-images P01 | 4min | 2 tasks | 7 files |
+| Phase 05 P02 | 4min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -102,6 +103,9 @@ Recent decisions affecting current work:
 - [Phase 05-01]: MaxBytesReader used instead of ParseMultipartForm maxMemory for hard 5MB upload limit enforcement
 - [Phase 05-01]: APIToken config field added alongside ImageDir to avoid re-modifying config.go in Plan 02
 - [Phase 05-01]: SetImageDir test helper on AdminHandler for t.TempDir injection in upload tests
+- [Phase 05]: Upserter interface in api handler decouples from concrete Service for testability
+- [Phase 05]: LimitReader reads maxBody+1 bytes then checks length for exact size enforcement without silent truncation
+- [Phase 05]: API push route on blogMux (not adminMux) -- bearer token is the auth gate, not host routing
 
 ### Pending Todos
 
@@ -115,6 +119,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-28T00:31:09Z
-Stopped at: Completed 05-01-PLAN.md (image upload)
-Resume file: .planning/phases/05-api-images/05-02-PLAN.md
+Last session: 2026-03-28T00:39:43.605Z
+Stopped at: Completed 05-02-PLAN.md
+Resume file: None

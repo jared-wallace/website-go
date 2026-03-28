@@ -42,7 +42,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ADMIN-06**: Admin can toggle posts between draft and published states
 - [x] **ADMIN-07**: Admin can write in split-pane markdown editor with live preview
 - [x] **ADMIN-08**: Admin can upload images and embed them in posts
-- [ ] **ADMIN-09**: Admin can push .md files via API endpoint with bearer token auth
+- [x] **ADMIN-09**: Admin can push .md files via API endpoint with bearer token auth
 
 ## v2 Requirements
 
@@ -102,7 +102,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-09 | Phase 4 | Complete |
 | BLOG-10 | Phase 4 | Complete |
 | ADMIN-08 | Phase 5 | Complete |
-| ADMIN-09 | Phase 5 | Pending |
+| ADMIN-09 | Phase 5 | Complete |
 | FOUND-04 | Phase 6 | Pending |
 | FOUND-05 | Phase 6 | Pending |
 

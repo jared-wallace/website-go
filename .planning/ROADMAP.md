@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: Public Blog** - Full public reading experience: post listing, single post, slugs, nautical design, dark mode, ToC, 404
 - [ ] **Phase 3: Admin Panel** - Session auth, post CRUD, draft/publish workflow, split-pane markdown editor
 - [x] **Phase 4: Distribution** - RSS feed, Open Graph meta tags, sitemap, thumbs-up reactions (completed 2026-03-27)
-- [ ] **Phase 5: API + Images** - Image upload (magic-byte validated, EBS-stored) and API push endpoint with bearer token
+- [x] **Phase 5: API + Images** - Image upload (magic-byte validated, EBS-stored) and API push endpoint with bearer token (completed 2026-03-28)
 - [ ] **Phase 6: Docker + Deployment** - Multi-stage Dockerfile, docker-compose with Postgres sidecar, EBS bind-mount, production-ready Makefile targets
 
 ## Phase Details
@@ -100,11 +100,11 @@ Plans:
   2. A file with a spoofed MIME extension (e.g., .jpg with HTML content) is rejected at the magic-byte check
   3. `POST /api/push` with a valid bearer token accepts a .md file body and creates or upserts a post by slug
   4. `POST /api/push` with a missing or invalid token returns 401; no post is created
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 
 Plans:
 - [x] 05-01-PLAN.md -- Image upload: MIME validation handler, editor UI, /images/ file server
-- [ ] 05-02-PLAN.md -- API push: bearer token middleware, UpsertBySlug, POST /api/push endpoint
+- [x] 05-02-PLAN.md -- API push: bearer token middleware, UpsertBySlug, POST /api/push endpoint
 
 ### Phase 6: Docker + Deployment
 **Goal**: The application ships as a minimal Docker container in a docker-compose stack with a Postgres sidecar, correctly bind-mounted to the EBS volume, and deployable behind the existing Nginx + ALB without manual steps.
@@ -128,5 +128,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Public Blog | 1/3 | In Progress|  |
 | 3. Admin Panel | 3/4 | In Progress|  |
 | 4. Distribution | 3/3 | Complete   | 2026-03-27 |
-| 5. API + Images | 0/2 | Planned | - |
+| 5. API + Images | 2/2 | Complete   | 2026-03-28 |
 | 6. Docker + Deployment | 0/? | Not started | - |
