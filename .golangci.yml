@@ -1,0 +1,34 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - sqlclosecheck
+    - gosec
+  settings:
+    errcheck:
+      check-type-assertions: true
+      check-blank: false
+    govet:
+      enable-all: true
+    gosec:
+      severity: medium
+      confidence: medium
+  exclusions:
+    rules:
+      - path: "_test.go"
+        linters:
+          - errcheck
+          - gosec
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+
+run:
+  timeout: 5m
+  tests: true
