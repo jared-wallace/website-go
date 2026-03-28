@@ -2,7 +2,7 @@
 
 A personal blog platform for [jared-wallace.com](https://jared-wallace.com), built as a Go web server with a "weathered beach bar" nautical design. The public blog lives at jared-wallace.com, with an admin panel at admin.jared-wallace.com for writing and managing markdown posts.
 
-Deployed as a Docker container behind an AWS ALB + Nginx reverse proxy.
+Deployed as a Docker container behind an AWS ALB with HTTPS termination (no Nginx layer).
 
 ## Tech Stack
 
@@ -172,29 +172,31 @@ The container runs as `appuser` (UID 1001) and listens on port 8080.
 
 ## Deployment
 
-The application runs on AWS behind an ALB with HTTPS termination.
+The application runs on AWS behind an ALB with HTTPS termination. The ALB forwards directly to the app container on port 8080 — there is no Nginx layer.
 
 ### Architecture
 
 ```
-Route53 (jared-wallace.com)
-  -> ALB (HTTPS, ACM cert for *.jared-wallace.com)
+Route53 (jared-wallace.com, *.jared-wallace.com)
+  -> ALB (HTTPS, ACM wildcard cert)
     -> ASG (1x t4g.micro, Amazon Linux 2023 ARM64)
       -> Docker (app container + Postgres sidecar)
         -> EBS 10GB gp3 @ /var/www/html (pgdata, images, .env)
 ```
 
-Infrastructure is managed via Terraform in the `../aws-infra` directory (S3 backend, `us-east-1`).
+Infrastructure is managed via Terraform in the [`aws-infra`](https://github.com/jared-wallace/aws-infra) repo (S3 backend, `us-east-1`). Secrets (DB credentials, admin password hash, session secret, API token) are stored in AWS SSM Parameter Store under the `/website/` prefix and pulled automatically during instance bootstrap.
 
-### First-Time Infrastructure Setup
+### Self-Healing Bootstrap
 
-1. `cd ../aws-infra && terraform init && terraform apply`
-2. Create an EC2 key pair in the AWS console
-3. SSH to the new instance
-4. Clone the repo to `/var/www/html/app`
-5. Create `/var/www/html/.env` from `.env.example` with production values
-6. `chown 999:999 /var/www/html/pgdata` (Postgres container UID)
-7. `make deploy`
+A `terraform apply` provisions the full stack end-to-end. The EC2 user data script automatically:
+
+1. Installs Docker, Compose, and Buildx
+2. Attaches and mounts the EBS volume
+3. Pulls secrets from SSM Parameter Store and writes `/var/www/html/.env`
+4. Clones the repo (or `git pull`s if already present)
+5. Runs `docker compose up -d --build`
+
+No manual SSH setup is required for a fresh instance. The ASG is pinned to the same AZ as the EBS volume to prevent cross-AZ attach failures.
 
 ### Subsequent Deploys (on EC2)
 
