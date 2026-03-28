@@ -22,8 +22,8 @@ A reader visits jared-wallace.com and reads well-rendered markdown blog posts wi
 - [x] RSS feed — Validated in Phase 4: distribution
 - [x] Thumbs-up reaction counter on posts — Validated in Phase 4: distribution
 - [ ] Weathered beach bar nautical design (driftwood, sand, ocean blues, chalkboard vibes)
-- [ ] Dockerized deployment (app + Postgres sidecar via docker-compose)
-- [ ] Organized Makefile following best practices
+- [x] Dockerized deployment (app + Postgres sidecar via docker-compose) — Validated in Phase 6: docker-deployment
+- [x] Organized Makefile following best practices — Validated in Phase 6: docker-deployment
 - [ ] GHA CI pipeline (lint, test, build) on free tier
 - [ ] Standard Go project structure with minimal dependencies
 - [ ] LaTeX rendering in posts (stretch goal)
