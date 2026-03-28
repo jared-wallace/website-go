@@ -48,18 +48,31 @@ make run
 | `make lint` | Run golangci-lint                                |
 | `make dev-up`   | Start local Postgres via docker-compose      |
 | `make dev-down` | Stop local Postgres                          |
-| `make migrate`  | Apply goose migrations (requires `goose` CLI) |
+| `make migrate`  | Apply goose migrations (requires `DATABASE_URL`) |
 | `make docker`   | Build Docker image                           |
 | `make help`     | List all available targets                   |
 
 ## Project Structure
 
 ```
-cmd/server/     — Application entrypoint and server wiring
-internal/       — Core packages: config, database, handler, markdown, model, server
-db/migrations/  — Goose SQL migrations (embedded into the binary at build time)
-web/            — Templates and static assets
+cmd/server/        — Application entrypoint and server wiring
+internal/          — Core packages
+  config/          — Environment and app configuration
+  database/        — PostgreSQL connection and pool setup
+  handler/         — HTTP handlers (scaffolded, not yet implemented)
+  markdown/        — Goldmark rendering pipeline with bluemonday sanitization
+  model/           — Domain types (Post, etc.)
+  server/          — Server setup and middleware
+db/migrations/     — Goose SQL migrations (embedded at build time via embed.go)
+web/               — Frontend assets
+  templates/       — Go html/template files
+  static/          — CSS and static files
+.github/workflows/ — CI pipeline (lint, test, build)
 ```
+
+## Continuous Integration
+
+A single GitHub Actions workflow at `.github/workflows/ci.yml` runs on every push to `main`/`new` and on pull requests to `main`. It executes lint (`golangci-lint`), test, and build steps against Go 1.26 with a Postgres 16 sidecar. The workflow runs entirely on free-tier GitHub-hosted runners.
 
 ## License
 
