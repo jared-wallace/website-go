@@ -16,6 +16,7 @@ import (
 	"github.com/jared-wallace/website-go/internal/config"
 	"github.com/jared-wallace/website-go/internal/database"
 	adminhandler "github.com/jared-wallace/website-go/internal/handler/admin"
+	apihandler "github.com/jared-wallace/website-go/internal/handler/api"
 	bloghandler "github.com/jared-wallace/website-go/internal/handler/blog"
 	"github.com/jared-wallace/website-go/internal/markdown"
 	"github.com/jared-wallace/website-go/internal/middleware"
@@ -121,6 +122,11 @@ func main() {
 	blogMux.HandleFunc("GET /rss", blog.ServeRSS)
 	blogMux.HandleFunc("GET /sitemap.xml", blog.ServeSitemap)
 	blogMux.HandleFunc("GET /robots.txt", blog.ServeRobots)
+	// --- API push endpoint (bearer token auth, on blog mux for public access) ---
+	apiH := apihandler.New(svc, renderer)
+	requireToken := middleware.RequireAPIToken(cfg.APIToken)
+	blogMux.Handle("POST /api/push", requireToken(http.HandlerFunc(apiH.PushPost)))
+
 	blogMux.HandleFunc("GET /{path...}", blog.NotFound) // Catch-all 404
 
 	// --- Admin handler + mux ---
