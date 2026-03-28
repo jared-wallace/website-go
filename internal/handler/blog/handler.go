@@ -45,7 +45,7 @@ func New(svc *postservice.Service) *BlogHandler {
 		"currentYear": func() int { return time.Now().Year() },
 	}
 
-	pages := []string{"list.html", "post.html", "404.html"}
+	pages := []string{"list.html", "post.html", "404.html", "about.html"}
 	templates := make(map[string]*template.Template, len(pages))
 	for _, page := range pages {
 		tmpl := template.Must(
