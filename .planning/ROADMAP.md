@@ -100,7 +100,11 @@ Plans:
   2. A file with a spoofed MIME extension (e.g., .jpg with HTML content) is rejected at the magic-byte check
   3. `POST /api/push` with a valid bearer token accepts a .md file body and creates or upserts a post by slug
   4. `POST /api/push` with a missing or invalid token returns 401; no post is created
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 05-01-PLAN.md -- Image upload: MIME validation handler, editor UI, /images/ file server
+- [ ] 05-02-PLAN.md -- API push: bearer token middleware, UpsertBySlug, POST /api/push endpoint
 
 ### Phase 6: Docker + Deployment
 **Goal**: The application ships as a minimal Docker container in a docker-compose stack with a Postgres sidecar, correctly bind-mounted to the EBS volume, and deployable behind the existing Nginx + ALB without manual steps.
@@ -124,5 +128,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Public Blog | 1/3 | In Progress|  |
 | 3. Admin Panel | 3/4 | In Progress|  |
 | 4. Distribution | 3/3 | Complete   | 2026-03-27 |
-| 5. API + Images | 0/? | Not started | - |
+| 5. API + Images | 0/2 | Planned | - |
 | 6. Docker + Deployment | 0/? | Not started | - |
