@@ -1,4 +1,4 @@
-.PHONY: build test lint run dev dev-up dev-down migrate docker hash-password deps check-deps help
+.PHONY: build test lint run dev dev-up dev-down migrate docker hash-password deps check-deps deploy logs status help
 
 BINARY := bin/server
 GO     := go
@@ -66,6 +66,25 @@ check-deps:
 	@command -v docker >/dev/null 2>&1 && echo "  ✓ docker" || echo "  ✗ docker (required for dev-up)"
 	@command -v golangci-lint >/dev/null 2>&1 && echo "  ✓ golangci-lint" || echo "  ○ golangci-lint (optional — run 'make deps')"
 	@command -v air >/dev/null 2>&1 && echo "  ✓ air" || echo "  ○ air (optional — run 'make deps')"
+
+## deploy: deploy to production (run on EC2 after SSH)
+deploy:
+	@test -f /var/www/html/.env || \
+		(echo "ERROR: /var/www/html/.env not found." && \
+		 echo "Copy .env.example to /var/www/html/.env and fill in values." && \
+		 exit 1)
+	git pull
+	docker compose build --no-cache
+	docker compose up -d
+	@echo "Deploy complete. Use 'make logs' to watch."
+
+## logs: tail application logs
+logs:
+	docker compose logs -f app
+
+## status: show container status
+status:
+	docker compose ps
 
 ## help: list available targets
 help:
