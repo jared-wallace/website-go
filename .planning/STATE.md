@@ -82,9 +82,10 @@ None.
 | 260327-vu6 | Create comprehensive README with dev setup and deployment instructions | 2026-03-28 | 227e33f | [260327-vu6-create-comprehensive-readme-with-dev-set](./quick/260327-vu6-create-comprehensive-readme-with-dev-set/) |
 | 260327-wm3 | Fix all 31 golangci-lint CI failures (errcheck, gofmt, gosec, govet) | 2026-03-28 | e1ddd4f | [260327-wm3-fix-ci-linter-failures](./quick/260327-wm3-fix-ci-linter-failures/) |
 | 260328-i3b | Rework about page with user-provided content (Who/What/When/Where/Why/How) | 2026-03-28 | 2503fea | [260328-i3b-rework-the-about-page-with-user-input](./quick/260328-i3b-rework-the-about-page-with-user-input/) |
+| 260328-swm | Remove duplicate "The Wild Meridian" hero section from home page | 2026-03-28 | 49dcc94 | [260328-swm-remove-duplicate-the-wild-meridian-heade](./quick/260328-swm-remove-duplicate-the-wild-meridian-heade/) |
 
 ## Session Continuity
 
-Last session: 2026-03-28T17:36:08.559Z
-Stopped at: Completed 11-02-PLAN.md
+Last session: 2026-03-28T18:20:00.000Z
+Stopped at: Completed quick task 260328-swm: Remove duplicate The Wild Meridian header
 Resume file: None
