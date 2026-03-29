@@ -13,9 +13,9 @@
     editorBody.addEventListener('input', function() {
       clearTimeout(previewTimer);
       previewTimer = setTimeout(function() {
-        var formData = new FormData();
-        formData.append('body', editorBody.value);
-        fetch('/admin/preview', { method: 'POST', body: formData })
+        var params = new URLSearchParams();
+        params.append('body', editorBody.value);
+        fetch('/admin/preview', { method: 'POST', body: params })
           .then(function(r) {
             if (!r.ok) throw new Error('Preview failed');
             return r.text();
