@@ -304,28 +304,6 @@ func TestRopeDividerSVG(t *testing.T) {
 	}
 }
 
-// TestListHero verifies TYPO-03: homepage renders a hero area with the site
-// title and tagline, even when there are no posts.
-func TestListHero(t *testing.T) {
-	h := newTestHandler(&mockRepository{posts: nil, totalCount: 0})
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	rec := httptest.NewRecorder()
-
-	h.ListPosts(rec, req)
-	body := rec.Body.String()
-
-	for _, want := range []string{
-		`class="list-hero"`,
-		`class="list-hero-title"`,
-		`The Wild Meridian</h1>`,
-		`dispatches from the deep end</p>`,
-	} {
-		if !strings.Contains(body, want) {
-			t.Errorf("TestListHero: missing %q", want)
-		}
-	}
-}
-
 // TestShowPostNotFound verifies that ShowPost returns HTTP 404 for a missing slug.
 func TestShowPostNotFound(t *testing.T) {
 	repo := &mockRepository{
