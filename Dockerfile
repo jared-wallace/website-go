@@ -15,13 +15,15 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o bin/server ./cmd/serve
 # Runtime stage
 FROM alpine:3.21
 
-RUN apk add --no-cache ca-certificates tzdata
+RUN apk add --no-cache ca-certificates tzdata su-exec
 
 RUN adduser -D -u 1001 appuser
-USER appuser
 
 WORKDIR /app
 COPY --from=builder /build/bin/server .
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 EXPOSE 8080
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["./server"]

@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 Phase: 11
 Plan: Not started
 Status: Phase complete — ready for verification
-Last activity: 2026-03-29 - Completed quick task 260328-swm: Remove duplicate The Wild Meridian header from home page
+Last activity: 2026-03-29 - Completed quick task 260328-tko: Fix image upload permission denied
 
 Progress: [█████░░░░░] 50%
 
@@ -84,9 +84,10 @@ None.
 | 260328-i3b | Rework about page with user-provided content (Who/What/When/Where/Why/How) | 2026-03-28 | 2503fea | [260328-i3b-rework-the-about-page-with-user-input](./quick/260328-i3b-rework-the-about-page-with-user-input/) |
 | 260328-swm | Remove duplicate "The Wild Meridian" hero section from home page | 2026-03-28 | 49dcc94 | [260328-swm-remove-duplicate-the-wild-meridian-heade](./quick/260328-swm-remove-duplicate-the-wild-meridian-heade/) |
 | 260328-tea | Fix duplicate About heading on about page (template h1 vs markdown h1) | 2026-03-28 | f672102 | [260328-tea-fix-duplicate-about-heading-on-about-pag](./quick/260328-tea-fix-duplicate-about-heading-on-about-pag/) |
+| 260328-tko | Fix image upload permission denied in Docker production deployment | 2026-03-29 | 4a64b9a | [260328-tko-fix-image-upload-permission-denied-conta](./quick/260328-tko-fix-image-upload-permission-denied-conta/) |
 
 ## Session Continuity
 
-Last session: 2026-03-28T18:30:00.000Z
-Stopped at: Completed quick task 260328-tea: Fix duplicate About heading on about page
+Last session: 2026-03-29T02:17:00.000Z
+Stopped at: Completed quick task 260328-tko: Fix image upload permission denied
 Resume file: None
