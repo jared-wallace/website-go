@@ -22,14 +22,14 @@ func TestAboutPage(t *testing.T) {
 		}
 	})
 
-	t.Run("body contains about-title CSS class", func(t *testing.T) {
+	t.Run("body contains About heading from markdown", func(t *testing.T) {
 		req := httptest.NewRequest(http.MethodGet, "/about", nil)
 		rec := httptest.NewRecorder()
 
 		h.AboutPage(rec, req)
 
-		if !strings.Contains(rec.Body.String(), "about-title") {
-			t.Error("AboutPage: body missing 'about-title' CSS class")
+		if !strings.Contains(rec.Body.String(), "<h1>About</h1>") {
+			t.Error("AboutPage: body missing '<h1>About</h1>' heading from rendered markdown")
 		}
 	})
 

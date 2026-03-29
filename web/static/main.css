@@ -361,16 +361,6 @@ body {
   margin: 8px 0 24px;
 }
 
-/* --- About Page --- */
-
-.about-title {
-  font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.15;
-  margin: 0 0 16px;
-}
-
 /* --- Table of Contents --- */
 
 .toc {
